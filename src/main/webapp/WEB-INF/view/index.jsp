@@ -46,7 +46,9 @@
 <body>
 
 <div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm">
-    <h5 class="my-0 mr-md-auto font-weight-normal">Company name</h5>
+    
+    <img src="blog-icon.png" width="10%" height="10%">
+    <h3 class="my-0 mr-md-auto font-weight-normal"><strong>I4-B</strong></h3>
     <nav class="my-2 my-md-0 mr-md-3">
         <a class="p-2 text-dark" href="#">Features</a>
         <a class="p-2 text-dark" href="#">Enterprise</a>
@@ -114,7 +116,7 @@
     <footer class="pt-4 my-md-5 pt-md-5 border-top">
         <div class="row">
             <div class="col-12 col-md">
-                <img class="mb-2" src="" alt="" width="24" height="24">
+                <img class="mb-2" src="blog-icon.png" alt="" width="48" height="48">
                 <small class="d-block mb-3 text-muted">&copy; 2017-2022</small>
             </div>
             <div class="col-6 col-md">
