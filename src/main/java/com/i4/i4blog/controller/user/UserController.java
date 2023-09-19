@@ -10,4 +10,5 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequiredArgsConstructor
 @Slf4j
 public class UserController {
+	// 주석으로 테스트 하는 중
 }
