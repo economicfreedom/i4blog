@@ -21,7 +21,12 @@ public class TestController {
     @GetMapping("/1")
     public String index(){
         System.out.println("옴");
-        return "index";
+        return "layout/index";
+    }
+
+    @GetMapping("/layout-test")
+    public String layoutTest(){
+        return "layout/layoutTest";
     }
 
 
