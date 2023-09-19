@@ -42,13 +42,30 @@
 
     <!-- Custom styles for this template -->
     <link rel="stylesheet" href="/static/pricing.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<%--    <script async defer src="https://maps.googleapis.com/maps/api/js?key={APP_KEY}"></script>--%>
+
+    <script>
+        $(document).ready(function () {
+            $('.logo').
+            css("cursor","pointer")
+
+                .click(function () {
+                    location.href = "/";
+                }) // end of logo
+
+
+        }) // end of logo
+
+
+    </script>
 </head>
 <body>
 
 <div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm">
     
-    <img src="blog-icon.png" width="10%" height="10%">
-    <h3 class="my-0 mr-md-auto font-weight-normal"><strong>I4-B</strong></h3>
+    <img class="logo" src="blog-icon.png" width="10%" height="10%">
+    <h3 class="my-0 mr-md-auto font-weight-normal logo"><strong>I4-B</strong></h3>
     <nav class="my-2 my-md-0 mr-md-3">
         <a class="p-2 text-dark" href="#">Features</a>
         <a class="p-2 text-dark" href="#">Enterprise</a>
