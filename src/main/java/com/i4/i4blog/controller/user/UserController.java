@@ -20,4 +20,9 @@ public class UserController {
 	public String signin() {
 		return "user/signIn";
 	}
+
+	@GetMapping("/my-detail")
+	public String userInfo(){
+		return "user/userDetail";
+	}
 }

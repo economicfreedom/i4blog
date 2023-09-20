@@ -73,6 +73,6 @@
         <%--                        height: 40%">--%>
         <%--            <img src="serach.jpg" style="width:10%;height:10%;">--%>
         <%--        </button>--%>
-        <a class="btn btn-outline-primary" href="#">Sign up</a>
+        <a class="btn btn-outline-dark "  href="#">Sign up</a>
     </nav>
 </div>
