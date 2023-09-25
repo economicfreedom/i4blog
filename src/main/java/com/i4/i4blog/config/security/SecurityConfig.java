@@ -36,7 +36,12 @@ public class SecurityConfig {
                 .authorizeRequests()
                 .antMatchers("/**").permitAll()
                 .anyRequest().authenticated().and()
-                .build();
+                .formLogin()
+                .loginPage("/user/login")
+                .usernameParameter("userId")
+                .passwordParameter("userPassword")
+                .defaultSuccessUrl("/layout-test")
+                .and().build();
 
     }
 
