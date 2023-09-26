@@ -17,10 +17,8 @@
 
     <link rel="canonical" href="https://getbootstrap.com/docs/4.6/examples/pricing/">
 
-
     <!-- Bootstrap core CSS -->
     <link href="/pricing.css" rel="stylesheet">
-
 
     <style>
         .bd-placeholder-img {
