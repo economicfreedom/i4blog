@@ -10,4 +10,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequiredArgsConstructor
 @Slf4j
 public class BoardController {
+	//댓글 수정 Post
+	
 }

@@ -28,6 +28,16 @@ public class TestController {
     public String layoutTest(){
         return "layout/layoutTest";
     }
+    
+    @GetMapping("/layout/stylecss")
+	public String pro(){
+		
+		return "layout/stylecss";
+	}
 
 
+    @GetMapping("/comment/CommentCreate")
+    public String pro2() {
+    	return "/comment/CommentCreate";
+    }
 }
