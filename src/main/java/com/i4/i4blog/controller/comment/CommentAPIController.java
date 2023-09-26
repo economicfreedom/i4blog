@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.i4.i4blog.controller.Repository.CommentRepository;
-import com.i4.i4blog.dto.CommentDto;
 import com.i4.i4blog.service.CommentService;
 
 import lombok.RequiredArgsConstructor;
@@ -22,9 +21,9 @@ public abstract class CommentAPIController {
 	
 	private final CommentService commentService;
 	
-	//신규 댓글 생성
-	@PostMapping("/post")
-	public abstract CommentRepository saveComment(@PathVariable final int user_id,@RequestBody final CommentDto params);
-	
-		
+//	//신규 댓글 생성
+//	@PostMapping("/post")
+//	public abstract CommentRepository saveComment(@PathVariable final int user_id,@RequestBody final CommentDto params);
+//	
+//		
 }

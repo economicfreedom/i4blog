@@ -12,9 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequiredArgsConstructor
 @Slf4j
 public class BoardController {
-<<<<<<< HEAD
-	//댓글 수정 Post
-=======
+
 	
 	/**
 	 * 글작성 페이지
@@ -25,6 +23,6 @@ public class BoardController {
 	}
 	
 	
->>>>>>> refs/heads/yejeong
+
 	
 }
