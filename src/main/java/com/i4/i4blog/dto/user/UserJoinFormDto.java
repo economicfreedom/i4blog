@@ -1,4 +1,4 @@
-package com.i4.i4blog.dto;
+package com.i4.i4blog.dto.user;
 
 import lombok.Data;
 

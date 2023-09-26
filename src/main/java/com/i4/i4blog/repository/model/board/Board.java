@@ -1,8 +1,8 @@
-package com.i4.i4blog.repository.model;
-
-import java.sql.Timestamp;
+package com.i4.i4blog.repository.model.board;
 
 import lombok.Data;
+
+import java.sql.Timestamp;
 
 @Data
 public class Board {

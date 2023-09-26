@@ -1,8 +1,9 @@
-package com.i4.i4blog.repository.interfaces;
+package com.i4.i4blog.repository.interfaces.user;
 
+import com.i4.i4blog.repository.model.user.User;
 import org.apache.ibatis.annotations.Mapper;
 
-import com.i4.i4blog.repository.model.User;
+
 
 @Mapper
 public interface UserRepository {

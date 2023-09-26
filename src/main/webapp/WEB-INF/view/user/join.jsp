@@ -1,10 +1,10 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java"
+<%@ page contentType="text/html; charset=UTF-8" language="java"
 	pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/view/layout/header.jsp"%>
-<link href="/join.css" rel="stylesheet">
+<link href="/css/join.css" rel="stylesheet">
 <div class="container">
 	<div class="py-5 text-center">
-		<img class="d-block mx-auto mb-4" src="/blog-icon.png" width="75px"
+		<img class="d-block mx-auto mb-4" src="/img/blog-icon.png" width="75px"
 			height="75px">
 		<h2>i4blog 회원가입</h2>
 	</div>

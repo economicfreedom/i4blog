@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper>
-	<select id="insert" resultType="com.i4.i4blog.repository.model.Board">
-		select * from history_tb where id = #{id}
-	</select>
-</mapper>

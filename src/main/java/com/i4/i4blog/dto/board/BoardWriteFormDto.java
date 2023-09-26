@@ -1,6 +1,4 @@
-package com.i4.i4blog.dto;
-
-import java.sql.Timestamp;
+package com.i4.i4blog.dto.board;
 
 import lombok.Data;
 

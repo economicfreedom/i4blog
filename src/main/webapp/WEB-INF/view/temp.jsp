@@ -1,5 +1,4 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html; charset=UTF-8" language="java" pageEncoding="UTF-8" %>
 <%@ include file="/WEB-INF/view/layout/header.jsp"%>
 
-<h1>테스트 유저 디테일</h1>
 <%@ include file="/WEB-INF/view/layout/footer.jsp"%>

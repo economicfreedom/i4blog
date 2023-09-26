@@ -18,47 +18,21 @@
     <link rel="canonical" href="https://getbootstrap.com/docs/4.6/examples/pricing/">
 
     <!-- Bootstrap core CSS -->
-    <link href="/pricing.css" rel="stylesheet">
+    <link href="/css/pricing.css" rel="stylesheet">
 
-    <style>
-        .bd-placeholder-img {
-            font-size: 1.125rem;
-            text-anchor: middle;
-            -webkit-user-select: none;
-            -moz-user-select: none;
-            -ms-user-select: none;
-            user-select: none;
-        }
+    <link href="/css/header.css" rel="stylesheet">
 
-        @media (min-width: 768px) {
-            .bd-placeholder-img-lg {
-                font-size: 3.5rem;
-            }
-        }
-    </style>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <%--    <script async defer src="https://maps.googleapis.com/maps/api/js?key={APP_KEY}"></script>--%>
 
-    <script>
-        $(document).ready(function () {
-            $('.logo').css("cursor", "pointer")
-
-                .click(function () {
-                    location.href = "/";
-                }) // end of logo
-
-
-        }) // end of logo
-
-
-    </script>
+    <script src="/js/header.js"></script>
 </head>
 
 <body>
 
 <div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm">
 
-    <img class="logo" src="/blog-icon.png" width="5%" height="5%">
+    <img class="logo" src="/img/blog-icon.png" width="5%" height="5%">
     <h3 class="my-0 mr-md-auto font-weight-normal logo"><strong>I4-B</strong></h3>
     <nav class="my-2 my-md-0 mr-md-5">
         <a class="p-2 text-dark font-weight-bolder" href="#">Features</a>

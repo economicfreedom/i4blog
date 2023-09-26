@@ -1,13 +1,14 @@
 package com.i4.i4blog.service;
 
+import com.i4.i4blog.repository.model.user.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import com.i4.i4blog.config.security.PrincipalDetails;
-import com.i4.i4blog.repository.interfaces.UserRepository;
-import com.i4.i4blog.repository.model.User;
+import com.i4.i4blog.repository.interfaces.user.UserRepository;
+
 
 import lombok.RequiredArgsConstructor;
 

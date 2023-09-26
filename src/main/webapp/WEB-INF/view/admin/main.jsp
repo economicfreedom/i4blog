@@ -1,9 +1,9 @@
 <%@ page contentType="text/html; charset=UTF-8" language="java" %>
 <%@ include file="/WEB-INF/view/layout/header.jsp" %>
-<link rel="stylesheet" href="amdin.css">
+<link rel="stylesheet" href="/css/admin.css">
 
 </style>
-<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="/cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>
     $(document).ready(function (){
               $('.nav li a').css("cursor", "pointer")

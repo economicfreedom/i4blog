@@ -2,10 +2,11 @@ package com.i4.i4blog.config.security;
 
 import java.util.Collection;
 
+import com.i4.i4blog.repository.model.user.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import com.i4.i4blog.repository.model.User;
+
 
 public class PrincipalDetails implements UserDetails {
 
