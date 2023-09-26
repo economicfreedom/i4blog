@@ -1,4 +1,4 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" %>
+<%@ page contentType="text/html; charset=UTF-8" language="java" pageEncoding="UTF-8" %>
 <%@taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
 <!doctype html>
 <html lang="en">
@@ -73,6 +73,6 @@
         <%--                        height: 40%">--%>
         <%--            <img src="serach.jpg" style="width:10%;height:10%;">--%>
         <%--        </button>--%>
-        <a class="btn btn-outline-primary" href="#">Sign up</a>
+        <a class="btn btn-outline-dark "  href="#">Sign up</a>
     </nav>
 </div>
