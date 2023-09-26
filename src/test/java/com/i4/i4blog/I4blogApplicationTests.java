@@ -12,12 +12,5 @@ class I4blogApplicationTests {
 
 
 
-	@Test
-	void test111(){
-		TestDTO testDTO = new TestDTO();
-		testDTO.setTest("test1");
-		testDTO.setTest2("test2");
-		System.out.println(testDTO.getTest());
-		System.out.println(testDTO.getTest2());
-	}
+
 }
