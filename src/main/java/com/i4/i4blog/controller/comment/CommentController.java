@@ -3,13 +3,12 @@ package com.i4.i4blog.controller.comment;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.i4.i4blog.Dto.CommentDto;
-import com.i4.i4blog.controller.comment.CommentAPIController;
+import com.i4.i4blog.dto.CommentDto;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -20,7 +19,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class CommentController {
 	//댓글 작성 페이지 이동
-	@PostMapping("/create")
+	@GetMapping("/create")
 	public String commentCreate(@ModelAttribute CommentDto dto , HttpSession session) {
 		return "comment/CommentCreate";
 	}
