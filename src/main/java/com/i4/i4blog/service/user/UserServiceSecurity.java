@@ -1,4 +1,4 @@
-package com.i4.i4blog.service;
+package com.i4.i4blog.service.user;
 
 import com.i4.i4blog.repository.model.user.User;
 import org.springframework.security.core.userdetails.UserDetails;

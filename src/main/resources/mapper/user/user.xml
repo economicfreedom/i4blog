@@ -3,13 +3,13 @@
 <mapper namespace="com.i4.i4blog.repository.interfaces.user.UserRepository">
 	
 	<select id="findByUserId" resultType="com.i4.i4blog.repository.model.user.User">
-		select *
-		  from user
-		 where user_id = #{userId}
+		SELECT *
+		  FROM user
+		 WHERE user_id = #{userId}
 	</select>
 	
 	<insert id="insert">
-		insert into user(user_id, user_password, user_name, user_nickname, user_phone, user_email)
-		 value (#{userId}, #{userPassword}, #{userName}, #{userNickname}, #{userPhone}, #{userEmail})
+		INSERT into user(user_id, user_password, user_name, user_nickname, user_phone, user_email)
+		 VALUE (#{userId}, #{userPassword}, #{userName}, #{userNickname}, #{userPhone}, #{userEmail})
 	</insert>
 </mapper>

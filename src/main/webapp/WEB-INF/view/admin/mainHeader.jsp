@@ -6,6 +6,19 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html; charset=UTF-8" language="java" %>
+<%@ include file="/WEB-INF/view/layout/header.jsp" %>
+<link rel="stylesheet" href="/css/admin.css">
+<script>
+    $(document).ready(function () {
+        $('.nav li a').css("cursor", "pointer")
+
+            .click(function () {
+
+            }) // end of logo
+
+
+    }); // end of ready
+</script>
 <header class="navbar navbar-expand navbar-dark bg-dark bd-navbar">
   <span class="navbar-brand">님 반갑습니다.</span>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">

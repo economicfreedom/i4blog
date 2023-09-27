@@ -1,0 +1,13 @@
+.category-list {
+	font-size: small;
+    width: 160px;
+    padding-top: 3px;
+    padding-left: 3px;
+}
+
+.category-other {
+    width: 100%;
+    padding: 10px;
+    margin-left: 13px;
+}
+
