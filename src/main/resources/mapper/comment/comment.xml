@@ -3,22 +3,19 @@
 <mapper namespace="com.i4.i4blog.repository.interfaces.comment.CommentRepository">
 
 <!--댓글 조회 쿼리  -->
-<select id="commentById = resultType= ">
+<select id="commentById" resultType= "com.i4.i4blog.repository.model.comment.Comment">
 select *from comment
  where comment_id = #{commentId}
 </select>
 
 <!-- 댓글 작성 쿼리  -->
-<insert id="commentcreate">
+<insert id="insert">
 Insert into comment(user_id, board_id, comment_writer, comment_content, comment_created)
-value (#{userId}, #{boardId}, #{commentwriter}, #{commentcontent}, #{commentcreated})
+value (#{userId}, #{boardId}, #{commentWriter}, #{commentContent}, #{commentCreated})
 </insert>
 
 <!-- 댓글 수정 쿼리 -->
-<update id = "updatecomment" parameterType="">
 
-
-</update>
 <!-- 댓글 삭제 쿼리  -->
 
 </mapper>

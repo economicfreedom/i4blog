@@ -1,9 +1,9 @@
 package com.i4.i4blog.repository.model.user;
 
+import java.sql.Timestamp;
+
 import lombok.Builder;
 import lombok.Data;
-
-import java.sql.Timestamp;
 
 @Data
 @Builder

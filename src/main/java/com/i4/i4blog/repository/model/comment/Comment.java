@@ -9,11 +9,11 @@ public class Comment {
 	private Integer id;
 	private String userId;
 	private String boardId;
-	private String commentwriter;
-	private String commentcontent;
-	private Timestamp commentcreated;
-	private Timestamp commentupdate;
-	private String commentpublic;
-	private String commentstate;
+	private String commentWriter;
+	private String commentContent;
+	private Timestamp commentCreated;
+	private Timestamp commentUpdate;
+	private String commentPublic;
+	private String commentState;
 	
 }
