@@ -1,5 +1,7 @@
 package com.i4.i4blog.controller.admin;
 
+import com.i4.i4blog.repository.model.admin.DateCountDTO;
+import com.i4.i4blog.service.admin.AdminService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -17,11 +19,17 @@ public class AdminController {
 //                            ,defaultValue = ""
 //                            ,required = false) String type
 //                            ,
+
+    private final AdminService adminService;
+
     @GetMapping("/main")
     public String showMain(Model model){
+        log.info("showMain Start ==>");
+        DateCountDTO dateCountDTO = adminService.getDateCountDTO();
+        log.info("date DTO {}",dateCountDTO);
+        model.addAttribute(dateCountDTO);
 
-
-
+        log.info("showMain End ==>");
         return "admin/main";
     }
 
