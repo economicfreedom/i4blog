@@ -10,6 +10,10 @@ import lombok.extern.slf4j.Slf4j;
 @ToString
 public class DateCountDTO {
 
+    /**
+     * t = today
+     * y = yesterday
+     */
     private String tJoinedUser;
     private String yJoinedUser;
     private String tCreatedBoard;
