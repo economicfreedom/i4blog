@@ -16,6 +16,8 @@ api가 붙은 컨트롤러는 RestController
 
 html(jsp) 클래스,id,name 표기법 -  케밥 케이스
 
+
+
 uri,url 경로 표기 - 케밥 케이스
 
 최대한 생성자 주입으로 받기
