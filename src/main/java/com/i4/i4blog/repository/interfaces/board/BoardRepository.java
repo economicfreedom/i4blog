@@ -1,8 +1,9 @@
 package com.i4.i4blog.repository.interfaces.board;
 
 
-import com.i4.i4blog.repository.model.board.Board;
 import org.apache.ibatis.annotations.Mapper;
+
+import com.i4.i4blog.repository.model.board.Board;
 
 @Mapper
 public interface BoardRepository {

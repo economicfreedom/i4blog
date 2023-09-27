@@ -7,16 +7,17 @@
 <link rel="stylesheet" href="/css/summernote/summernote-lite.css">
 
 <h1>글작성 페이지</h1>
-<form action="" method="post">
-	<input type="text" id=""  placeholder="글 제목" name="">
-	<textarea id="summernote" name="content"></textarea>
-	<button type="submit">작성</button>
+<form action="/board/write" method="post">
+	<input type="text" id="boardTitle"  name="boardTitle" placeholder="글 제목을 입력하세요.">
+	<input type="text" id="boardCategory"  name="boardCategory" placeholder="카테고리를 입력하세요.">
+	<textarea id="summernote" name="boardContent" placeholder="글 내용을 입력하세요."></textarea>
+	<button type="submit">게시글 등록</button>
 </form>
 
 <script>
 $('#summernote').summernote({
 	  // 에디터 높이
-	  height: 150,
+	  height: 500,
 	  // 에디터 한글 설정
 	  lang: "ko-KR",
 	  // 에디터에 커서 이동 (input창의 autofocus라고 생각하시면 됩니다.)

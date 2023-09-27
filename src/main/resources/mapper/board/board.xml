@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.i4.i4blog.repository.interfaces.board.BoardRepository">
+
+	<insert id="insert">
+		insert into board (user_id, board_title, board_content, board_category)
+		 value (1, #{boardTitle}, #{boardContent},#{boardCategory})
+	</insert>
+	
+	<select id="findByUserId" resultType="com.i4.i4blog.repository.model.board.Board">
+		select *
+		  from board
+		 where user_id = 1
+	</select>
+	
+</mapper>

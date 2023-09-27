@@ -13,7 +13,7 @@ public class Board {
 	private String boardCategory;
 	private Timestamp boardCreated;
 	private Timestamp boardUpdate;
-	private int boardCount;
-	private int boardPublic;
-	private int boardState;
+	private Integer boardCount;
+	private Integer boardPublic;
+	private Integer boardState;
 }
