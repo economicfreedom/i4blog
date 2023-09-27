@@ -33,6 +33,24 @@ public class AdminController {
         return "admin/main";
     }
 
+    @GetMapping("/report-board")
+    public String reportBoard(Model model){
+
+
+
+
+        return "admin/reportBoard";
+    }
+
+
+    @GetMapping("/report-comm")
+    public String reportComm(Model model){
+
+
+        return "";
+    }
+
+
 
 
 
