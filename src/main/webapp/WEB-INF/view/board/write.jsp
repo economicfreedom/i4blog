@@ -6,13 +6,25 @@
 <script src="/js/summernote/lang/summernote-ko-KR.js"></script>
 <link rel="stylesheet" href="/css/summernote/summernote-lite.css">
 
-<h1>글작성 페이지</h1>
-<form action="/board/write" method="post">
-	<input type="text" id="boardTitle"  name="boardTitle" placeholder="글 제목을 입력하세요.">
-	<input type="text" id="boardCategory"  name="boardCategory" placeholder="카테고리를 입력하세요.">
-	<textarea id="summernote" name="boardContent" placeholder="글 내용을 입력하세요."></textarea>
-	<button type="submit">게시글 등록</button>
-</form>
+<div class="container">
+	<div class="py-5 text-center">
+		<h1>글작성 페이지</h1>
+	</div>
+	
+	<form action="/board/write" method="post">
+	  <div class="form-group">
+	    <label for="boardTitle">제목</label>
+	    <input type="text" id="boardTitle" name="boardTitle" class="form-control" placeholder="글 제목을 입력하세요.">
+	  </div>
+	  <div class="form-group">
+	    <label for="boardCategory">카테고리</label>
+	    <input type="text" id="boardCategory" name="boardCategory" class="form-control" placeholder="카테고리를 입력하세요.">
+	  </div>
+	  <textarea id="summernote" name="boardContent" placeholder="글 내용을 입력하세요."></textarea>
+	  <button type="submit" class="btn btn-primary">게시글 등록</button>
+	</form>
+
+</div>
 
 <script>
 $('#summernote').summernote({
@@ -20,7 +32,7 @@ $('#summernote').summernote({
 	  height: 500,
 	  // 에디터 한글 설정
 	  lang: "ko-KR",
-	  // 에디터에 커서 이동 (input창의 autofocus라고 생각하시면 됩니다.)
+	  // 에디터 로딩 후 포커스 설정
 	  focus : true,
 	  toolbar: [
 		    // 글꼴 설정
