@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.i4.i4blog.repository.interfaces.admin.AdminRepository">
+
+    <select id="dateCount" resultType="com.i4.i4blog.repository.model.admin.DateCountDTO">
+
+        SELECT (SELECT CONCAT( FORMAT(COUNT(*),0),'명') FROM user WHERE DATE(user_regdate) = CURDATE())                     AS t_joined_user
+             , (SELECT CONCAT( FORMAT(COUNT(*),0),'명') FROM user WHERE DATE(user_regdate) = CURDATE() - INTERVAL 1 DAY)    As y_joined_user
+
+            , (SELECT  CONCAT( FORMAT(COUNT(*),0),'개') FROM board WHERE DATE(board_created) = CURDATE())                   AS t_created_board
+            , (SELECT  CONCAT( FORMAT(COUNT(*),0),'개') FROM board WHERE DATE(board_created) = CURDATE() - INTERVAL 1 DAY)  AS y_created_board
+
+            , (SELECT  CONCAT( FORMAT( COUNT(*),0),'개') FROM comment WHERE DATE(comment_date) = CURDATE())                  AS t_created_comment
+            , (SELECT  CONCAT( FORMAT( COUNT(*),0),'개') FROM comment WHERE DATE(comment_date) = CURDATE() - INTERVAL 1 DAY) AS y_created_comment
+    </select>
+</mapper>
