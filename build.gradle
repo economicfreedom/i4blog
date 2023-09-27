@@ -17,47 +17,39 @@ repositories {
 }
 
 dependencies {
-
-    //시큐리티
-    implementation 'org.springframework.boot:spring-boot-starter-security'
-    //발리데이션
-    implementation 'org.springframework.boot:spring-boot-starter-validation'
-
     implementation 'org.springframework.boot:spring-boot-starter-web'
+
+    // security
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+    testImplementation 'org.springframework.security:spring-security-test'
+    implementation 'org.springframework.security:spring-security-taglibs:5.7.10'
+
+    // validation
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
 
     // mybatis
     implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:2.3.1'
 
-    //
+    // dev-tools
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
 
-    //개발 끝나면 여기로 ㄱㄱ
+    // mysql driver
     runtimeOnly 'com.mysql:mysql-connector-j'
 
-
-
-
-    //test
+    // test junit
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter-test:2.3.1'
 
-    //임시
-//    runtimeOnly 'com.h2database:h2'
-    //lombok
+    // lombok
     implementation 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
-
-    testImplementation 'org.springframework.security:spring-security-test'
-    implementation 'org.springframework.security:spring-security-taglibs:5.7.10'
-
-
-    //jsp
+    testAnnotationProcessor 'org.projectlombok:lombok'
+    // jsp
     providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
     implementation 'org.apache.tomcat.embed:tomcat-embed-jasper'
     implementation 'javax.servlet:jstl'
 
-
-    //jwt
+    // jwt
     runtimeOnly group: 'io.jsonwebtoken', name: 'jjwt-impl', version: '0.11.5'
     implementation group: 'io.jsonwebtoken', name: 'jjwt-api', version: '0.11.5'
     runtimeOnly group: 'io.jsonwebtoken', name: 'jjwt-jackson', version: '0.11.5'

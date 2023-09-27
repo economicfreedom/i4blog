@@ -14,11 +14,13 @@ api가 붙은 컨트롤러는 RestController
 
 자바스크립트 표기법 -  스네이크 케이스
 
-html 클래스,id,name 표기법 -  케밥 케이스
+html(jsp) 클래스,id,name 표기법 -  케밥 케이스
 
 uri,url 경로 표기 - 케밥 케이스
 
 최대한 생성자 주입으로 받기
+
+css,js,img 분리
 
 VO랑 DTO 구분 해서 사용
 - 팀원 규칙
