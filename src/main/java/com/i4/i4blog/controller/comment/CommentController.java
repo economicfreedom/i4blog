@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.i4.i4blog.dto.comment.Commentwritedto;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -17,17 +18,27 @@ import lombok.extern.slf4j.Slf4j;
 @RequiredArgsConstructor
 @Slf4j
 public class CommentController {
-//	//댓글 작성 페이지 이동
-//	@GetMapping("/create")
-//	public String commentCreate(@ModelAttribute CommentDto dto , HttpSession session) {
-//		return "comment/CommentCreate";
-//	}
-//	//댓글 수정 페이지 이동
-//	@PutMapping("/put")
-//	public String commentPut() {
-//		return "put" ;
-//	}
-//	
-//	//댓글 삭제 페이지 이동
+	
+	/** 
+	 *
+	 * 댓글 작성 페이지  
+	 
+	 */
+	@GetMapping("/create")
+	public String commentCreate(@ModelAttribute Commentwritedto dto , HttpSession session) {
+		return "comment/commentcreate";
+	}
+	
+	
+	/**
+	 * 
+	 * 댓글 수정 페이지
+	 */
+	@PutMapping("/put")
+	public String commentPut() {
+		return "put" ;
+	}
+	
+	//댓글 삭제 페이지 이동
 	
 }
