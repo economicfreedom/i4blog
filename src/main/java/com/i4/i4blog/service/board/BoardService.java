@@ -1,5 +1,6 @@
-package com.i4.i4blog.service;
+package com.i4.i4blog.service.board;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import com.i4.i4blog.dto.board.BoardWriteFormDto;
@@ -10,6 +11,7 @@ import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class BoardService {
 
 	private final BoardRepository boardRepository;
@@ -23,5 +25,10 @@ public class BoardService {
 		
 		int result = boardRepository.insert(board);
 	}
+
+    public Integer deleteById(Integer id){
+		log.info("boardService deleteById Start");
+        return boardRepository.deleteById(id);
+    }
 
 }

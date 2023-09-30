@@ -13,6 +13,12 @@ public interface CommentRepository {
 	 */
 	public int insert(Comment comment);
 
+	/**
+	 * @author 최규하
+	 * 이름은 delete지만 실제론 state를 바꾸기 때문에 update로 동작함
+	 * state가 1이었던걸 0으로 바꿈
+	 */
+	public int deleteById(Integer id);
 	
 	
 	

@@ -160,3 +160,38 @@ where report_type='게시글';
 
 SELECT * FROM board;
 SELECT * FROM report;
+
+SELECT r.id
+     , r.user_id
+     , b.id as board_id
+     , r.comment_id
+     , b.board_title
+     , r.report_content
+     , r.report_type
+     , r.report_date
+     , c.comment_content
+     , (CASE
+            WHEN c.comment_delete = 0 THEN '삭제된 댓글'
+            WHEN c.comment_delete = 1 THEN '존재하는 댓글'
+            ELSE 'error'
+    END)                                       as state
+     , count(*) over (partition by comment_id) as count
+FROM report r
+         JOIN comment c ON r.comment_id = c.id
+JOIN board b ON c.board_id = b.id
+ORDER BY r.id desc;
+
+select * from comment;
+SELECT (SELECT CONCAT( FORMAT(COUNT(*), 0), '명') FROM user WHERE DATE(user_regdate) = CURDATE()) AS t_joined_user
+             , (SELECT CONCAT( FORMAT( COUNT(*), 0), '명') FROM user WHERE DATE (user_regdate) = CURDATE() - INTERVAL 1 DAY) As y_joined_user
+
+            , (SELECT CONCAT( FORMAT( COUNT(*), 0), '개') FROM board WHERE DATE (board_created) = CURDATE()) AS t_created_board
+            , (SELECT CONCAT( FORMAT( COUNT(*), 0), '개') FROM board WHERE DATE (board_created) = CURDATE() - INTERVAL 1 DAY) AS y_created_board
+
+            , (SELECT CONCAT( FORMAT( COUNT(*), 0), '개') FROM comment WHERE DATE (comment_date) = CURDATE()) AS t_created_comment
+            , (SELECT CONCAT( FORMAT( COUNT(*), 0), '개') FROM comment WHERE DATE (comment_date) = CURDATE() - INTERVAL 1 DAY) AS y_created_comment
+;
+ALTER TABLE comment
+CHANGE comment_delete comment_state tinyint;
+select * from board;
+select * from comment;

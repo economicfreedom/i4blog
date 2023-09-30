@@ -9,6 +9,10 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+	/**
+	 * @author 최규하
+	 * 기본적인 페이징 형식을 따름
+	 */
 public class PageDTO {
 	private Criteria cri;
 	private int articleTotalCount;

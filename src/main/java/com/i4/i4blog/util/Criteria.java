@@ -14,9 +14,13 @@ import org.springframework.web.util.UriComponentsBuilder;
 @Setter
 @ToString
 
+	/**
+	 * @author 최규하
+	 * 페이징 크리테리아 기본적인 형식을 따름
+	 */
 public class Criteria {
-
-    	//사용자가 선택한 페이지 정보를 담을 변수.
+	
+	//사용자가 선택한 페이지 정보를 담을 변수.
 
 	private int pageNum;
 	private int countPerPage;

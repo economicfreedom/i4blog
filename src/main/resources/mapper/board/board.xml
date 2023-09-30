@@ -6,11 +6,16 @@
 		insert into board (user_id, board_title, board_content, board_category)
 		 value (1, #{boardTitle}, #{boardContent},#{boardCategory})
 	</insert>
-	
+
+
 	<select id="findByUserId" resultType="com.i4.i4blog.repository.model.board.Board">
 		select *
 		  from board
 		 where user_id = 1
 	</select>
-	
+	<update id="deleteById">
+		update board
+		set board_state = 0
+		where id=#{id}
+	</update>
 </mapper>

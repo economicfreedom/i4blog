@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.i4.i4blog.dto.board.BoardWriteFormDto;
-import com.i4.i4blog.service.BoardService;
+import com.i4.i4blog.service.board.BoardService;
 
 @Controller
 @RequestMapping("/board")
