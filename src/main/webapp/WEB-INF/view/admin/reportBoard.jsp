@@ -33,15 +33,17 @@
                     <th scope="col">신고자</th>
                     <th scope="col">신고내용</th>
                     <th scope="col">누적 횟수</th>
+                    <th scope="col">누적 횟수</th>
                 </tr>
                 </thead>
                 <tbody>
+
                 <c:forEach var="report" items="${reportList}">
                     <tr>
 
-                        <th scope="row">${report.getUserId()}</th>
-                        <td>dl tlqkf</td>
-                        <td><a href="<c:url value=''/>">${report.boardTitle} dl tlqkf</a></td>
+                        <th scope="row">${report.id}</th>
+
+                        <td><a href="<c:url value=''/>">${report.boardTitle}</a></td>
                         <td>${report.userId}</td>
                         <td>${report.reportContent}</td>
                         <td>${report.count}</td>
@@ -51,35 +53,56 @@
             </table>
 
             <!-- 페이징 -->
-            <nav aria-label="Page navigation example">
-                <ul class="pagination">
-                    <c:if test="${pageDTO.prev}">
-                        <li class="page-item"><a class="page-link" href="#" data-pageNum="${pageDTO.beginPage-1}">Previous</a></li>
-                    </c:if>
+            <div class="cri">
+                <form action="<c:url value='/admin/report-board' />" name="pageForm">
+                    <div class="text-center clearfix">
+                        <ul class="pagination" id="pagination">
+                            <c:if test="${pageDTO.prev}">
+                                <li class="page-item "><a class="page-link" href="#" data-pageNum="${pageDTO.beginPage-1}">Prev</a>
+                                </li>
+                            </c:if>
 
-                    <c:forEach var="num" begin="${pageDTO.beginPage}" end="${pageDTO.endPage}">
-                        <li class="${pageDTO.cri.pageNum == num ? 'page-item active' : ''}"><a class="page-link" href="#" data-pageNum="${num}">${num}</a></li>
-                    </c:forEach>
+                            <c:forEach var="num" begin="${pageDTO.beginPage}" end="${pageDTO.endPage}">
+                                <li class="${pageDTO.cri.pageNum == num ? 'age-item active' : ''}" page-item><a
+                                        class="page-link" href="#" data-pageNum="${num}">${num}</a></li>
+                            </c:forEach>
 
-                    <c:if test="${pageDTO.next}">
-                        <li class="page-item"><a class="page-link" href="#" data-pageNum="${pageDTO.endPage+1}">Next</a></li>
-                    </c:if>
-                </ul>
-            </nav>
+                            <c:if test="${pageDTO.next}">
+                                <li class="page-item"><a class="page-link" href="#"
+                                                         data-pageNum="${pageDTO.endPage+1}">Next</a></li>
+                            </c:if>
+                        </ul>
+
+                        <!-- 페이지 관련 버튼을 클릭 시 같이 숨겨서 보낼 값 -->
+                        <input type="hidden" name="pageNum" value="${pageDTO.cri.pageNum}">
+                        <input type="hidden" name="countPerPage" value="${pageDTO.cri.countPerPage}">
+                        <input type="hidden" name="keyword" value="${pageDTO.cri.keyword}">
+                        <input type="hidden" name="type" value="${pageDTO.cri.type}">
+
+                    </div>
+                </form>
+            </div>
         </div>
-
     </div>
 </main>
 
+
+</main>
+
 <script>
-    $(function() {
-        $('#pagination').on('click', 'a', function(e) {
-            e.preventDefault();
-            const value = $(this).data('pagenum');
-            document.pageForm.pageNum.value = value;
-            document.pageForm.submit();
-        });
-    });
+	$(function() {
+		$('#pagination').on('click', 'a', function(e) {
+			e.preventDefault();
+			console.log($(this));
+            console.log($("select[name=type]").val());
+			const value = $(this).data('pagenum');
+			console.log(value);
+			document.pageForm.pageNum.value = value;
+            document.pageForm.type.value = $("select[name=type]").val();
+			document.pageForm.submit();
+		});
+
+	})
 </script>
 
 </div>

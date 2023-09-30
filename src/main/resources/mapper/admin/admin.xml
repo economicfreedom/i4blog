@@ -44,24 +44,24 @@
 
     <select id="getReportList" resultMap="adminReportVOMap">
 
-        SELECT r.id
-             , r.user_id
-             , board_id
-             , report_content
-             , report_type
-             , report_date
-             , b.board_title
-             , (CASE
-                    WHEN b.board_state = 0 THEN '삭제된 게시글'
-                    WHEN b.board_state = 1 THEN '존재하는 게시글'
-                    ELSE 'error'
-            END) as     state
-             , count(*) over (partition by board_id)count
-        FROM report r
-            JOIN board b
-        ON r.board_id = b.id
-        ORDER BY id desc
-            limit #{pageNum}, #{countPerPage}
+SELECT r.id
+     , r.user_id
+     , r.board_id
+     , r.report_content
+     , r.report_type
+     , r.report_date
+     , b.board_title
+     , (CASE
+            WHEN b.board_state = 0 THEN '삭제된 게시글'
+            WHEN b.board_state = 1 THEN '존재하는 게시글'
+            ELSE 'error'
+        END) as state
+     , count(*) over (partition by r.board_id) as count
+FROM report r
+JOIN board b ON r.board_id = b.id
+ORDER BY r.id desc
+LIMIT #{offset}, #{countPerPage}
+
 
     </select>
     <select id="count" resultType="java.lang.Integer">

@@ -7,6 +7,7 @@
 --%>
 <%@ page contentType="text/html; charset=UTF-8" language="java" %>
 <%@ include file="/WEB-INF/view/layout/header.jsp" %>
+<%--Admin Header--%>
 <link rel="stylesheet" href="/css/admin.css">
 <script>
     $(document).ready(function () {

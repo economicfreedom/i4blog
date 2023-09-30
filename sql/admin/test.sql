@@ -5,6 +5,10 @@ call InsertBoardSampleData();
 call InsertCommentSampleData();
 call ReportBoardByAllExceptUser2();
 call ReportCommentByAllExceptUser2();
+call InsertReportSamples();
+
+delete from report;
+
 commit ;
 select * from board;
 select * from comment;
@@ -55,3 +59,23 @@ FROM report r
 JOIN board b ON r.board_id = b.id
 GROUP BY r.board_id, r.user_id, b.board_title, b.board_state
 ORDER BY r.board_id;
+
+
+        SELECT r.id
+             , r.user_id
+             , board_id
+             , report_content
+             , report_type
+             , report_date
+             , b.board_title
+             , (CASE
+                    WHEN b.board_state = 0 THEN '삭제된 게시글'
+                    WHEN b.board_state = 1 THEN '존재하는 게시글'
+                    ELSE 'error'
+            END) as     state
+             , count(*) over (partition by board_id)count
+        FROM report r
+            JOIN board b
+        ON r.board_id = b.id
+        ORDER BY id
+            limit 14,10;

@@ -51,8 +51,8 @@ public class AdminController {
 
         List<AdminReportVO> reportList = adminService.getReportList(cri);
 
-        model.addAttribute(reportList);
-        model.addAttribute(pageDTO);
+        model.addAttribute("reportList",reportList);
+        model.addAttribute("pageDTO",pageDTO);
 
 
         System.out.println(reportList);
