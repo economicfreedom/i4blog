@@ -171,15 +171,15 @@ SELECT r.id
      , r.report_date
      , c.comment_content
      , (CASE
-            WHEN c.comment_delete = 0 THEN '삭제된 댓글'
-            WHEN c.comment_delete = 1 THEN '존재하는 댓글'
+            WHEN c.comment_state = 0 THEN '삭제된 댓글'
+            WHEN c.comment_state = 1 THEN '존재하는 댓글'
             ELSE 'error'
     END)                                       as state
      , count(*) over (partition by comment_id) as count
 FROM report r
          JOIN comment c ON r.comment_id = c.id
 JOIN board b ON c.board_id = b.id
-ORDER BY r.id desc;
+ORDER BY count desc;
 
 select * from comment;
 SELECT (SELECT CONCAT( FORMAT(COUNT(*), 0), '명') FROM user WHERE DATE(user_regdate) = CURDATE()) AS t_joined_user
@@ -195,3 +195,6 @@ ALTER TABLE comment
 CHANGE comment_delete comment_state tinyint;
 select * from board;
 select * from comment;
+
+select * from report
+order by report_date desc;

@@ -28,6 +28,7 @@ public class Criteria {
 	//검색에 필요한 데이터를 변수로 선언.
 	private String keyword;
 	private String type;
+	private String orderBy;
 	public int getOffset() {
     return (this.pageNum - 1) * this.countPerPage;
 }

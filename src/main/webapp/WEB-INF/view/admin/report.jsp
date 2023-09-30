@@ -24,33 +24,34 @@
         <div class="row-5">
             <form action="">
                 <div class="search-wrap clearfix">
-<%--                                        <select class="form-control" name="type">--%>
-<%--                                            <option value="board" ${pageDTO.cri.type == 'freeboard_title' ? 'selected' : ''}>게시글</option>--%>
-<%--                                            <option value="comment" ${pageDTO.cri.type == 'freeboard_content' ? 'selected' : ''}>댓글</option>--%>
-<%--                                        </select>--%>
-<%--                                        <div class="form-check form-check-inline">--%>
-<%--                                            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1"--%>
-<%--                                                   value="board" ${pageDTO.cri.type == 'freeboard_title' ? 'selected' : ''}>--%>
-<%--                                            <label class="form-check-label" for="inlineRadio1">게시글</label>--%>
-<%--                                        </div>--%>
+                    <div class="form-check-inline">
+                        <label class="form-check-label">
+                            <input type="radio" class="form-check-input" name="optradio"
+                                   value="date" ${pageDTO.cri.orderBy == 'date' ? 'checked' : ''}><b>최신순</b>
+                        </label>
+                    </div>
+                    <div class="form-check-inline">
+                        <label class="form-check-label">
+                            <input type="radio" class="form-check-input" name="optradio"
+                                   value="count" ${pageDTO.cri.orderBy == 'count' ? 'checked' : ''}><b>누적순</b>
+                        </label>
+                    </div>
+                    <select class="form-control" name="type">
+                        <option value="board" ${pageDTO.cri.type == 'board' ? 'selected' : ''}>게시글</option>
+                        <option value="comment" ${pageDTO.cri.type == 'comment' ? 'selected' : ''}>댓글</option>
+                    </select>
+                    <%--                                        <div class="form-check form-check-inline">--%>
+                    <%--                                            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1"--%>
+                    <%--                                                   value="board" ${pageDTO.cri.type == 'freeboard_title' ? 'selected' : ''}>--%>
+                    <%--                                            <label class="form-check-label" for="inlineRadio1">게시글</label>--%>
+                    <%--                                        </div>--%>
                     <%--                    <div class="form-check form-check-inline">--%>
                     <%--                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2"--%>
                     <%--                               value="comment" ${pageDTO.cri.type == 'freeboard_content' ? 'selected' : ''}>--%>
                     <%--                        <label class="form-check-label" for="inlineRadio2">댓글</label>--%>
 
                     <%--                    </div>--%>
-                    <div class="form-check-inline">
-                        <label class="form-check-label">
-                            <input type="radio" class="form-check-input" name="optradio"
-                                   value="board" ${pageDTO.cri.type == 'board' ? 'checked' : ''}><b>게시글</b>
-                        </label>
-                    </div>
-                    <div class="form-check-inline">
-                        <label class="form-check-label">
-                            <input type="radio" class="form-check-input" name="optradio"
-                                   value="comment" ${pageDTO.cri.type == 'comment' ? 'checked' : ''}><b>댓글</b>
-                        </label>
-                    </div>
+
 
                 </div>
 
@@ -87,17 +88,17 @@
                         <td>${report.state}</td>
                         <td>${report.count}</td>
                         <c:choose>
-                        <c:when test="${report.state == '존재하는 게시글'||report.state == '존재하는 댓글'}">
-                            <td>
-                                <button type="button" class="btn btn-outline-danger delete"
-                                        value="${report.reportType == '게시글' ? report.boardId : report.commentId}">
-                                    삭제
-                                </button>
-                            </td>
-                        </c:when>
-                        <c:otherwise>
+                            <c:when test="${report.state == '존재하는 게시글'||report.state == '존재하는 댓글'}">
+                                <td>
+                                    <button type="button" class="btn btn-outline-danger delete"
+                                            value="${report.reportType == '게시글' ? report.boardId : report.commentId}">
+                                        삭제
+                                    </button>
+                                </td>
+                            </c:when>
+                            <c:otherwise>
 
-                        </c:otherwise>
+                            </c:otherwise>
                         </c:choose>
                     </tr>
                 </c:forEach>
@@ -106,33 +107,34 @@
 
             <!-- 페이징 -->
             <div class="cri">
-                <form action="<c:url value='/admin/report' />" name="pageForm">
+                <form action="<c:url value='/admin/report' />" name="page-form">
                     <div class="text-center clearfix">
                         <ul class="pagination" id="pagination">
                             <c:if test="${pageDTO.prev}">
                                 <li class="page-item "><a class="page-link" href="#"
-                                                          data-pageNum="${pageDTO.beginPage-1}">Prev</a>
+                                                          data-page-num="${pageDTO.beginPage-1}">Prev</a>
                                 </li>
                             </c:if>
 
                             <c:forEach var="num" begin="${pageDTO.beginPage}" end="${pageDTO.endPage}">
                                 <li class="${pageDTO.cri.pageNum == num ? 'age-item active' : ''}" page-item>
-                                    <a class="page-link" href="#" data-pageNum="${num}"
+                                    <a class="page-link" href="#" data-page-num="${num}"
                                        style="${pageDTO.cri.pageNum == num ? 'background-color:#e0ecef' : ''}">${num}</a>
                                 </li>
                             </c:forEach>
 
                             <c:if test="${pageDTO.next}">
                                 <li class="page-item"><a class="page-link" href="#"
-                                                         data-pageNum="${pageDTO.endPage+1}">Next</a></li>
+                                                         data-page-num="${pageDTO.endPage+1}">Next</a></li>
                             </c:if>
                         </ul>
 
                         <!-- 페이지 관련 버튼을 클릭 시 같이 숨겨서 보낼 값 -->
-                        <input type="hidden" name="pageNum" value="${pageDTO.cri.pageNum}">
+                        <input type="hidden" name="page-num" value="${pageDTO.cri.pageNum}">
                         <input type="hidden" name="countPerPage" value="${pageDTO.cri.countPerPage}">
                         <input type="hidden" name="keyword" value="${pageDTO.cri.keyword}">
                         <input type="hidden" name="type" value="${pageDTO.cri.type}">
+                        <input type="hidden" name="order-by" value="${pageDTO.cri.orderBy}">
 
                     </div>
                 </form>

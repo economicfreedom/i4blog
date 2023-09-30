@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -27,10 +28,10 @@ public class AdminController {
     private final AdminService adminService;
 
     @GetMapping("/main")
-    public String showMain(Model model){
+    public String showMain(Model model) {
         log.info("showMain Start ==>");
         DateCountDTO dateCountDTO = adminService.getDateCountDTO();
-        log.info("date DTO {}",dateCountDTO);
+        log.info("date DTO {}", dateCountDTO);
         model.addAttribute(dateCountDTO);
 
         log.info("showMain End ==>");
@@ -38,36 +39,42 @@ public class AdminController {
     }
 
     @GetMapping("/report")
-    public String reportBoard(Model model,Criteria cri){
-        if (cri.getType() == null||cri.getType().isEmpty()){
+    public String reportBoard(Model model
+
+            , @RequestParam(value = "page-num"
+            , required = false
+            , defaultValue = "1")
+              Integer pageNum
+
+            , @RequestParam(value = "order-by"
+            , required = false
+            , defaultValue = "date")
+              String orderBy
+
+            , Criteria cri) {
+
+        if (cri.getType() == null || cri.getType().isEmpty()) {
             cri.setType("board");
         }
+
+        cri.setOrderBy(orderBy);
+
+        cri.setPageNum(pageNum);
+
+
         PageDTO pageDTO = new PageDTO();
         pageDTO.setCri(cri);
-        log.info("cri === > {} ",cri);
+        log.info("cri === > {} ", cri);
         Integer reportTotalCount = adminService.getReportTotalCount(cri);
         pageDTO.setArticleTotalCount(reportTotalCount);
 
         List<AdminReportVO> reportList = adminService.getReportList(cri);
 
-        model.addAttribute("reportList",reportList);
-        model.addAttribute("pageDTO",pageDTO);
-
+        model.addAttribute("reportList", reportList);
+        model.addAttribute("pageDTO", pageDTO);
 
 
         return "admin/report";
     }
-
-
-    @GetMapping("/report-comm")
-    public String reportComm(Model model){
-
-
-        return "";
-    }
-
-
-
-
 
 }
