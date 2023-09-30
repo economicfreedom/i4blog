@@ -20,6 +20,16 @@
                         <option value="comment" ${pageDTO.cri.type == 'freeboard_content' ? 'selected' : ''}>댓글</option>
                     </select>
                 </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1"
+                           value="option1">
+                    <label class="form-check-label" for="inlineRadio1">1</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2"
+                           value="option2">
+                    <label class="form-check-label" for="inlineRadio2">2</label>
+                </div>
             </form>
         </div>
 
@@ -58,7 +68,8 @@
                     <div class="text-center clearfix">
                         <ul class="pagination" id="pagination">
                             <c:if test="${pageDTO.prev}">
-                                <li class="page-item "><a class="page-link" href="#" data-pageNum="${pageDTO.beginPage-1}">Prev</a>
+                                <li class="page-item "><a class="page-link" href="#"
+                                                          data-pageNum="${pageDTO.beginPage-1}">Prev</a>
                                 </li>
                             </c:if>
 
@@ -90,19 +101,19 @@
 </main>
 
 <script>
-	$(function() {
-		$('#pagination').on('click', 'a', function(e) {
-			e.preventDefault();
-			console.log($(this));
+    $(function () {
+        $('#pagination').on('click', 'a', function (e) {
+            e.preventDefault();
+            console.log($(this));
             console.log($("select[name=type]").val());
-			const value = $(this).data('pagenum');
-			console.log(value);
-			document.pageForm.pageNum.value = value;
+            const value = $(this).data('pagenum');
+            console.log(value);
+            document.pageForm.pageNum.value = value;
             document.pageForm.type.value = $("select[name=type]").val();
-			document.pageForm.submit();
-		});
+            document.pageForm.submit();
+        });
 
-	})
+    })
 </script>
 
 </div>

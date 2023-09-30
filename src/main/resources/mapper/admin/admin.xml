@@ -61,9 +61,9 @@ FROM report r
 JOIN board b ON r.board_id = b.id
 ORDER BY r.id desc
 LIMIT #{offset}, #{countPerPage}
-
-
     </select>
+
+
     <select id="count" resultType="java.lang.Integer">
         select count(*)
         from report
