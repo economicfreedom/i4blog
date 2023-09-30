@@ -79,3 +79,40 @@ ORDER BY r.board_id;
         ON r.board_id = b.id
         ORDER BY id
             limit 14,10;
+
+        SELECT r.id
+     , r.user_id
+     , r.board_id
+     , r.report_content
+     , r.report_type
+     , r.report_date
+     , b.board_title
+     , (CASE
+            WHEN b.board_state = 0 THEN '삭제된 게시글'
+            WHEN b.board_state = 1 THEN '존재하는 게시글'
+            ELSE 'error'
+        END) as state
+     , count(*) over (partition by r.board_id) as count
+FROM report r
+JOIN board b ON r.board_id = b.id
+ORDER BY r.id desc
+LIMIT 0, 10;
+
+
+        SELECT r.id
+     , r.user_id
+     , r.board_id
+     , r.report_content
+     , r.report_type
+     , r.report_date
+     , c.comment_content
+     , (CASE
+            WHEN b.board_state = 0 THEN '삭제된 게시글'
+            WHEN b.board_state = 1 THEN '존재하는 게시글'
+            ELSE 'error'
+        END) as state
+     , count(*) over (partition by r.board_id) as count
+FROM report r
+JOIN comment c ON r.board_id = c.id
+ORDER BY r.id desc
+LIMIT 0, 10;
