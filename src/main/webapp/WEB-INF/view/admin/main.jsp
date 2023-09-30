@@ -1,7 +1,4 @@
 <%@ page contentType="text/html; charset=UTF-8" language="java" %>
-<%@ include file="/WEB-INF/view/layout/header.jsp" %>
-
-
 
 <script src="/cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
@@ -73,4 +70,4 @@
 </main>
 </div>
 </div>
-<%@ include file="/WEB-INF/view/layout/footer.jsp" %>
+<%@ include file="/WEB-INF/view/admin/mainFooter.jsp" %>

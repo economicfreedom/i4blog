@@ -13,52 +13,21 @@ import org.springframework.web.util.UriComponentsBuilder;
 @Getter
 @Setter
 @ToString
-@AllArgsConstructor
+
 public class Criteria {
- public int getPageNum() {
-        return pageNum;
-    }
 
-    public void setPageNum(int pageNum) {
-        this.pageNum = pageNum;
-    }
+    	//사용자가 선택한 페이지 정보를 담을 변수.
 
-    public int getAmount() {
-        return amount;
-    }
+	private int pageNum;
+	private int countPerPage;
 
-    public void setAmount(int amount) {
-        this.amount = amount;
-    }
+	//검색에 필요한 데이터를 변수로 선언.
+	private String keyword;
+	private String type;
 
-    public String getKeyword() {
-        return keyword;
-    }
+	public Criteria() {
+		this.pageNum = 1;
+		this.countPerPage = 10;
+	}
 
-    public void setKeyword(String keyword) {
-        this.keyword = keyword;
-    }
-
-    public String getSearchOption() {
-        return searchOption;
-    }
-
-    public void setSearchOption(String searchOption) {
-        this.searchOption = searchOption;
-    }
-
-    private int pageNum;
-    private int amount;
-
-    private String keyword;
-    private String searchOption;
-    public Criteria(){
-        this(1,10);
-    }
-
-    public Criteria(int pageNum, int amount){
-        this.amount = amount;
-        this.pageNum = pageNum;
-
-    }
 }

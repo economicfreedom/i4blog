@@ -8,6 +8,7 @@ import lombok.extern.slf4j.Slf4j;
 @Getter
 @Setter
 @ToString
+//어제 오늘 가입,글작성,댓글작성 데이터를 담는 DTO
 public class DateCountDTO {
 
     /**

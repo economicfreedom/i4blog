@@ -4,13 +4,69 @@
 
     <select id="dateCount" resultType="com.i4.i4blog.repository.model.admin.DateCountDTO">
 
-        SELECT (SELECT CONCAT( FORMAT(COUNT(*),0),'명') FROM user WHERE DATE(user_regdate) = CURDATE())                     AS t_joined_user
-             , (SELECT CONCAT( FORMAT(COUNT(*),0),'명') FROM user WHERE DATE(user_regdate) = CURDATE() - INTERVAL 1 DAY)    As y_joined_user
+        SELECT (SELECT CONCAT(FORMAT(COUNT(*), 0), '명') FROM user WHERE DATE(user_regdate) = CURDATE()) AS t_joined_user
+             , (
+        SELECT CONCAT( FORMAT( COUNT (*), 0), '명')
+        FROM user
+        WHERE DATE (user_regdate) = CURDATE() - INTERVAL 1 DAY) As y_joined_user
 
-            , (SELECT  CONCAT( FORMAT(COUNT(*),0),'개') FROM board WHERE DATE(board_created) = CURDATE())                   AS t_created_board
-            , (SELECT  CONCAT( FORMAT(COUNT(*),0),'개') FROM board WHERE DATE(board_created) = CURDATE() - INTERVAL 1 DAY)  AS y_created_board
+            , (
+        SELECT CONCAT( FORMAT( COUNT (*), 0), '개')
+        FROM board
+        WHERE DATE (board_created) = CURDATE()) AS t_created_board
+            , (
+        SELECT CONCAT( FORMAT( COUNT (*), 0), '개')
+        FROM board
+        WHERE DATE (board_created) = CURDATE() - INTERVAL 1 DAY) AS y_created_board
 
-            , (SELECT  CONCAT( FORMAT( COUNT(*),0),'개') FROM comment WHERE DATE(comment_date) = CURDATE())                  AS t_created_comment
-            , (SELECT  CONCAT( FORMAT( COUNT(*),0),'개') FROM comment WHERE DATE(comment_date) = CURDATE() - INTERVAL 1 DAY) AS y_created_comment
+            , (
+        SELECT CONCAT( FORMAT( COUNT (*), 0), '개')
+        FROM comment
+        WHERE DATE (comment_date) = CURDATE()) AS t_created_comment
+            , (
+        SELECT CONCAT( FORMAT( COUNT (*), 0), '개')
+        FROM comment
+        WHERE DATE (comment_date) = CURDATE() - INTERVAL 1 DAY) AS y_created_comment
+    </select>
+
+<resultMap id="adminReportVOMap" type="com.i4.i4blog.repository.model.admin.AdminReportVO">
+    <id property="id" column="id" />
+    <result property="userId" column="user_id" />
+    <result property="boardId" column="board_id" />
+    <result property="reportContent" column="report_content" />
+    <result property="reportType" column="report_type" />
+    <result property="reportDate" column="report_date" />
+    <result property="boardTitle" column="board_title" />
+    <result property="state" column="state" />
+    <result property="count" column="count" />
+</resultMap>
+
+
+    <select id="getReportList" resultMap="adminReportVOMap">
+
+        SELECT r.id
+             , r.user_id
+             , board_id
+             , report_content
+             , report_type
+             , report_date
+             , b.board_title
+             , (CASE
+                    WHEN b.board_state = 0 THEN '삭제된 게시글'
+                    WHEN b.board_state = 1 THEN '존재하는 게시글'
+                    ELSE 'error'
+            END) as     state
+             , count(*) over (partition by board_id)count
+        FROM report r
+            JOIN board b
+        ON r.board_id = b.id
+        ORDER BY id desc
+            limit #{pageNum}, #{countPerPage}
+
+    </select>
+    <select id="count" resultType="java.lang.Integer">
+        select count(*)
+        from report
+        where report_type = '게시글'
     </select>
 </mapper>
