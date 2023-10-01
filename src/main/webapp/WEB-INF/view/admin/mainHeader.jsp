@@ -54,6 +54,7 @@
     <div class="row flex-nowrap">
         <div class="col-3 bd-sidebar">
             <ul class="nav">
+                <hr>
                 <li><a>블로그 동향</a></li>
                 <hr>
                 <li><a>신고 목록</a></li>

@@ -21,6 +21,7 @@ $(document).ready(function () {
         document["page-form"]["order-by"].value =$("input[name=optradio]:checked").val();
         document["page-form"].submit();
     });
+
         $('.form-check-inline').on('change', function (e) {
         e.preventDefault();
         console.log("이거 동작");

@@ -129,4 +129,23 @@
 
 
     </select>
+ <select id="countDataForLastSevenDays" resultType="com.i4.i4blog.repository.model.admin.GraphDataVO">
+     SELECT CURDATE() - INTERVAL days.num DAY AS reg_date, IFNULL(COUNT(${columnName}), 0) as count
+     FROM
+         (SELECT 0 AS num
+         UNION ALL SELECT 1
+         UNION ALL SELECT 1
+         UNION ALL SELECT 2
+         UNION ALL SELECT 3
+         UNION ALL SELECT 4
+         UNION ALL SELECT 5.
+         UNION ALL SELECT 6) days
+         LEFT JOIN
+         ${tableName}
+     ON DATE (${columnName}) = CURDATE() - INTERVAL days.num DAY
+     GROUP BY
+         days.num
+     ORDER BY
+         days.num DESC
+ </select>
 </mapper>
