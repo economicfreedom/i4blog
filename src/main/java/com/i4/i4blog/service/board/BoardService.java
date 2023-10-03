@@ -1,6 +1,9 @@
 package com.i4.i4blog.service.board;
 
 import lombok.extern.slf4j.Slf4j;
+
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
 import com.i4.i4blog.dto.board.BoardWriteFormDto;
@@ -29,6 +32,20 @@ public class BoardService {
     public Integer deleteById(Integer id){
 		log.info("boardService deleteById Start");
         return boardRepository.deleteById(id);
+    }
+    
+    public List<Board> findByUserId(Integer userId) {
+    	List<Board> boardList = boardRepository.findByUserId(userId);
+    	return boardList;
+    }
+    
+    public Board findById(Integer id) {
+    	Board board = boardRepository.findById(id);
+    	return board;
+    }
+    
+    public Integer updateCount(Integer id) {
+    	return boardRepository.updateCount(id);
     }
 
 }

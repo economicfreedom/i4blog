@@ -1,6 +1,8 @@
 package com.i4.i4blog.repository.interfaces.board;
 
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Mapper;
 
 import com.i4.i4blog.repository.model.board.Board;
@@ -15,4 +17,10 @@ public interface BoardRepository {
 	 * state가 1이었던걸 0으로 바꿈
 	 */
     public int deleteById(Integer id);
+    
+    public List<Board> findByUserId(Integer userId);
+    
+    public Board findById(Integer id);
+    
+    public int updateCount(Integer id);
 }

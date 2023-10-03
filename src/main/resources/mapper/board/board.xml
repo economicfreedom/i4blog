@@ -3,19 +3,32 @@
 <mapper namespace="com.i4.i4blog.repository.interfaces.board.BoardRepository">
 
 	<insert id="insert">
-		insert into board (user_id, board_title, board_content, board_category)
-		 value (1, #{boardTitle}, #{boardContent},#{boardCategory})
+		INSERT INTO BOARD (user_id, board_title, board_content, board_category)
+		 VALUE (1, #{boardTitle}, #{boardContent},#{boardCategory})
 	</insert>
 
-
 	<select id="findByUserId" resultType="com.i4.i4blog.repository.model.board.Board">
-		select *
-		  from board
-		 where user_id = 1
+		SELECT *
+		  FROM board
+		 WHERE user_id = #{userId}
 	</select>
+	
 	<update id="deleteById">
-		update board
-		set board_state = 0
-		where id=#{id}
+		UPDATE board
+		SET board_state = 0
+		WHERE id=#{id}
 	</update>
+	
+	<select id="findById" resultType="com.i4.i4blog.repository.model.board.Board">
+		SELECT *
+		  FROM board
+		 WHERE id = #{id}
+	</select>
+	
+	<update id="updateCount">
+		UPDATE board
+		   SET board_count = board_count + 1
+		 WHERE id = #{id}
+	</update>
+	
 </mapper>
