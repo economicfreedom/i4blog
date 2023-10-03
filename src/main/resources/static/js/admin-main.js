@@ -17,7 +17,8 @@ $(document).ready(function () {
             }
 
 
-        });
+        }); // end of $.ajax
+
 
         function make_user_chart(res) {
 
@@ -45,7 +46,7 @@ $(document).ready(function () {
                     }
                 }
             })
-        }
+        } // end of make_user_chart
 
         function make_board_chart(res) {
 
@@ -77,7 +78,7 @@ $(document).ready(function () {
                     }
                 }
             })
-        }
+        } // end of make_board_chart
 
         function make_comment_chart(res) {
 
@@ -108,7 +109,7 @@ $(document).ready(function () {
                     }
                 }
             })
-        }
+        } // end of make_comment_chart
 
         function make_report_chart(res) {
 
@@ -138,5 +139,5 @@ $(document).ready(function () {
                     }
                 }
             })
-        }
+        }// end of make_report_chart
     });

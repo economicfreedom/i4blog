@@ -8,7 +8,7 @@ $(document).ready(function () {
         document["page-form"].type.value =$("select[name='type']").val();
         document["page-form"]["order-by"].value =$("input[name=optradio]:checked").val();
         document["page-form"].submit();
-    });
+    }); // end of #pagination
 
     $('.form-control').on('change', function (e) {
         e.preventDefault();
@@ -20,7 +20,8 @@ $(document).ready(function () {
         document["page-form"].type.value = selectedType;
         document["page-form"]["order-by"].value =$("input[name=optradio]:checked").val();
         document["page-form"].submit();
-    });
+    });// end of .form-control
+
 
         $('.form-check-inline').on('change', function (e) {
         e.preventDefault();
@@ -32,7 +33,7 @@ $(document).ready(function () {
         document["page-form"].type.value = selectedType;
         document["page-form"]["order-by"].value =$("input[name=optradio]:checked").val();
         document["page-form"].submit();
-    });
+    });//end of .form-check-inline
 
     $(".delete").click(function () {
         console.log("동작함")
@@ -64,8 +65,9 @@ $(document).ready(function () {
             }
 
 
-        });
+        }); // end of .$ajax
 
 
-    })
-})
+    }) // end of .delete
+
+})// end of $(document).ready

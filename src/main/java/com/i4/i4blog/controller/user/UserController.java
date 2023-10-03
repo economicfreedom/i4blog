@@ -1,5 +1,6 @@
 package com.i4.i4blog.controller.user;
 
+import java.security.Principal;
 import java.util.List;
 
 import org.springframework.stereotype.Controller;
@@ -26,7 +27,7 @@ public class UserController {
 
     // 테스트용
     private final CategoryService categoryService;
-    
+
     /**
      * 로그인 페이지로 이동
      */
@@ -61,5 +62,6 @@ public class UserController {
     	model.addAttribute("categoryList", categoryList);
     	return "category-temp";
     }
+
 
 }
