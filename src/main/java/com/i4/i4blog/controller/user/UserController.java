@@ -18,7 +18,9 @@ import lombok.extern.slf4j.Slf4j;
 @RequiredArgsConstructor
 @Slf4j
 public class UserController {
-    // 박용세
+    /**
+     * @author 박용세
+     */
     private final UserService userService;
 
     /**
@@ -29,9 +31,14 @@ public class UserController {
         return "user/login";
     }
 
+    /**
+     * 로그인 성공 후 처리
+     * @param principal
+     * @return 자신의 블로그 게시글 리스트
+     */
     @GetMapping("/success")
     public String loginSuccess(Principal principal) {
-       return "redirect:/blog/"+principal.getName();
+       return "redirect:/blog/" + principal.getName() + "/board/list";
     }
     
     /**
@@ -51,7 +58,7 @@ public class UserController {
     @PostMapping("/join")
     public String joinProc(UserJoinFormDto userJoinFormDto) {
         userService.userJoinService(userJoinFormDto);
-        return "redirect:/blog/" + userJoinFormDto.getUserId();
+        return "redirect:/user/login";
     }
 
 
