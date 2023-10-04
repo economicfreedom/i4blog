@@ -2,6 +2,8 @@ package com.i4.i4blog.repository.model.comment;
 
 import java.sql.Timestamp;
 
+import org.eclipse.jdt.internal.compiler.ast.ThisReference;
+
 import lombok.Data;
 
 @Data
@@ -15,5 +17,6 @@ public class Comment {
 	private Timestamp commentUpdate;
 	private String commentPublic;
 	private String commentState;
+	
 	
 }
