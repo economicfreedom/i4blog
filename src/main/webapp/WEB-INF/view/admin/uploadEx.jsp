@@ -11,11 +11,26 @@
     <title>Title</title>
 </head>
 <body>
+
+
 <input name="uploadFiles" type="file" multiple>
 <button class="uploadBtn">Upload</button>
+
+<div class="uploadResult">
+
+</div>
+
 </body>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>
+    function showUploadedImages(arr){
+        console.log(arr);
+        var divArea = $(".uploadResult");
+        for (var i = 0 ; i< arr.length; i++){
+        console.log(arr[i].thumbnailURL);
+            divArea.append("<img src = '/display?fileName="+arr[i].thumbnailURL+"'>");
+        }
+    }
     $('.uploadBtn').click(function (){
         var formData = new FormData();
         var inputFile = $("input[type = 'file']");
@@ -36,7 +51,7 @@
             type:'POST',
             dataType:'json',
             success: function (result){
-                console.log(result);
+                showUploadedImages(result)
             },
             error: function (jqXHR,textStatus,errorThrown) {
                 console.log(textStatus);
