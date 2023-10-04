@@ -36,16 +36,13 @@
     <img class="logo" src="/img/blog-icon.png" width="5%" height="5%">
     <h3 class="my-0 mr-md-auto font-weight-normal logo"><strong>I4-B</strong></h3>
     <nav class="my-2 my-md-0 mr-md-5">
-        <a class="p-2 text-dark font-weight-bolder" href="#">Features</a>
-        <a class="p-2 text-dark font-weight-bolder" href="#">Enterprise</a>
-        <a class="p-2 text-dark font-weight-bolder" href="#">Support</a>
-        <a class="p-2 text-dark font-weight-bolder" href="#">Pricing</a>
+        <a class="p-2 text-dark font-weight-bolder" href="/user/login">Login</a>
         <%--        <input class="p-2" type="text" id="search-txt">--%>
         <%--        <button class="search-button"  style="background-color: white;--%>
         <%--                        width: 8%;--%>
         <%--                        height: 40%">--%>
         <%--            <img src="serach.jpg" style="width:10%;height:10%;">--%>
         <%--        </button>--%>
-        <a class="btn btn-outline-dark "  href="#">Sign up</a>
+        <a class="btn btn-outline-dark "  href="/user/join">Join</a>
     </nav>
 </div>

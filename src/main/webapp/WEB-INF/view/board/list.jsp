@@ -16,7 +16,7 @@
 					    <h5 class="card-title">Card title</h5>
 					    <p class="card-text">${list.boardTitle}</p>
 					    <%-- <a href="/board/view/${list.id}" class="btn btn-primary">내용 보기</a> --%>
-					    <a href="/board/view/${list.id}" class="btn btn-primary">내용 보기</a>
+					    <a href="/blog/aaaa/board/view/${list.id}" class="btn btn-primary">내용 보기</a>
 					  </div>
 					</div>
 				</div>

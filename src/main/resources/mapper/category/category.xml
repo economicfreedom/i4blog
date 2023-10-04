@@ -3,8 +3,10 @@
 <mapper namespace="com.i4.i4blog.repository.interfaces.category.CategoryRepository">
 	
 	<select id="findByUserId" resultType="com.i4.i4blog.repository.model.category.Category">
-		SELECT id, user_id, category_name
-		  FROM category
-		 WHERE user_id = #{userId}
+		SELECT b.id, b.category_name
+		  FROM user a
+		  JOIN category b
+		    ON a.id = b.user_id
+		 WHERE a.user_id = #{userId}
 	</select>
 </mapper>

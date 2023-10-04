@@ -17,7 +17,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 @Controller
-@RequestMapping("/board")
+@RequestMapping("/blog/{userId}/board")
 @RequiredArgsConstructor
 @Slf4j
 public class BoardController {
