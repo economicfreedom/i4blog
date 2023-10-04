@@ -37,9 +37,12 @@ $(document).ready(function () {
 
     $(".delete").click(function () {
         console.log("동작함")
+        var url;
         var id = $(this).val();
         console.log(id)
-        var type = $("input[name=optradio]:checked").val();
+        var type =$("select[name='type']").val();
+
+        console.log(type);
         if (type === "board") {
             url = "/board/del";
         }
@@ -47,9 +50,8 @@ $(document).ready(function () {
             url = "/comment/del"
         }
 
-        var url;
 
-
+        console.log(url);
         $.ajax({
             type: "PUT",
             url: url,
