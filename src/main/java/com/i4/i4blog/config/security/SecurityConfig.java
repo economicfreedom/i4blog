@@ -40,12 +40,11 @@ public class SecurityConfig {
                 .loginPage("/user/login")
                 .usernameParameter("userId")
                 .passwordParameter("userPassword")
-                .defaultSuccessUrl("/layout-test")
+                .defaultSuccessUrl("/user/success")
                 .and().build();
 
     }
-
-
+    
     @Bean
     PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();

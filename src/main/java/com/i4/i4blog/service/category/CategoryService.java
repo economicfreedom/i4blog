@@ -15,7 +15,7 @@ public class CategoryService {
 
 	private final CategoryRepository categoryRepository;
 	
-	public List<Category> findByUserId(Integer userId) {
+	public List<Category> findByUserId(String userId) {
 		List<Category> categoryEntity = categoryRepository.findByUserId(userId);
 		return categoryEntity;
 	}

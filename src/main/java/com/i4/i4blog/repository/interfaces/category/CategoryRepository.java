@@ -10,5 +10,5 @@ import com.i4.i4blog.repository.model.category.Category;
 
 @Mapper
 public interface CategoryRepository {
-	public List<Category> findByUserId(int userId);
+	public List<Category> findByUserId(String userId);
 }
