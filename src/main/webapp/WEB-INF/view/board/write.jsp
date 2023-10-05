@@ -18,10 +18,45 @@
 	  </div>
 	  <div class="form-group">
 	    <label for="boardCategory">카테고리</label>
-	    <input type="text" id="boardCategory" name="boardCategory" class="form-control" placeholder="카테고리를 입력하세요.">
+	    <select name="boardCategory" id="boardCategory">
+	    <c:choose>
+	    	<c:when test="${empty categoryList}">
+		    	<option value="">---</option>
+	    	</c:when>
+	    	<c:otherwise>
+	    		<c:forEach var="category" items="${categoryList}">
+				    <option value="${category.categoryName}">${category.categoryName}</option>
+	    		</c:forEach>
+	    	</c:otherwise>
+	    </c:choose>
+	    </select>
 	  </div>
+	  <div class="form-group">
+	  	<div class="input-group">
+		    <div class="input-group-text">
+	    	  <label>공개<input type="radio" name="boardPublic" value="1" checked="checked"></label>
+		    </div>
+		</div>
+	  	<div class="input-group">
+		    <div class="input-group-text">
+	    	  <label>비공개<input type="radio" name="boardPublic" value="0" ></label>
+		    </div>
+		</div>
+	  </div>
+	  	  
+	  
+	  <!-- 섬네일 -->
+	  <div class="form-group">
+	  	<input name="uploadFiles" type="file" multiple>
+	  	<button class="uploadBtn">업로드</button>
+	  </div>
+	  <div class="uploadResult">
+	  </div>
+	  <!-- 섬네일 -->
+	  
 	  <textarea id="summernote" name="boardContent" placeholder="글 내용을 입력하세요."></textarea>
 	  <button type="submit" class="btn btn-primary">게시글 등록</button>
+	  <button type="button" class="btn btn-secondary" onclick="history.back()">취소</button>
 	</form>
 
 </div>
@@ -59,6 +94,56 @@ $('#summernote').summernote({
 		 // 추가한 폰트사이즈
 		fontSizes: ['8','9','10','11','12','14','16','18','20','22','24','28','30','36','50','72']
 	});
+</script>
+
+
+<script>
+	function show_uploaded_images(arr) {
+	    console.log(arr);
+	    var divArea = $(".uploadResult");
+	    for (var i = 0; i < arr.length; i++) {
+	        // console.log(arr[i].thumbnailURL);
+	        divArea.append("<img src = '/display?fileName=" + arr[i].thumbnailURL + "'>");
+	    }
+	}
+	
+	$('.uploadBtn').click(function () {
+	    var formData = new FormData();
+	    var inputFile = $("input[type = 'file']");
+	    var files = inputFile[0].files;
+	
+	    for (var i = 0; i < files.length; i++) {
+	        console.log(files[i]);
+	        formData.append("uploadFiles", files[i]);
+	
+	    }
+	    formData.append("w", width);
+	    formData.append("h", height);
+	    formData.append("type", "board");
+	    console.log(formData)
+	    
+	    // 실제 업로드 부분
+	    // upload ajax
+	    $.ajax({
+	        url: '/uploadAjax',
+	        processData: false,
+	        contentType: false,
+	        data: formData,
+	        type: 'POST',
+	        dataType: 'json',
+	        success: function (result) {
+	            show_uploaded_images(result.uploadResultDTOList);
+	
+	            console.log(result.originalURL);
+	            console.log(result.thumbnailURL);
+	        },
+	        error: function (jqXHR, textStatus, errorThrown) {
+	            console.log(textStatus);
+	        }
+	    }); //$.ajax
+	})
+	
+
 </script>
 
 <%@ include file="/WEB-INF/view/layout/footer.jsp"%>

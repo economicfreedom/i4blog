@@ -6,6 +6,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 
 import com.i4.i4blog.repository.model.board.Board;
+import com.i4.i4blog.vo.board.BoardVO;
 
 @Mapper
 public interface BoardRepository {
@@ -20,7 +21,7 @@ public interface BoardRepository {
     
     public List<Board> findByUserId(Integer userId);
     
-    public Board findById(Integer id);
+    public BoardVO findById(Integer id);
     
     public int updateCount(Integer id);
 }

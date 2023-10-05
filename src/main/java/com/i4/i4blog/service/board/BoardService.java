@@ -1,7 +1,5 @@
 package com.i4.i4blog.service.board;
 
-import lombok.extern.slf4j.Slf4j;
-
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -9,8 +7,10 @@ import org.springframework.stereotype.Service;
 import com.i4.i4blog.dto.board.BoardWriteFormDto;
 import com.i4.i4blog.repository.interfaces.board.BoardRepository;
 import com.i4.i4blog.repository.model.board.Board;
+import com.i4.i4blog.vo.board.BoardVO;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 @Service
 @RequiredArgsConstructor
@@ -39,8 +39,8 @@ public class BoardService {
     	return boardList;
     }
     
-    public Board findById(Integer id) {
-    	Board board = boardRepository.findById(id);
+    public BoardVO findById(Integer id) {
+    	BoardVO board = boardRepository.findById(id);
     	return board;
     }
     
