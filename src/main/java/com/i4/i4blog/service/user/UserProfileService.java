@@ -1,5 +1,6 @@
 package com.i4.i4blog.service.user;
 
+import com.i4.i4blog.dto.ProfileRequestDTO;
 import com.i4.i4blog.repository.interfaces.user.UserProfileRepository;
 import com.i4.i4blog.repository.model.user.UserProfile;
 import lombok.RequiredArgsConstructor;
@@ -16,5 +17,9 @@ public class UserProfileService {
 
     public UserProfile findByUserId(Integer userId){
         return userProfileRepository.findByUserId(userId);
+    }
+
+    public void saveNickname (ProfileRequestDTO profileRequestDTO){
+        userProfileRepository.saveNickname(profileRequestDTO);
     }
 }

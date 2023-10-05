@@ -136,6 +136,6 @@ class I4blogApplicationTests {
             counts.add(graphDataVO.getCount());
             dates.add(graphDataVO.getRegDate());
         }
-        return Pair.of(counts, dates); // Pair 클래스는 Apache Commons Lang3 라이브러리에 포함되어 있습니다.
+        return Pair.of(counts, dates);
     }
 }
