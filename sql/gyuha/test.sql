@@ -14,6 +14,13 @@ ALTER TABLE `report`
 SELECT COUNT(*) FROM board;
 SELECT COUNT(*) FROM comment;
 
+
+insert into user( user_id, user_name, user_password, user_nickname, user_phone, user_email)
+values ('aaaa','bbbb','cccc','dddd','1234','asdf@asdf');
+
+insert into category(user_id, category_name)
+values (1,'test3');
+
 delete
 from report;
 
@@ -198,3 +205,9 @@ select * from comment;
 
 select * from report
 order by report_date desc;
+
+insert into user( user_id, user_name, user_password, user_nickname, user_phone, user_email)
+values ('aaaa','bbbb','cccc','dddd','1234','asdf@asdf');
+
+insert into profile(user_id, profile_title, profile_content)
+values (1,'타이틀은 뭐임?','블로그 소개글' );

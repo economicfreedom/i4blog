@@ -40,6 +40,7 @@ public class BoardController {
 	 */
 	@PostMapping("/write")
 	public String boardWriteProc(BoardWriteFormDto boardWriteFormDto) {
+		log.info("작성된 글 {}",boardWriteFormDto);
 		boardService.boardWriteService(boardWriteFormDto);
 		
 		return "redirect:/board/list";

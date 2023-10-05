@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.i4.i4blog.repository.interfaces.comment.CommentRepository">
+<mapper namespace ="com.i4.i4blog.repository.interfaces.comment.CommentRepository">
 
-    <!--댓글 조회 쿼리  -->
+
+
+
+ <!--댓글  목록조회 쿼리  -->
 <select id="commentById" resultType= "com.i4.i4blog.repository.model.comment.Comment">
 select *from comment
  where comment_id = #{commentId}
@@ -22,6 +25,8 @@ value (#{userId}, #{boardId}, #{commentWriter}, #{commentContent}, #{commentCrea
 		set comment_state = 0
 		where id=#{id}
     </update>
+
+<!-- 댓글 페이징  -->
 
 </mapper>
 
