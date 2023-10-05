@@ -2,12 +2,14 @@ package com.i4.i4blog.config.security;
 
 import java.util.Collection;
 
-import com.i4.i4blog.repository.model.user.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import com.i4.i4blog.repository.model.user.User;
 
+import lombok.Getter;
 
+@Getter
 public class PrincipalDetails implements UserDetails {
 
 	private User user;
@@ -18,8 +20,10 @@ public class PrincipalDetails implements UserDetails {
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
-		// TODO Auto-generated method stub
-		return null;
+//        ArrayList<GrantedAuthority> auth = new ArrayList<GrantedAuthority>();
+//        auth.add(new SimpleGrantedAuthority(user.getUserRole()));
+//        return auth;
+        return null;
 	}
 
 	@Override
