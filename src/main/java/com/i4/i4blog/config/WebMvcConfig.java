@@ -15,7 +15,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
 	public void addInterceptors(InterceptorRegistry registry) {
 		registry.addInterceptor(blogInterceptor)
 			.addPathPatterns("/blog/{userId}/**")
-			.excludePathPatterns("/admin/**", "/user/login", "/user/join"
+			.excludePathPatterns("/admin/**", "/user/**"
 					, "/js/**", "/css/**", "/img/**");
 	}
 }
