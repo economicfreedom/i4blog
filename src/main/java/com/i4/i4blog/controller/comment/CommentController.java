@@ -17,8 +17,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.i4.i4blog.dto.comment.CommentCreatetDto;
+import com.i4.i4blog.repository.model.comment.Comment;
 import com.i4.i4blog.service.comment.CommentService;
-import com.i4.i4blog.vo.CommentVO;
+import com.i4.i4blog.vo.comment.CommentVO;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -28,19 +30,20 @@ import lombok.extern.slf4j.Slf4j;
 @RequiredArgsConstructor
 @Slf4j
 public class CommentController {
-	
+	private final CommentService commentService;
 		
 	/*
-	 * 댓글 리스트 조회
+	 * 댓글 목록 조회
 	 * 
 	 */
-	@GetMapping("/list")
+	@GetMapping("/List")
 	public String ComentList() {
+		
 		return "comment/commentList";
 	}
 	
 	/*
-	 * 신규댓글 생성
+	 * 댓글 생성
 	 */
 	
 	@GetMapping("/create")
@@ -51,7 +54,7 @@ public class CommentController {
 	
 	/**
 	 *
-	 * 기존 댓글 수정 
+	 *댓글 수정 
 	 */
 	@PatchMapping("/put")
 	public String commentPut() {
@@ -70,6 +73,13 @@ public class CommentController {
 	}
 		
 
+	//댓글 작성 구현
+	@ResponseBody
+	@RequestMapping(value = "/comment/commentcreate.jsp")
 	
+	public String comment_created(@RequestParam String user_id) {
+		return "comment/commentcreate";
+		
+	}
 	
 }

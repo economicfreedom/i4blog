@@ -1,4 +1,4 @@
-package com.i4.i4blog.vo;
+package com.i4.i4blog.vo.comment;
 
 import java.sql.Timestamp;
 

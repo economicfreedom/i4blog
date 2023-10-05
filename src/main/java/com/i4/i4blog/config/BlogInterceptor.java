@@ -25,7 +25,6 @@ public class BlogInterceptor implements HandlerInterceptor {
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
-		// TODO Auto-generated method stub
 		return HandlerInterceptor.super.preHandle(request, response, handler);
 	}
 	
@@ -36,13 +35,11 @@ public class BlogInterceptor implements HandlerInterceptor {
 		String userId = (String)pathVariables.get("userId");
 		List<Category> categoryList = categoryService.findByUserId(userId);
 		modelAndView.addObject("categoryList", categoryList);
-		
 	}
 	
 	@Override
 	public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex)
 			throws Exception {
-		// TODO Auto-generated method stub
 		HandlerInterceptor.super.afterCompletion(request, response, handler, ex);
 	}
 }
