@@ -2,14 +2,16 @@ package com.i4.i4blog.service.comment;
 
 import lombok.RequiredArgsConstructor;
 
+import java.sql.Timestamp;
 import java.util.List;
-import com.i4.i4blog.dto.comment.CommentDto;
+import com.i4.i4blog.dto.comment.CommentCreatetDto;
 
 import com.i4.i4blog.repository.interfaces.comment.CommentRepository;
-
+import com.i4.i4blog.repository.model.comment.Comment;
 
 import lombok.Data;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 
 
@@ -25,14 +27,20 @@ public class CommentService {
 //	private final BoardRepository boardRepository;
 //	private final UserRepository userRepository;
 
-	//댓글 등록 
 	
+	
+	
+	public int insertById(Integer id) {
+		return commentrepository.createById(id);
+	}
 	
 	
 	//댓글 삭제
-	public Integer deleteById(Integer id){
+	public int deleteById(Integer id){
 		return commentrepository.deleteById(id);
 	}
+
+	
 
 
 	
