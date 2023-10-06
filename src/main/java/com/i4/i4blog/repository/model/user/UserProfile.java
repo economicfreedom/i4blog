@@ -16,5 +16,6 @@ public class UserProfile {
     private String profileContent;
     private String imgOriginal;
     private String imgThumbnail;
-
+    private String userNickname;
+    private String userEmail;
 }

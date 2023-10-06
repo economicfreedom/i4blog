@@ -19,7 +19,12 @@
         const width = 80;
         const height = 80;
         const original_nickname = $("#nickname").val();
+        let changed_nickname;
+        let changed = false;
         let timeout;
+        let nick_succeed = '<br id="nick-br">' + '<small id="nick-check-succeed" style="color: skyblue">성공</small>'
+        let nick_failed = '<br id="nick-br">' + '<small id="nick-check-failed" style="color: red">실패</small>'
+        let is_change = true;
 
 
         console.log(original_nickname);
@@ -43,15 +48,27 @@
             $("#nick-cancel").attr("hidden", true);
             $("#nick-change").removeAttr("hidden");
             $("#nickname").attr("readonly", true);
-            $("#nickname").val(original_nickname);
+
+            if (changed) {
+
+                $("#nickname").val(changed_nickname);
+            } else {
+                $("#nickname").val(original_nickname);
+            }
+
+
             remove_nick_check();
         });
         $("#nick-done").click(function () {
             const nickname = $("#nickname").val();
+            if (!is_change) {
+                $("#nickname").focus();
+                return;
+            }
             $.ajax({
 
                 url: "/user/saveProfile",
-                type: "post",
+                type: "put",
                 contentType: "application/json",
                 data: JSON.stringify({
                     nickname: nickname
@@ -62,13 +79,18 @@
                     $("#nick-cancel").attr("hidden", true);
                     $("#nick-change").removeAttr("hidden");
                     $("#nickname").attr("readonly", true);
+                    changed = true;
+                    remove_nick_check();
+                    changed_nickname = $("#nickname").val();
+                },
+                error: function (res) {
+
+
+                    alert("사용 할 수 없는 닉네임입니다.");
                     remove_nick_check();
 
-                },
-                error: function () {
-                    alert("실패")
-                    location.reload();
-                    remove_nick_check();
+                    return;
+
 
                 }
 
@@ -83,29 +105,32 @@
             }
 
             clearTimeout(timeout);
-            let nick_succeed = '<br id="nick-br">' + '<small id="nick-check-succeed" style="color: skyblue">성공</small>'
-            let nick_failed = '<br id="nick-br">' + '<small id="nick-check-failed" style="color: red">실패</small>'
+
             timeout = setTimeout(function () {
                 let nickname = $("#nickname").val();
                 let formData = new FormData();
                 formData.append("nickname", nickname);
                 $.ajax({
-                    url: "/user/nick-check?&nickname="+nickname,
+                    url: "/user/nick-check?&nickname=" + nickname,
                     type: "get",
-                    success: function () {
+                    contentType: "json",
+                    success: function (res) {
                         remove_nick_check();
                         $("#nickname")
                             .css("border-color", "skyblue")
                             .before(nick_succeed)
                             .focus();
-
+                        is_change = true;
                     },
-                    error: function () {
+                    error: function (res) {
                         remove_nick_check();
+                        console.log()
                         $("#nickname")
                             .css("border-color", "red")
                             .before(nick_failed)
                             .focus();
+                        $("#nick-check-failed").text(res.responseText);
+                        is_change = false;
 
 
                     }
@@ -128,6 +153,57 @@
                 reader.readAsDataURL(input.files[0]); // convert to base64 string
             }
         }
+
+        $('#uploadBtn').click(function () {
+            var formData = new FormData();
+            var inputFile = $("input[type = 'file']");
+            var files = inputFile[0].files;
+
+
+            for (var i = 0; i < files.length; i++) {
+                console.log(files[i]);
+                formData.append("uploadFiles", files[i]);
+            }
+
+            formData.append("w", width);
+            formData.append("h", height);
+            formData.append("type", "board");
+            console.log(formData)
+            //실제 업로드 부분
+            //upload ajax
+            $.ajax({
+                url: '/upload-img',
+                processData: false,
+                contentType: false,
+                data: formData,
+                type: 'POST',
+                dataType: 'json',
+                success: function (result) {
+
+                    console.log(result.originalURL);
+                    console.log(result.thumbnailURL);
+
+
+                    $.ajax({
+                        url: '/user/profile-img-save',
+                        contentType: "application/json",
+                        type: 'PUT',
+                        data: JSON.stringify({
+                           original_img: result.originalURL,
+                           thumb_nail:result.thumbnailURL
+                        })
+
+                    })
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    console.log(textStatus);
+
+                }
+
+            }); //$.ajax
+
+
+        })
     })
     ;
 
@@ -165,12 +241,15 @@
                                 </c:otherwise>
                             </c:choose>
 
+
                             <div class="media-body ml-4">
                                 <label class="btn btn-outline-primary">
                                     Upload new photo
                                     <input type="file" class="account-settings-fileinput" id="image-input">
                                 </label> &nbsp;
-                                <button type="button" class="btn btn-default md-btn-flat">Reset</button>
+                                <button type="button" class="btn btn-default md-btn-flat"
+                                        id="uploadBtn">이미지 등록
+                                </button>
 
                                 <div class="text-light small mt-1">Allowed JPG, GIF or PNG. Max size of 800K</div>
                             </div>
@@ -180,8 +259,8 @@
                         <div class="card-body">
                             <div class="form-group">
                                 <label class="form-label">닉네임</label>
-
-                                <input type="text" class="form-control mb-1" value="${profile.profileContent}" readonly
+                                <input type="text" class="form-control mb-1" value="${profile.userNickname}"
+                                       readonly
                                        id="nickname">
                                 <button class="btn btn-outline-primary" id="nick-change">닉네임 변경</button>
                                 <button class="btn btn-outline-success" id="nick-done" hidden>변경</button>
@@ -190,7 +269,7 @@
                             </div>
                             <div class="form-group">
                                 <label class="form-label">등록된 이메일</label>
-                                <input type="text" class="form-control mb-1" value="nmaxwell@mail.com" readonly>
+                                <input type="text" class="form-control mb-1" value="${profile.userEmail}" readonly>
                             </div>
                         </div>
 

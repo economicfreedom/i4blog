@@ -1,19 +1,19 @@
 plugins {
-	id 'java'
-	id 'org.springframework.boot' version '2.7.15'
-	id 'io.spring.dependency-management' version '1.0.15.RELEASE'
-	id 'war'
+    id 'java'
+    id 'org.springframework.boot' version '2.7.15'
+    id 'io.spring.dependency-management' version '1.0.15.RELEASE'
+    id 'war'
 }
 
 group = 'com.i4'
 version = '0.0.1-SNAPSHOT'
 
 java {
-	sourceCompatibility = '11'
+    sourceCompatibility = '11'
 }
 
 repositories {
-	mavenCentral()
+    mavenCentral()
 }
 
 dependencies {
@@ -63,11 +63,11 @@ dependencies {
 
 
 
+
+
 }
 
 
-
-
 tasks.named('test') {
-	useJUnitPlatform()
+    useJUnitPlatform()
 }

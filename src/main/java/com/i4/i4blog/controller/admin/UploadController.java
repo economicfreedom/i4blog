@@ -4,7 +4,6 @@ import com.i4.i4blog.dto.admin.UploadResponseDTO;
 import com.i4.i4blog.dto.admin.UploadResultDTO;
 import lombok.extern.slf4j.Slf4j;
 import net.coobird.thumbnailator.Thumbnailator;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -31,20 +30,18 @@ import java.util.UUID;
 @RestController
 @Slf4j
 public class UploadController {
-    @Value("${org.zerock.upload.path}")
-    private String uploadPath;
+    private String uploadPath = "src/main/resources/static";
 
 
     /**
-     * @author 최규하
-     * @param h 썸네일 이미지 높이
-     * @param w 썸네일 이미지 넓이         
+     * @param h           썸네일 이미지 높이
+     * @param w           썸네일 이미지 넓이
      * @param uploadFiles 이미지파일
-     * @param type 업로드 타입
+     * @param type        업로드 타입
      * @return UploadResponseDTO
-     *
+     * @author 최규하
      */
-    @PostMapping("/uploadAjax")
+    @PostMapping("/upload-img")
     public ResponseEntity<?> uploadFile(
             @RequestParam("uploadFiles") MultipartFile[] uploadFiles
             , @RequestParam("w") Integer w
@@ -81,16 +78,24 @@ public class UploadController {
                     + uuid
                     + "_" + fileName;
 
-
+            log.info("저장된 파일 경로 : {} ", saveName);
             Path savePath = Paths.get(saveName);
             uploadResponseDTO = null;
             try {
                 //원본 파일 저장
                 uploadFile.transferTo(savePath);
                 //섬네일 생성
-                String thumbnailSaveName = uploadPath + File.separator + folderPath + File.separator
+                String thumbnailSaveName = uploadPath + File.separator + type + File.separator + folderPath + File.separator
                         + "s_" + uuid + "_" + fileName;
-
+                String thumbnailSaveDB = File.separator + type + File.separator + folderPath + File.separator
+                        + "s_" + uuid + "_" + fileName;
+                String saveNameDB = File.separator
+                        + type
+                        + File.separator
+                        + folderPath
+                        + File.separator
+                        + uuid
+                        + "_" + fileName;
                 //섬네일 파일 이름은 중간에 s_로 시작하도록
                 File thumbnailFile = new File(thumbnailSaveName);
                 Thumbnailator.createThumbnail(savePath.toFile(), thumbnailFile
@@ -100,8 +105,8 @@ public class UploadController {
                 resultDTOList.add(new UploadResultDTO(fileName, uuid, folderPath));
                 uploadResponseDTO = UploadResponseDTO.builder()
                         .uploadResultDTOList(resultDTOList)
-                        .thumbnailURL(thumbnailSaveName)
-                        .originalURL(saveName).build();
+                        .thumbnailURL(saveNameDB)
+                        .originalURL(thumbnailSaveDB).build();
 
             } catch (IOException e) {
                 e.printStackTrace();

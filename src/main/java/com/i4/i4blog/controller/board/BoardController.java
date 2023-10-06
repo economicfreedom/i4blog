@@ -19,7 +19,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 @Controller
-@RequestMapping("/board") // /blog/{userId}/board 
+@RequestMapping("/blog/{userId}/board") // /blog/{userId}/board
 @RequiredArgsConstructor
 @Slf4j
 public class BoardController {
@@ -53,7 +53,10 @@ public class BoardController {
 	 * @return 
 	 */
 	@GetMapping("/list")
-	public String boardList(Model model) {
+	public String boardList(Model model
+	,Principal principal) {
+		String name = principal.getName();
+        log.info("로그인한 아이디 {}",name);
 		List<Board> boardList = boardService.findByUserId(1);
 		if (boardList.isEmpty()) {
 			model.addAttribute("boardList", null);

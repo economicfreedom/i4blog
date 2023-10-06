@@ -31,4 +31,12 @@ public class UserService {
 		int result = userRepository.insert(user);
 		
 	}
+	public Integer getId(String userId){
+		return userRepository.getId(userId);
+	}
+
+	public Integer findUserNickname(String nickname){
+		return userRepository.findUserNickname(nickname);
+	}
+
 }
