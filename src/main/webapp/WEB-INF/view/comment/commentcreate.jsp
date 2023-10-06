@@ -11,8 +11,8 @@
 
 <div class="container">
 	<div class="form-group">
-	<h1>댓글 작성</h1>
-		<form method="get"  action="comment/commentList">
+	<h1>작성</h1>
+		<form method="post"  action="/comment/List">
 			<table class="table table-striped" style="text-align: center; border: 2px solid #dddddd">
 				<tr>
 					<td style="border-bottom:none;" valign="baseline">

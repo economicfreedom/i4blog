@@ -10,9 +10,58 @@ body { padding-top:30px; }
 .widget .comment-text { font-size: 12px; }
 .widget .btn-block { border-top-left-radius:0px;border-top-right-radius:0px; }
 
-.text{
-	font-size: 25;
+
+
+body {
+    padding-top:40px;
+    background: #eee;
 }
+.widget .panel-body {
+    padding: 0px;
+}
+.widget .list-group {
+    margin-bottom: 0;
+}
+.widget .panel-title {
+    display: inline;
+}
+.widget .label-info {
+    float: right;
+}
+.widget li.list-group-item {
+    border-radius: 0;
+    border: 0;
+    border-top: 1px solid #ddd;
+}
+.widget li.list-group-item:hover {
+    background-color: rgba(86, 61, 124, 0.1);
+}
+.widget .mic-info {
+    color: #444444;
+    font-size: 11px;
+}
+.widget .action {
+    margin-top: 5px;
+}
+.widget .comment-text {
+    font-size: 30px;
+}
+.widget .btn-block {
+    border-top-left-radius: 0px;
+    border-top-right-radius: 0px;
+}
+.img-user {
+    width: 80px;
+    height: 80px;
+}
+
+
+.text{
+	font-size: 20;
+}
+
+
+
 .btn-6 {
   background: rgb(247,150,192);
 background: radial-gradient(circle, rgba(247,150,192,1) 0%, rgba(118,174,241,1) 100%);

@@ -2,9 +2,6 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace ="com.i4.i4blog.repository.interfaces.comment.CommentRepository">
 
-
-
-
  <!--댓글  목록조회 쿼리  -->
 <select id="commentById" resultType= "com.i4.i4blog.repository.model.comment.Comment">
 select *from comment
@@ -12,23 +9,26 @@ select *from comment
 </select>
 
 <!-- 댓글 작성 쿼리  -->
-<insert id="insert">
-Insert into comment(user_id, board_id, comment_writer, comment_content, comment_created)
-value (#{userId}, #{boardId}, #{commentWriter}, #{commentContent}, #{commentCreated})
+<insert id="create">
+Insert into comment(id, user_id, board_id, comment_writer, comment_content, comment_created)
+value (#{id}, #{userId}, #{boardId}, #{commentWriter}, #{commentContent}, #{commentCreated})
 </insert>
 
 <!-- 댓글 수정 쿼리 -->
+<update id="updateById">
+	update comment
+	set comment_state = 0
+	Where id=#{id}
+</update>
+
 
 <!-- 댓글 삭제 쿼리  -->
-    <update id="deleteById">
-        		update comment
-		set comment_state = 0
-		where id=#{id}
-    </update>
+   <update id="deleteById">
+        		UPDATE comment 
+        		set comment_state = 0 
+        		where id=#{id}
+   </update>
 
-<!-- 댓글 페이징  -->
 
 </mapper>
-
-
 
