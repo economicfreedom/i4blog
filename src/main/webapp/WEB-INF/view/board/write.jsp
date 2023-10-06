@@ -11,48 +11,52 @@
 		<h1>글작성 페이지</h1>
 	</div>
 	
-	<form action="/board/write" method="post">
+	<form action="/blog/${principal.userId}/board/write" method="post">
+	<input type="hidden" name="userId" value="${principal.id}">
 	  <div class="form-group">
 	    <label for="boardTitle">제목</label>
 	    <input type="text" id="boardTitle" name="boardTitle" class="form-control" placeholder="글 제목을 입력하세요.">
 	  </div>
 	  <div class="form-group">
 	    <label for="boardCategory">카테고리</label>
-	    <select name="boardCategory" id="boardCategory">
-	    <c:choose>
-	    	<c:when test="${empty categoryList}">
-		    	<option value="">---</option>
-	    	</c:when>
-	    	<c:otherwise>
-	    		<c:forEach var="category" items="${categoryList}">
-				    <option value="${category.categoryName}">${category.categoryName}</option>
-	    		</c:forEach>
-	    	</c:otherwise>
-	    </c:choose>
+	    <select id="boardCategory" name="boardCategory">
+		    <c:choose>
+		    	<c:when test="${empty categoryList}">
+			    	<option value="">---</option>
+		    	</c:when>
+		    	<c:otherwise>
+		    		<c:forEach var="category" items="${categoryList}">
+					    <option value="${category.categoryName}">${category.categoryName}</option>
+		    		</c:forEach>
+		    	</c:otherwise>
+		    </c:choose>
 	    </select>
 	  </div>
 	  <div class="form-group">
 	  	<div class="input-group">
 		    <div class="input-group-text">
 	    	  <label>공개<input type="radio" name="boardPublic" value="1" checked="checked"></label>
+	    	  <label>비공개<input type="radio" name="boardPublic" value="0"></label>
 		    </div>
 		</div>
-	  	<div class="input-group">
-		    <div class="input-group-text">
-	    	  <label>비공개<input type="radio" name="boardPublic" value="0" ></label>
+		
+		<!-- <div class="input-group mb-3">
+		  <div class="input-group-prepend">
+		    	<label for="boardPublic">비공개 설정</label>
+		    	<input type="checkbox" id="boardPublic" name="boardPublic" onchange="YnCheck(this)" value="1">
 		    </div>
-		</div>
+		</div> -->
 	  </div>
-	  	  
 	  
-	  <!-- 섬네일 -->
+	  
+	  <!-- 섬네일 start -->
 	  <div class="form-group">
 	  	<input name="uploadFiles" type="file" multiple>
 	  	<button class="uploadBtn">업로드</button>
 	  </div>
 	  <div class="uploadResult">
 	  </div>
-	  <!-- 섬네일 -->
+	  <!-- 섬네일 end -->
 	  
 	  <textarea id="summernote" name="boardContent" placeholder="글 내용을 입력하세요."></textarea>
 	  <button type="submit" class="btn btn-primary">게시글 등록</button>
@@ -142,8 +146,18 @@ $('#summernote').summernote({
 	        }
 	    }); //$.ajax
 	})
-	
 
 </script>
+
+<!-- <script type="text/javascript">
+	function YnCheck(obj) {
+		var checked = obj.checked;
+		if (checked) {
+			obj.value = "0";
+		} else {
+			obj.value = "1";
+		}
+	};
+</script> -->
 
 <%@ include file="/WEB-INF/view/layout/footer.jsp"%>

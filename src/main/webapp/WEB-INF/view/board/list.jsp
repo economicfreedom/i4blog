@@ -2,6 +2,9 @@
 <%@ include file="/WEB-INF/view/layout/category-header.jsp"%>
 
 <h1>게시글 리스트 페이지</h1>
+<!-- 본인 리스트 페이지에서만 작성 버튼 노출되도록 변경 필요 -->
+<a href="/blog/${principal.userId}/board/write/${list.id}" class="btn btn-primary">게시글 작성</a>
+<br>
 
 <div class="row">
 	<c:choose>
@@ -13,8 +16,7 @@
 					  <div class="card-body">
 					    <h5 class="card-title">Card title</h5>
 					    <p class="card-text">${list.boardTitle}</p>
-					    <a href="/board/view/${list.id}" class="btn btn-primary">내용 보기</a>
-					    <%-- <a href="/blog/aaaa/board/view/${list.id}" class="btn btn-primary">내용 보기</a> --%>
+					    <a href="/blog/${list.userId}/board/view/${list.id}" class="btn btn-primary">내용 보기</a>
 					  </div>
 					</div>
 				</div>

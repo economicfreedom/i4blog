@@ -1,5 +1,6 @@
 package com.i4.i4blog.service.board;
 
+import java.security.Principal;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -21,10 +22,13 @@ public class BoardService {
 	
 	// 게시글 등록 - insert
 	public void boardWriteService(BoardWriteFormDto boardWriteFormDto) {
-		Board board = new Board();
-		board.setBoardTitle(boardWriteFormDto.getBoardTitle());
-		board.setBoardContent(boardWriteFormDto.getBoardContent());
-		board.setBoardCategory(boardWriteFormDto.getBoardCategory());
+		Board board = Board.builder()
+				.userId(boardWriteFormDto.getUserId())
+				.boardCategory(boardWriteFormDto.getBoardCategory())
+				.boardTitle(boardWriteFormDto.getBoardTitle())
+				.boardContent(boardWriteFormDto.getBoardContent())
+				.boardPublic(boardWriteFormDto.getBoardPublic())
+				.build();
 		
 		int result = boardRepository.insert(board);
 	}
@@ -34,10 +38,21 @@ public class BoardService {
         return boardRepository.deleteById(id);
     }
     
-    public List<Board> findByUserId(Integer userId) {
-    	List<Board> boardList = boardRepository.findByUserId(userId);
-    	return boardList;
+    public List<Board> findByUserId(Integer userId, Principal principal) {
+    	String findUserId = null;
+    	log.info("findUserId {}",findUserId);
+    	log.info("principal.getName {}", principal.getName());
+    	if (principal.getName().equals(findUserId)) {
+			return boardRepository.findAllByUserId(userId);
+		} else {
+			return boardRepository.findByUserId(userId);
+		}
     }
+    
+//    public List<Board> findByUserId(Integer userId) {
+//    	List<Board> boardList = boardRepository.findByUserId(userId);
+//    	return boardList;
+//    }
     
     public BoardVO findById(Integer id) {
     	BoardVO board = boardRepository.findById(id);
@@ -47,5 +62,7 @@ public class BoardService {
     public Integer updateCount(Integer id) {
     	return boardRepository.updateCount(id);
     }
+    
+    
 
 }
