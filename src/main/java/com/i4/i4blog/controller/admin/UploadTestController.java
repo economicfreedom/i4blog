@@ -17,6 +17,7 @@ public class UploadTestController {
 
     @GetMapping("/uploadEx")
     public String uploadEx(){
+
         return "admin/uploadEx";
 
     }

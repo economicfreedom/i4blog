@@ -2,15 +2,118 @@
 <%@ include file="/WEB-INF/view/layout/header.jsp" %>
 <link rel="stylesheet" href="/css/profile.css">
 <script>
+
+
     $(document).ready(function () {
+
+        console.log($('#nickname').css('border-color'));
+
+        function remove_nick_check() {
+            $("#nick-check-succeed").remove();
+            $("#nick-check-failed").remove();
+            $("#nick-br").remove();
+            $("#nickname").css('border-color', 'rgb(206, 212, 218)');
+        }
+
+
         const width = 80;
         const height = 80;
+        const original_nickname = $("#nickname").val();
+        let timeout;
 
+
+        console.log(original_nickname);
         $("#image-input").change(function () {
             console.log("동작함");
             readURL(this);
 
         })
+        $("#nick-change").click(function () {
+            $("#nick-done").removeAttr("hidden");
+            $("#nick-cancel").removeAttr("hidden");
+            $("#nick-change").attr("hidden", true);
+            $("#nickname").removeAttr("readonly");
+            remove_nick_check();
+
+        });
+
+        $("#nick-cancel").click(function () {
+
+            $("#nick-done").attr("hidden", true);
+            $("#nick-cancel").attr("hidden", true);
+            $("#nick-change").removeAttr("hidden");
+            $("#nickname").attr("readonly", true);
+            $("#nickname").val(original_nickname);
+            remove_nick_check();
+        });
+        $("#nick-done").click(function () {
+            const nickname = $("#nickname").val();
+            $.ajax({
+
+                url: "/user/saveProfile",
+                type: "post",
+                contentType: "application/json",
+                data: JSON.stringify({
+                    nickname: nickname
+                }),
+                success: function () {
+                    alert("성공")
+                    $("#nick-done").attr("hidden", true);
+                    $("#nick-cancel").attr("hidden", true);
+                    $("#nick-change").removeAttr("hidden");
+                    $("#nickname").attr("readonly", true);
+                    remove_nick_check();
+
+                },
+                error: function () {
+                    alert("실패")
+                    location.reload();
+                    remove_nick_check();
+
+                }
+
+            })
+        })
+
+
+        $("#nickname").on('keyup', function () {
+
+            if ($('#nickname').prop('readonly')) {
+                return;
+            }
+
+            clearTimeout(timeout);
+            let nick_succeed = '<br id="nick-br">' + '<small id="nick-check-succeed" style="color: skyblue">성공</small>'
+            let nick_failed = '<br id="nick-br">' + '<small id="nick-check-failed" style="color: red">실패</small>'
+            timeout = setTimeout(function () {
+                let nickname = $("#nickname").val();
+                let formData = new FormData();
+                formData.append("nickname", nickname);
+                $.ajax({
+                    url: "/user/nick-check?&nickname="+nickname,
+                    type: "get",
+                    success: function () {
+                        remove_nick_check();
+                        $("#nickname")
+                            .css("border-color", "skyblue")
+                            .before(nick_succeed)
+                            .focus();
+
+                    },
+                    error: function () {
+                        remove_nick_check();
+                        $("#nickname")
+                            .css("border-color", "red")
+                            .before(nick_failed)
+                            .focus();
+
+
+                    }
+                })
+
+            }, 200);
+        });
+
 
         function readURL(input) {
             if (input.files && input.files[0]) {
@@ -25,14 +128,12 @@
                 reader.readAsDataURL(input.files[0]); // convert to base64 string
             }
         }
-    });
+    })
+    ;
 
 </script>
 <div class="container light-style flex-grow-1 container-p-y">
 
-    <h4 class="font-weight-bold py-3 mb-4">
-        Account settings
-    </h4>
 
     <div class="card overflow-hidden">
         <div class="row no-gutters row-bordered row-border-light">
@@ -52,16 +153,15 @@
                         <div class="card-body media align-items-center">
 
 
-
-                            <c:choose >
+                            <c:choose>
                                 <c:when test="${profile.imgThumbnail==null}">
 
-                                <img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt=""
-                                     class="d-block ui-w-80" id="image-preview">
+                                    <img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt=""
+                                         class="d-block ui-w-80" id="image-preview">
                                 </c:when>
                                 <c:otherwise>
                                     <img src="${profile.imgThumbnail}" alt=""
-                                     class="d-block ui-w-80" id="image-preview">
+                                         class="d-block ui-w-80" id="image-preview">
                                 </c:otherwise>
                             </c:choose>
 
@@ -80,13 +180,18 @@
                         <div class="card-body">
                             <div class="form-group">
                                 <label class="form-label">닉네임</label>
-                                <input type="text" class="form-control mb-1" value="${profile.profileContent}">
+
+                                <input type="text" class="form-control mb-1" value="${profile.profileContent}" readonly
+                                       id="nickname">
+                                <button class="btn btn-outline-primary" id="nick-change">닉네임 변경</button>
+                                <button class="btn btn-outline-success" id="nick-done" hidden>변경</button>
+                                <button class="btn btn-outline-secondary" id="nick-cancel" hidden>취소</button>
+                                <input type="reset" value="테스트">
                             </div>
                             <div class="form-group">
                                 <label class="form-label">등록된 이메일</label>
                                 <input type="text" class="form-control mb-1" value="nmaxwell@mail.com" readonly>
                             </div>
-
                         </div>
 
                     </div>

@@ -11,8 +11,10 @@ import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.HandlerMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.i4.i4blog.repository.interfaces.category.CategoryRepository;
+import com.i4.i4blog.repository.interfaces.user.UserRepository;
 import com.i4.i4blog.repository.model.category.Category;
-import com.i4.i4blog.service.category.CategoryService;
+import com.i4.i4blog.vo.user.ProfileInfoVo;
 
 import lombok.RequiredArgsConstructor;
 
@@ -20,7 +22,8 @@ import lombok.RequiredArgsConstructor;
 @Component
 public class BlogInterceptor implements HandlerInterceptor {
 
-	private final CategoryService categoryService;
+	private final CategoryRepository categoryRepository;
+	private final UserRepository userRepository;
 	
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
@@ -31,10 +34,15 @@ public class BlogInterceptor implements HandlerInterceptor {
 	@Override
 	public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler,
 			ModelAndView modelAndView) throws Exception {
+		// pathVariable 값 가져오기
 		Map<?, ?> pathVariables = (Map<?, ?>) request.getAttribute(HandlerMapping.URI_TEMPLATE_VARIABLES_ATTRIBUTE);
 		String userId = (String)pathVariables.get("userId");
-		List<Category> categoryList = categoryService.findByUserId(userId);
+		// 카테고리 목록 조회
+		List<Category> categoryList = categoryRepository.findByUserId(userId);
 		modelAndView.addObject("categoryList", categoryList);
+		// 블로그 정보 조회
+		ProfileInfoVo profileInfoVo = userRepository.findProfileByUserId(userId);
+		modelAndView.addObject("blogUser", profileInfoVo);
 	}
 	
 	@Override

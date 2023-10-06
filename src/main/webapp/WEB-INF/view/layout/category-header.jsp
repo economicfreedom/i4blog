@@ -5,7 +5,8 @@
 
 <div class="container">
 	<div class="d-flex flex-row">
-		<div class="d-flex flex-column align-self-start category-list card">
+		<div class="d-flex flex-column">
+			<div class="align-self-start category-list card">
 			<c:choose>
 				<c:when test="${empty categoryList}">
 					<div class="p-2">카테고리가 없습니다.</div>					
@@ -18,5 +19,13 @@
 					</c:forEach>
 				</c:otherwise>
 			</c:choose>
+			</div>
+		    <sec:authorize access="isAuthenticated()">
+		    	<c:if test="${profile.userId eq principal.userId}">
+					<div class="d-fles flex-column">
+						<a href="#">관리</a>
+					</div>
+		    	</c:if>
+			</sec:authorize>
 		</div>
 		<div class="d-flex flex-fill category-other card">

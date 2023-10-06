@@ -211,3 +211,9 @@ values ('aaaa','bbbb','cccc','dddd','1234','asdf@asdf');
 
 insert into profile(user_id, profile_title, profile_content)
 values (1,'타이틀은 뭐임?','블로그 소개글' );
+
+update user set user_nickname = 'test1'
+where id = 1;
+
+select * from user;
+

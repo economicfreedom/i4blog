@@ -19,10 +19,12 @@
 		WHERE id=#{id}
 	</update>
 	
-	<select id="findById" resultType="com.i4.i4blog.repository.model.board.Board">
-		SELECT *
-		  FROM board
-		 WHERE id = #{id}
+	<select id="findById" resultType="com.i4.i4blog.vo.board.BoardVO">
+		SELECT b.id, b.board_title, b.board_title, b.board_created, b.board_category, u.user_nickname
+		  FROM board b
+		  JOIN user u
+		    ON b.user_id = u.id
+		 WHERE b.id = #{id}
 	</select>
 	
 	<update id="updateCount">
