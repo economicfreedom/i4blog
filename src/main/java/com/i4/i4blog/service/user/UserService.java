@@ -1,13 +1,11 @@
 package com.i4.i4blog.service.user;
 
-import com.i4.i4blog.dto.user.UserJoinFormDto;
-import com.i4.i4blog.repository.model.user.User;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-
+import com.i4.i4blog.dto.user.UserJoinFormDto;
 import com.i4.i4blog.repository.interfaces.user.UserRepository;
-
+import com.i4.i4blog.repository.model.user.User;
 
 import lombok.RequiredArgsConstructor;
 
@@ -31,4 +29,5 @@ public class UserService {
 		int result = userRepository.insert(user);
 		
 	}
+
 }
