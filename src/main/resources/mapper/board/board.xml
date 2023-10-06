@@ -3,13 +3,20 @@
 <mapper namespace="com.i4.i4blog.repository.interfaces.board.BoardRepository">
 
 	<insert id="insert">
-		INSERT INTO BOARD (user_id, board_title, board_content, board_category)
-		 VALUE (1, #{boardTitle}, #{boardContent},#{boardCategory})
+		INSERT INTO BOARD (user_id, board_title, board_content, board_category, board_public)
+		 VALUE (#{userId}, #{boardTitle}, #{boardContent}, #{boardCategory}, #{boardPublic})
 	</insert>
 
 	<select id="findByUserId" resultType="com.i4.i4blog.repository.model.board.Board">
 		SELECT *
-		  FROM board
+		  FROM board 
+		 WHERE user_id = #{userId}
+  	 	   AND board_public = 1
+	</select>
+
+	<select id="findAllByUserId" resultType="com.i4.i4blog.repository.model.board.Board">
+		SELECT *
+		  FROM board 
 		 WHERE user_id = #{userId}
 	</select>
 	
@@ -32,5 +39,6 @@
 		   SET board_count = board_count + 1
 		 WHERE id = #{id}
 	</update>
+	
 	
 </mapper>
