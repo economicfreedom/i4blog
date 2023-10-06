@@ -27,16 +27,23 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-/**
- * @author 최규하
- * @deprecated 테스트후 알맞게 이동할 예정
- */
+
 @RestController
 @Slf4j
 public class UploadController {
     @Value("${org.zerock.upload.path}")
     private String uploadPath;
 
+
+    /**
+     * @author 최규하
+     * @param h 썸네일 이미지 높이
+     * @param w 썸네일 이미지 넓이         
+     * @param uploadFiles 이미지파일
+     * @param type 업로드 타입
+     * @return UploadResponseDTO
+     *
+     */
     @PostMapping("/uploadAjax")
     public ResponseEntity<?> uploadFile(
             @RequestParam("uploadFiles") MultipartFile[] uploadFiles

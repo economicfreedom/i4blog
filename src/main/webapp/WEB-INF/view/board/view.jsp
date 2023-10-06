@@ -10,6 +10,9 @@
 		<p>${board.boardCategory}</p>
 	</div>
 	<div class="form-group">
+		<p>${board.userNickname}</p>
+	</div>
+	<div class="form-group">
 		<p>${board.boardCreated}</p>
 	</div>
 	<div class="form-group">

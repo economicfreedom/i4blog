@@ -1,4 +1,7 @@
 package com.i4.i4blog.repository.interfaces.comment;
+import java.sql.Timestamp;
+import java.util.List;
+
 import org.apache.ibatis.annotations.Mapper;
 
 
@@ -6,11 +9,17 @@ import com.i4.i4blog.repository.model.comment.Comment;
 
  
 @Mapper
-public interface CommentRepository  {
+public interface CommentRepository  {	
+	/**
+	 * 
+	 * @param comment create
+	 * @return
+	 */
+	//생성
 	
-	
-	
-	
+	public int createById(Integer id);
+	//리스트
+	public List<Comment> findById(Integer id);
 	/**
 	 * 
 	 * @param comment

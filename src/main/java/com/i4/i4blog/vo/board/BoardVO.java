@@ -1,19 +1,17 @@
-package com.i4.i4blog.repository.model.board;
+package com.i4.i4blog.vo.board;
 
 import java.sql.Timestamp;
 
 import lombok.Data;
 
 @Data
-public class Board {
+public class BoardVO {
 	private Integer id;
 	private Integer userId;
 	private String boardTitle;
 	private String boardContent;
 	private String boardCategory;
 	private Timestamp boardCreated;
-	private Timestamp boardUpdate;
 	private Integer boardCount;
-	private Integer boardPublic;
-	private Integer boardState;
+	private String userNickname;
 }
