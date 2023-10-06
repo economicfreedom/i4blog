@@ -19,13 +19,10 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 @Controller
-@RequestMapping("/blog/{userId}/board") 
+@RequestMapping("/blog/{userId}/board") // /blog/{userId}/board
 @RequiredArgsConstructor
 @Slf4j
 public class BoardController {
-	/**
-     * @author 최예정
-     */
 	
 	private final BoardService boardService;
 	
@@ -48,7 +45,7 @@ public class BoardController {
 		log.info("작성된 글 {}",boardWriteFormDto);
 		boardService.boardWriteService(boardWriteFormDto);
 		
-		return "redirect:/blog/" + principal.getName() + "/board/list";
+		return "redirect:/board/list";
 	}
 	
 	/**
@@ -56,9 +53,11 @@ public class BoardController {
 	 * @return 
 	 */
 	@GetMapping("/list")
-	public String boardList(Model model, Principal principal) {
-		List<Board> boardList = boardService.findByUserId(5, principal);
-		
+	public String boardList(Model model
+	,Principal principal) {
+		String name = principal.getName();
+        log.info("로그인한 아이디 {}",name);
+		List<Board> boardList = boardService.findByUserId(1);
 		if (boardList.isEmpty()) {
 			model.addAttribute("boardList", null);
 		} else {
@@ -73,6 +72,7 @@ public class BoardController {
 		boardService.updateCount(id);
 		BoardVO board = boardService.findById(id);
 		model.addAttribute("board", board);
+		
 		
 		return "board/view";
 	}

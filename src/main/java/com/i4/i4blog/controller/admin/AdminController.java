@@ -51,7 +51,8 @@ public class AdminController {
             , defaultValue = "date")
               String orderBy
 
-            , Criteria cri) {
+            , Criteria cri ){
+
 
         if (cri.getType() == null || cri.getType().isEmpty()) {
             cri.setType("board");

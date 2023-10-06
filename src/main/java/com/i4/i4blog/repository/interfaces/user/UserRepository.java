@@ -10,4 +10,7 @@ public interface UserRepository {
 	public User findByUserId(String userId);
 	public ProfileInfoVo findProfileByUserId(String userId);
 	public int insert(User user);
+	public Integer findUserNickname(String nickname);
+
+	public Integer getId(String userId);
 }
