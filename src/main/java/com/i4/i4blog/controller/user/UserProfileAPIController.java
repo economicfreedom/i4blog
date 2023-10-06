@@ -51,7 +51,7 @@ public class UserProfileAPIController {
         Integer id = userService.getId(userId);
 
         profileRequestDTO.setId(id);
-        userProfileService.saveNickname(profileRequestDTO);
+        userProfileService.changeNickname(profileRequestDTO);
 
         return ResponseEntity.ok().build();
     }

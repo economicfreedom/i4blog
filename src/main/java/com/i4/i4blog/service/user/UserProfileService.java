@@ -24,7 +24,7 @@ public class UserProfileService {
         return userProfileRepository.findByUserId(id);
     }
 
-    public void saveNickname (ProfileRequestDTO profileRequestDTO){
+    public void changeNickname (ProfileRequestDTO profileRequestDTO){
         userProfileRepository.saveNickname(profileRequestDTO);
     }
 

@@ -24,12 +24,20 @@ import javax.validation.constraints.Pattern;
 public class UserAPIController {
 
     private final UserService userService;
+    
+    /**
+      @param nickname
+      @return ResponseEntity
+      존재 하는 닉네임이면 IllegalAccessException 터트림
+      NicknameValidHandler 클래스에 alreadyNickname 참고
+     */
+    
     @GetMapping("/nick-check")
     public ResponseEntity<?> nickCheck(
             @RequestParam
             @Pattern(regexp = "^[ㄱ-ㅣ가-힣a-zA-Z0-9]{2,12}$"
                     , message = "최소 2글자에서 최대 12글자"
-                    +" 한글과 영어만 입력 가능합니다.")
+                    +" 한글과 영어 그리고 숫자만 입력 가능합니다.")
             @NotBlank(message = "닉네임을 입력해주세요.")
             String nickname
     ) {
