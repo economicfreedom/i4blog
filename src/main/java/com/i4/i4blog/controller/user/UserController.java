@@ -44,7 +44,7 @@ public class UserController {
      */
     @GetMapping("/success")
     public String loginSuccess(Principal principal) {
-       return "redirect:/blog/" + principal.getName() + "/board/list";
+    	return "redirect:/blog/" + principal.getName() + "/board/list";
     }
     
     /**
@@ -53,18 +53,6 @@ public class UserController {
     @GetMapping("/join")
     public String join() {
         return "user/join";
-    }
-
-    /**
-     * 회원가입 기능
-     *
-     * @param userJoinFormDto
-     * @return 로그인 페이지
-     */
-    @PostMapping("/join")
-    public String joinProc(UserJoinFormDto userJoinFormDto) {
-        userService.userJoinService(userJoinFormDto);
-        return "redirect:/user/login";
     }
 
     // 카테고리 테스트중
