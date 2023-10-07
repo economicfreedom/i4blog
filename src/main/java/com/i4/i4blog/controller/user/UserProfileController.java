@@ -22,6 +22,13 @@ public class UserProfileController {
 
     private final UserProfileService userProfileService;
 
+    /**
+     * 
+     * @param model
+     * @param principal
+     * @return profileSetting.jsp
+     * 프로필 세팅 경로
+     */
     @GetMapping("/profile-setting")
     public String profile(Model model
                         ,Principal principal
@@ -37,8 +44,5 @@ public class UserProfileController {
     }
 
 
-    @GetMapping("/test-prin")
-    public String test2(Principal principal){
-        return "test";
-    }
+
 }

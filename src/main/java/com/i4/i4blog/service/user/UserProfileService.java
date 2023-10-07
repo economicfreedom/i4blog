@@ -18,17 +18,38 @@ public class UserProfileService {
 
     private final UserProfileRepository userProfileRepository;
     private final UserRepository userRepository;
+
+    /**
+     *
+     * @param userId
+     * @return user 테이블 id
+     *
+     */
+
     public UserProfile findByUserId(String userId){
         Integer id = userRepository.getId(userId);
 
         return userProfileRepository.findByUserId(id);
     }
 
+    /**
+     * @param profileRequestDTO
+     * 닉네임 변경
+     */
+
     public void changeNickname (ProfileRequestDTO profileRequestDTO){
         userProfileRepository.saveNickname(profileRequestDTO);
     }
 
+    /**
+     *
+     * @param profileRequestDTO
+     * @param principal
+     * 프로필 이미지 저장
+     *
+     */
     public void saveImg(ProfileRequestDTO profileRequestDTO, Principal principal) {
+
         String userId = principal.getName();
         String originalImg = profileRequestDTO.getOriginalImg();
         String thumbNail = profileRequestDTO.getThumbNail();

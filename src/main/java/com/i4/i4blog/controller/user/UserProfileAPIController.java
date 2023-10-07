@@ -20,16 +20,33 @@ public class UserProfileAPIController {
     private final UserProfileService userProfileService;
     private final UserService userService;
 
+    /**
+     *
+     * @param profileRequestDTO
+     * @param principal
+     * @return 성공시 200
+     * 이미지 경로를 서비스로 전달
+     */
     @PutMapping("/profile-img-save")
     public ResponseEntity<?> saveImg(@RequestBody ProfileRequestDTO profileRequestDTO,Principal principal){
         log.info("saveImg ====> start");
-        log.info("profileRequestDTO ====> {}",profileRequestDTO);
+        log.info("profileRequestDTO : {}",profileRequestDTO);
+
         userProfileService.saveImg(profileRequestDTO,principal);
 
-        return null;
+        return ResponseEntity.ok().build();
     }
 
-    @PutMapping("/saveProfile")
+
+    /**
+     *
+     * @param profileRequestDTO
+     * @param principal
+     * @param bindingResult
+     * @return 에러 없으면 200
+     * 닉네임 저장
+     */
+    @PutMapping("/change-nickname")
     public ResponseEntity<?> saveNickname(
             @RequestBody
             @Valid
@@ -38,7 +55,6 @@ public class UserProfileAPIController {
             , BindingResult bindingResult
 
     ) {
-
         if (bindingResult.hasErrors()) {
             String defaultMessage = bindingResult
                                     .getFieldError()

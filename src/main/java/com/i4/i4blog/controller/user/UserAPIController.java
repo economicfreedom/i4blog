@@ -28,6 +28,7 @@ public class UserAPIController {
     /**
       @param nickname
       @return ResponseEntity
+      @author 최규하
       존재 하는 닉네임이면 IllegalAccessException 터트림
       NicknameValidHandler 클래스에 alreadyNickname 참고
      */
