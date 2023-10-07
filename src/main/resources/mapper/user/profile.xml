@@ -15,16 +15,16 @@
                          where user_id = #{userId})
     </update>
     <select id="findByUserId" resultType="com.i4.i4blog.repository.model.user.UserProfile">
-        SELECT p.id
-             , u.id             AS user_id
-             , profile_title
-             , profile_content
-             , profile_filename as img_original
-             , profile_filepath as img_thumbnail
-             , user_nickname
-             , user_email
-        FROM user u
-                 JOIN profile p ON u.id = p.user_id
-        where p.user_id = #{userId}
+SELECT p.id
+     , u.id             AS user_id
+     , profile_title
+     , profile_content
+     , profile_filename as img_original
+     , profile_filepath as img_thumbnail
+     , user_nickname
+     , user_email
+FROM user u
+         JOIN profile p ON u.id = p.user_id
+where u.id = #{id}
     </select>
 </mapper>

@@ -187,14 +187,17 @@
                         data: JSON.stringify({
                            original_img: result.originalURL,
                            thumb_nail:result.thumbnailURL
-                        })
+                        }),
+                        success:function (){
+                        }
 
                     })
+
                 },
                 error: function (jqXHR, textStatus, errorThrown) {
                     console.log(textStatus);
 
-                }
+                },
 
             }); //$.ajax
 

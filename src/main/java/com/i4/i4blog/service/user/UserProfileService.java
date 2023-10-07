@@ -28,7 +28,9 @@ public class UserProfileService {
 
     public UserProfile findByUserId(String userId){
         Integer id = userRepository.getId(userId);
-
+        log.info("userRepository.getId(userId)  : {}",id);
+        log.info("userProfileRepository.findByUserId(id) : {}"
+                , userProfileRepository.findByUserId(id));
         return userProfileRepository.findByUserId(id);
     }
 
@@ -50,11 +52,14 @@ public class UserProfileService {
      */
     public void saveImg(ProfileRequestDTO profileRequestDTO, Principal principal) {
 
+        log.info("=== saveImg start ===");
         String userId = principal.getName();
         String originalImg = profileRequestDTO.getOriginalImg();
-        String thumbNail = profileRequestDTO.getThumbNail();
 
+        String thumbNail = profileRequestDTO.getThumbNail();
+        log.info("thumbNail path : {}",thumbNail);
         userProfileRepository.saveImg(userId,originalImg,thumbNail);
+        log.info("=== saveImg done ===");
 
     }
 }

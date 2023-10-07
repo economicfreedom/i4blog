@@ -200,24 +200,24 @@ ORDER BY count desc;
 
 select *
 from comment;
-SELECT (SELECT CONCAT(FORMAT(COUNT(*), 0), '명') FROM user WHERE DATE(user_regdate) = CURDATE())                     AS t_joined_user
+SELECT (SELECT CONCAT(FORMAT(COUNT(*), 0), '명') FROM user WHERE DATE(user_regdate) = CURDATE()) AS t_joined_user
      , (SELECT CONCAT(FORMAT(COUNT(*), 0), '명')
         FROM user
-        WHERE DATE(user_regdate) = CURDATE() - INTERVAL 1 DAY)                                                      As y_joined_user
+        WHERE DATE(user_regdate) = CURDATE() - INTERVAL 1 DAY)                                  As y_joined_user
 
      , (SELECT CONCAT(FORMAT(COUNT(*), 0), '개')
         FROM board
-        WHERE DATE(board_created) = CURDATE())                                                                      AS t_created_board
+        WHERE DATE(board_created) = CURDATE())                                                  AS t_created_board
      , (SELECT CONCAT(FORMAT(COUNT(*), 0), '개')
         FROM board
-        WHERE DATE(board_created) = CURDATE() - INTERVAL 1 DAY)                                                     AS y_created_board
+        WHERE DATE(board_created) = CURDATE() - INTERVAL 1 DAY)                                 AS y_created_board
 
      , (SELECT CONCAT(FORMAT(COUNT(*), 0), '개')
         FROM comment
-        WHERE DATE(comment_date) = CURDATE())                                                                       AS t_created_comment
+        WHERE DATE(comment_date) = CURDATE())                                                   AS t_created_comment
      , (SELECT CONCAT(FORMAT(COUNT(*), 0), '개')
         FROM comment
-        WHERE DATE(comment_date) = CURDATE() - INTERVAL 1 DAY)                                                      AS y_created_comment
+        WHERE DATE(comment_date) = CURDATE() - INTERVAL 1 DAY)                                  AS y_created_comment
 ;
 ALTER TABLE comment
     CHANGE comment_delete comment_state tinyint;
@@ -271,32 +271,64 @@ from user;
  from user
  where user_id = 'aaaa');
 
-select * from profile;
-insert into profile(user_id,profile_title)
-values (43,'tets2');
+select *
+from profile;
+insert into profile(user_id, profile_title)
+values (1004, 'tets2');
 
 
-update profile set profile_filename = 'aaa' , profile_filepath ='bbb'
+update profile
+set profile_filename = 'aaa',
+    profile_filepath ='bbb'
 where user_id = (select id
- from user
- where user_id = 'aaaa');
+                 from user
+                 where user_id = 'aaaa');
 
-select * from profile;
-select * from user
+select *
+from profile;
+select *
+from user
 where user_id = 'test2';
 
-        SELECT p.id
-             , u.id             AS user_id
-             , profile_title
-             , profile_content
-             , profile_filename as img_original
-             , profile_filepath as img_thumbnail
-             , user_nickname
-             , user_email
-        FROM user u
-                 JOIN profile p ON u.id = 43;
+SELECT p.id
+     , u.id             AS user_id
+     , profile_title
+     , profile_content
+     , profile_filename as img_original
+     , profile_filepath as img_thumbnail
+     , user_nickname
+     , user_email
+FROM user u
+         JOIN profile p ON u.id = 1004;
 
 
 
+select *
+from user
+where user_id = 'test2';
 
+update profile
+set profile_filename = 'src/main/resources/static/board/2023/10/08/s_8db84965-4db0-46d5-ac3d-f1f4fbdc0422_5207453.jpg',
+    profile_filepath ='src/main/resources/static/board/2023/10/08/s_8db84965-4db0-46d5-ac3d-f1f4fbdc0422_5207453.jpg'
+where user_id = (select id
+                 from `user`
+                 where user_id = 'test2');
 
+select id
+from `user`
+where user_id = 'test2';
+
+select *
+from profile;
+
+SELECT p.id
+     , u.id             AS user_id
+     , profile_title
+     , profile_content
+     , profile_filename as img_original
+     , profile_filepath as img_thumbnail
+     , user_nickname
+     , user_email
+FROM user u
+         JOIN profile p ON u.id = p.user_id
+where u.id = 1004;

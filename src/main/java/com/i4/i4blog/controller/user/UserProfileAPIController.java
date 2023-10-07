@@ -66,7 +66,7 @@ public class UserProfileAPIController {
 
         String userId = principal.getName();
         Integer id = userService.getId(userId);
-
+        log.info(userId);
         profileRequestDTO.setId(id);
         userProfileService.changeNickname(profileRequestDTO);
 
