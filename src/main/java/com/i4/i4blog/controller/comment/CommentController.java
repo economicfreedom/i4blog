@@ -25,7 +25,7 @@ import com.i4.i4blog.repository.model.board.Board;
 import com.i4.i4blog.repository.model.comment.Comment;
 import com.i4.i4blog.service.comment.CommentService;
 import com.i4.i4blog.vo.comment.CommentVO;
-import com.mysql.cj.Session;
+//import com.mysql.cj.Session;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

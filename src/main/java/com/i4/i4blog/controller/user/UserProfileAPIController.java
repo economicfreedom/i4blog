@@ -46,6 +46,7 @@ public class UserProfileAPIController {
      * @return 에러 없으면 200
      * 닉네임 저장
      */
+
     @PutMapping("/change-nickname")
     public ResponseEntity<?> saveNickname(
             @RequestBody

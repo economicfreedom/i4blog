@@ -8,7 +8,7 @@ import com.i4.i4blog.dto.comment.CommentCreatetDto;
 import com.i4.i4blog.repository.interfaces.comment.CommentRepository;
 import com.i4.i4blog.repository.model.comment.Comment;
 import com.i4.i4blog.vo.comment.CommentVO;
-import com.mysql.cj.protocol.a.NativeConstants.IntegerDataType;
+//import com.mysql.cj.protocol.a.NativeConstants.IntegerDataType;
 
 import lombok.Data;
 import lombok.RequiredArgsConstructor;

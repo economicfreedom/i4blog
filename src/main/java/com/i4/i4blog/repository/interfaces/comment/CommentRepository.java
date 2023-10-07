@@ -7,7 +7,7 @@ import org.apache.ibatis.annotations.Mapper;
 
 import com.i4.i4blog.repository.model.comment.Comment;
 import com.i4.i4blog.vo.comment.CommentVO;
-import com.mysql.cj.protocol.a.NativeConstants.IntegerDataType;
+//import com.mysql.cj.protocol.a.NativeConstants.IntegerDataType;
 
  
 @Mapper

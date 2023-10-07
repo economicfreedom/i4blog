@@ -57,7 +57,7 @@ public class BoardController {
 	,Principal principal) {
 		String name = principal.getName();
         log.info("로그인한 아이디 {}",name);
-		List<Board> boardList = boardService.findByUserId(1);
+		List<Board> boardList = boardService.findByUserId(1,principal);
 		if (boardList.isEmpty()) {
 			model.addAttribute("boardList", null);
 		} else {
