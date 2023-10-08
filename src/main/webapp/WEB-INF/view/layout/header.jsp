@@ -9,7 +9,7 @@
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <%--    <script async defer src="https://maps.googleapis.com/maps/api/js?key={APP_KEY}"></script>--%>
-              
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"
             integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct"
             crossorigin="anonymous"></script>
@@ -52,8 +52,10 @@
 	        <a class="btn btn-outline-dark "  href="/user/join">회원가입</a>
         </sec:authorize>
         <sec:authorize access="isAuthenticated()">
-	        <a class="p-2 text-dark" href="#">
-	        	<span class="font-weight-bolder">${principal.userId}</span> 님
+	        <a class="p-2 text-dark" href="/user/profile-setting" >
+
+                    <span  class="font-weight-bolder">${principal.userId}</span> 님
+
 	        </a>
 	        <a class="btn btn-outline-dark "  href="/logout">로그아웃</a>
         </sec:authorize>

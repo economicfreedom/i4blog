@@ -14,6 +14,21 @@
                          from user
                          where user_id = #{userId})
     </update>
+    <update id="changePw">
+        update user
+        set user_password = #{newPw}
+        where id = #{id}
+    </update>
+    <update id="saveTitleInfo">
+        update profile
+        set profile_title = #{title} , profile_content=#{info}
+        where user_id =#{id}
+    </update>
+    <update id="resign">
+        update user
+        set user_state =0
+        where user_id =#{userId}
+    </update>
     <select id="findByUserId" resultType="com.i4.i4blog.repository.model.user.UserProfile">
 SELECT p.id
      , u.id             AS user_id

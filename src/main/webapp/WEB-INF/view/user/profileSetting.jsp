@@ -9,11 +9,13 @@
         <div class="row no-gutters row-bordered row-border-light">
             <div class="col-md-3 pt-0">
                 <div class="list-group list-group-flush account-settings-links">
-                    <a class="list-group-item list-group-item-action active" data-toggle="list" href="#account-general">General</a>
+                    <a class="list-group-item list-group-item-action active" data-toggle="list" href="#account-general">이미지
+                        및 닉네임 변경</a>
                     <a class="list-group-item list-group-item-action" data-toggle="list"
-                       href="#account-change-password">Change password</a>
-                    <a class="list-group-item list-group-item-action" data-toggle="list" href="#account-info">Info</a>
-                    <a class="list-group-item list-group-item-action" data-toggle="list" href="#account-connections">Connections</a>
+                       href="#account-change-password">비밀번호 변경</a>
+                    <a class="list-group-item list-group-item-action" data-toggle="list" href="#account-info">소개글 변경</a>
+                    <a class="list-group-item list-group-item-action" data-toggle="list" href="#account-connections">회원 탈퇴</a>
+
                 </div>
             </div>
             <div class="col-md-9">
@@ -45,7 +47,7 @@
                                         id="uploadBtn">이미지 등록
                                 </button>
 
-                                <div class="text-light small mt-1">Allowed JPG, GIF or PNG. Max size of 800K</div>
+                                <div class="text-light small mt-1">jpg 또는 png 파일만 가능합니다 파일의 최대 크기는 800K</div>
                             </div>
                         </div>
                         <hr class="border-light m-0">
@@ -72,18 +74,21 @@
                         <div class="card-body pb-2">
 
                             <div class="form-group">
-                                <label class="form-label">Current password</label>
-                                <input type="password" class="form-control">
+                                <label class="form-label">비밀번호 입력</label>
+                                <input type="password" class="form-control" id="original-pw" placeholder="기존 비밀번호">
                             </div>
 
                             <div class="form-group">
-                                <label class="form-label">New password</label>
-                                <input type="password" class="form-control">
+                                <label class="form-label">새로운 비밀번호 입력</label>
+                                <input type="password" class="form-control" id="new-pw"
+                                       placeholder="비밀번호는 4~16글자만 가능합니다.">
                             </div>
 
                             <div class="form-group">
-                                <label class="form-label">Repeat new password</label>
-                                <input type="password" class="form-control">
+                                <label class="form-label">비밀번호 재확인</label>
+                                <input type="password" class="form-control" id="new-pw2" placeholder="비밀번호 재확인">
+                                <br>
+                                <button class="btn btn-outline-primary" id="pw-change">비밀번호 변경</button>
                             </div>
 
                         </div>
@@ -92,40 +97,21 @@
                         <div class="card-body pb-2">
 
                             <div class="form-group">
-                                <label class="form-label">Bio</label>
-                                <textarea class="form-control" rows="5">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris nunc arcu, dignissim sit amet sollicitudin iaculis, vehicula id urna. Sed luctus urna nunc. Donec fermentum, magna sit amet rutrum pretium, turpis dolor molestie diam, ut lacinia diam risus eleifend sapien. Curabitur ac nibh nulla. Maecenas nec augue placerat, viverra tellus non, pulvinar risus.</textarea>
+                                <label class="form-label">블로그 제목</label>
+                                <input type="text" class="form-control" id="title" value=
+                                        "${profile.profileTitle == null ? "":profile.profileTitle}">
                             </div>
                             <div class="form-group">
-                                <label class="form-label">Birthday</label>
-                                <input type="text" class="form-control" value="May 3, 1995">
+                                <label class="form-label">소개글</label>
+                                <textarea class="form-control" rows="5" id="info">
+                                    ${profile.profileContent == null ? "":profile.profileContent}
+                                </textarea>
                             </div>
-                            <div class="form-group">
-                                <label class="form-label">Country</label>
-                                <select class="custom-select">
-                                    <option>USA</option>
-                                    <option selected="">Canada</option>
-                                    <option>UK</option>
-                                    <option>Germany</option>
-                                    <option>France</option>
-                                </select>
-                            </div>
+                            <button class="btn btn-outline-primary" id="save-info-title">비밀번호 변경</button>
 
 
                         </div>
-                        <hr class="border-light m-0">
-                        <div class="card-body pb-2">
 
-                            <h6 class="mb-4">Contacts</h6>
-                            <div class="form-group">
-                                <label class="form-label">Phone</label>
-                                <input type="text" class="form-control" value="+0 (123) 456 7891">
-                            </div>
-                            <div class="form-group">
-                                <label class="form-label">Website</label>
-                                <input type="text" class="form-control" value="">
-                            </div>
-
-                        </div>
 
                     </div>
                     <div class="tab-pane fade" id="account-social-links">
@@ -155,28 +141,22 @@
                         </div>
                     </div>
                     <div class="tab-pane fade" id="account-connections">
-                        <div class="card-body">
-                            <button type="button" class="btn btn-twitter">Connect to <strong>Twitter</strong></button>
+
+                        <h5 class="mb-3 py-3">
+                            회원 탈퇴
+                        </h5>
+
+                        <div class="form-group">
+                            <label class="form-label">비밀번호 입력</label>
+                            <input type="password" class="form-control" id="resign-pwd" placeholder="비밀번호 재확인">
+                            <br>
+
                         </div>
-                        <hr class="border-light m-0">
-                        <div class="card-body">
-                            <h5 class="mb-2">
-                                <a href="javascript:void(0)" class="float-right text-muted text-tiny"><i
-                                        class="ion ion-md-close"></i> Remove</a>
-                                <i class="ion ion-logo-google text-google"></i>
-                                You are connected to Google:
-                            </h5>
-                            nmaxwell@mail.com
-                        </div>
-                        <hr class="border-light m-0">
-                        <div class="card-body">
-                            <button type="button" class="btn btn-facebook">Connect to <strong>Facebook</strong></button>
-                        </div>
-                        <hr class="border-light m-0">
-                        <div class="card-body">
-                            <button type="button" class="btn btn-instagram">Connect to <strong>Instagram</strong>
-                            </button>
-                        </div>
+
+                        <button type="button" class="btn btn-danger mb-3" id="resign-btn">회원탈퇴
+                        </button>
+
+
                     </div>
                     <div class="tab-pane fade" id="account-notifications">
                         <div class="card-body pb-2">
@@ -257,10 +237,10 @@
         </div>
     </div>
 
-    <div class="text-right mt-3">
-        <button type="button" class="btn btn-primary">저장</button>&nbsp;
-        <button type="button" class="btn btn-default" onclick="history.back()">취소</button>
-    </div>
+    <%--    <div class="text-right mt-3">--%>
+    <%--        <button type="button" class="btn btn-primary">저장</button>&nbsp;--%>
+    <%--        <button type="button" class="btn btn-default" onclick="history.back()">취소</button>--%>
+    <%--    </div>--%>
 
 </div>
 <%@ include file="/WEB-INF/view/layout/footer.jsp" %>

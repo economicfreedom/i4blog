@@ -20,7 +20,7 @@ public class UserProfileController {
     private final UserProfileService userProfileService;
 
     /**
-     * 
+     *
      * @param model
      * @param principal
      * @return profileSetting.jsp

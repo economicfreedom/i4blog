@@ -2,7 +2,7 @@ package com.i4.i4blog.controller.user;
 
 import com.i4.i4blog.dto.user.UserJoinFormDto;
 import com.i4.i4blog.service.user.UserService;
-import lombok.RequiredArgsConstructor;
+import lombok.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
@@ -65,4 +65,6 @@ public class UserAPIController {
         userService.userJoinService(userJoinFormDto);
         return true;
     }
+
+
 }

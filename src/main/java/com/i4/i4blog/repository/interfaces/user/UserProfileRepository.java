@@ -1,6 +1,6 @@
 package com.i4.i4blog.repository.interfaces.user;
 
-import com.i4.i4blog.dto.ProfileRequestDTO;
+import com.i4.i4blog.dto.user.ProfileRequestDTO;
 import com.i4.i4blog.repository.model.user.UserProfile;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -19,4 +19,18 @@ public interface UserProfileRepository {
             , @Param("thumbNail")
                  String thumbNail);
 
+    void changePw(@Param("id")
+                  Integer id
+            , @Param("newPw")
+                  String newPw);
+
+    void saveTitleInfo(
+            @Param("id")
+            Integer id
+            , @Param("info")
+            String info
+            , @Param("title")
+            String title);
+
+    void resign(String userId);
 }

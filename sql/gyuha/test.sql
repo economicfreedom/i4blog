@@ -234,7 +234,8 @@ insert into user(id, user_id, user_name, user_password, user_nickname, user_phon
 values (1, 'aaaa', 'bbbb', 'cccc', 'dddd', '1234', 'asdf@asdf');
 
 insert into profile(user_id, profile_title, profile_content)
-values (1, '타이틀은 뭐임?', '블로그 소개글');
+values (1007, '타이틀은 뭐임?', '블로그 소개글');
+
 
 update user
 set user_nickname = 'test1'
@@ -332,3 +333,8 @@ SELECT p.id
 FROM user u
          JOIN profile p ON u.id = p.user_id
 where u.id = 1004;
+
+select * from user
+where id =1007;
+select * from profile;
+
