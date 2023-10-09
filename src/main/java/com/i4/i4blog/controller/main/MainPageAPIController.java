@@ -1,5 +1,6 @@
 package com.i4.i4blog.controller.main;
 
+import com.i4.i4blog.dto.main.MainPageDTO;
 import com.i4.i4blog.repository.model.main.MainDTO;
 import com.i4.i4blog.service.main.MainService;
 import com.i4.i4blog.util.Criteria;
@@ -21,7 +22,7 @@ import java.util.List;
 public class MainPageAPIController {
     private final MainService mainService;
     @GetMapping("/default-pagedto")
-    public Object mainPage(@RequestParam Integer pageNum){
+    public MainPageDTO mainPage(@RequestParam Integer pageNum){
         Criteria criteria = new Criteria();
         criteria.setPageNum(pageNum);
         criteria.setCountPerPage(24);
@@ -34,8 +35,11 @@ public class MainPageAPIController {
         List<Object> list = new ArrayList<>();
         list.add(pageDTO);
         list.add(mainList);
+
 //        return pageDTO;
-        return list;
+        MainPageDTO mainPageDTO = new MainPageDTO(mainList,pageDTO);
+
+        return mainPageDTO;
 
     }
 //        @GetMapping("/default")

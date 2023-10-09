@@ -5,7 +5,7 @@ $(document).ready(function () {
     $(window).scroll(function () {
         var scrT = $(window).scrollTop();
 
-        if (scrT >= $(document).height() - $(window).height() - 10) {  // 10픽셀 근처에 왔을 때 동작
+        if (scrT >= $(document).height() - $(window).height() - 100) {  // 10픽셀 근처에 왔을 때 동작
             if (page_num === 1 || end_page > page_num || next) {
                 page_num++;
                 $.ajax({
@@ -13,11 +13,12 @@ $(document).ready(function () {
                     contentType: "application/json",
                     type: "get",
                     success: function (res) {
+                        console.log(res)
 
-                        end_page = res[0].endPage;
-                        next = res[0].next;
+                        end_page = res.pageDTO.endPage;
+                        next = res.pageDTO.next;
 
-                        let main_dto_list = res[1];
+                        let main_dto_list = res.mainDTOList;
 
                         for (let i = 0; i < main_dto_list.length; i++) {
                             let dto = main_dto_list[i];
