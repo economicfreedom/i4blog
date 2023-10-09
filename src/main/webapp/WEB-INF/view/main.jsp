@@ -1,62 +1,119 @@
 <%@ page contentType="text/html; charset=UTF-8" language="java" pageEncoding="UTF-8" %>
 <%@ include file="/WEB-INF/view/layout/header.jsp" %>
-<nav class="bg-dark navbar-dark">
-    <div class="container">
-        <a href="" class="navbar-brand"><i class="fas fa-tree mr-2"></i>Forest</a>
-    </div>
-</nav>
-<section id="header" class="jumbotron text-center">
-    <h1 class="display-3">FOREST</h1>
-    <p class="lead">Lorem ipsum, dolor sit amet consectetur adipisicing elit.</p>
-    <a href="" class="btn btn-primary">Click</a>
-    <a href="" class="btn btn-secondary">Click</a>
-</section>
+<style>
+    a:link {
+        text-decoration-line: none;
 
+        color: black;
+
+
+    }
+
+    a {
+        color: black;
+    }
+
+    a:hover {
+        color: gray;
+    }
+
+    .card {
+        transition: all 0.3s ease;
+        transform: translateY(0);
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    }
+
+</style>
+<script>
+    $(document).ready(function () {
+        let page_num = 1;
+
+        $(window).scroll(function () {
+            var scrT = $(window).scrollTop();
+
+            if (scrT >= $(document).height() - $(window).height() - 10) {  // 10픽셀 근처에 왔을 때 동작
+                page_num++;
+                $.ajax({
+                    url:"/default?pageNum="+page_num,
+                    contentType:"application/json",
+                    type:"get",
+                    success:function (res){
+                        console.log(res)
+                    }
+
+                })
+            } else {
+                //아닐때 이벤트
+            }
+        });
+
+
+    });
+</script>
 <section id="gallery">
     <div class="container">
+        <h1> hd</h1>
         <div class="row">
-            <div class="col-lg-4 mb-4">
-                <div class="card">
-                    <img src="https://images.unsplash.com/photo-1477862096227-3a1bb3b08330?ixlib=rb-1.2.1&auto=format&fit=crop&w=700&q=60"
-                         alt="" class="card-img-top">
-                    <div class="card-body">
-                        <h5 class="card-title">Sunset</h5>
-                        <p class="card-text">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ut eum similique
-                            repellat a laborum, rerum voluptates ipsam eos quo tempore iusto dolore modi dolorum in
-                            pariatur. Incidunt repellendus praesentium quae!</p>
-                        <a href="" class="btn btn-outline-success btn-sm">Read More</a>
-                        <a href="" class="btn btn-outline-danger btn-sm"><i class="far fa-heart"></i></a>
+            <c:forEach items="${mainList}" var="main">
+                <a href="/blog/${main.userId}/board/view/${main.boardId}">
+                    <div class="col-lg-4 mb-3">
+                        <div class="card">
+                            <c:if test="${main.boardThumbnail == null}">
+                                <img src="/img/default-board.jpg"
+                                     alt="" class="card-img-top">
+                            </c:if>
+                            <c:if test="${main.boardThumbnail != null}">
+                                <img src="${main.boardThumbnail }" class="card-img-top">
+
+
+                            </c:if>
+                            <div class="card-body">
+                                <h5 class="card-title">${main.boardTitle}</h5>
+                                <p class="card-text">${main.boardContent}</p>
+                                <small style="font-size: 11px; color: #42515f">
+                                        ${main.boardCreatedAt} · ${main.commentCount} 개의 댓글
+                                </small>
+                                <a href=""></a>
+
+                                <hr>
+                                <a href="#">
+                                    <c:if test="${main.imgThumbnail == null}">
+                                        <img src="/img/default-profile.png"
+                                             style="border-radius: 70%;"
+                                             width="30px"
+                                             height="30px">
+
+                                    </c:if>
+                                    <span class="small" style="color:gray">by</span>
+                                    <span style="font-size: 14px">${main.userNickname}</span>
+                                </a>
+                                <div style="float:right">
+                                    <c:if test="${principal==null}">
+                                        <small style="border: none;background-color: white; font-size: 22px;color: red;">
+                                            ♡
+                                        </small>
+                                    </c:if>
+                                    <c:if test="${principal!=null}">
+
+                                        <button style="border: none;background-color: white; font-size: 22px;color: red; ">
+                                            ♥
+                                        </button>
+                                    </c:if>
+
+                                    <small style="vertical-align: 3px; font-weight: bold">${main.likeCount}</small>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                </div>
-            </div>
-            <div class="col-lg-4 mb-4">
-                <div class="card">
-                    <img src="https://images.unsplash.com/photo-1516214104703-d870798883c5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=700&q=60"
-                         alt="" class="card-img-top">
-                    <div class="card-body">
-                        <h5 class="card-title">Sunset</h5>
-                        <p class="card-text">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ut eum similique
-                            repellat a laborum, rerum voluptates ipsam eos quo tempore iusto dolore modi dolorum in
-                            pariatur. Incidunt repellendus praesentium quae!</p>
-                        <a href="" class="btn btn-outline-success btn-sm">Read More</a>
-                        <a href="" class="btn btn-outline-danger btn-sm"><i class="far fa-heart"></i></a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4 mb-4">
-                <div class="card">
-                    <img src="https://images.unsplash.com/photo-1477862096227-3a1bb3b08330?ixlib=rb-1.2.1&auto=format&fit=crop&w=700&q=60"
-                         alt="" class="card-img-top">
-                    <div class="card-body">
-                        <h5 class="card-title">Sunset</h5>
-                        <p class="card-text">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ut eum similique
-                            repellat a laborum, rerum voluptates ipsam eos quo tempore iusto dolore modi dolorum in
-                            pariatur. Incidunt repellendus praesentium quae!</p>
-                        <a href="" class="btn btn-outline-success btn-sm">Read More</a>
-                        <a href="" class="btn btn-outline-danger btn-sm"><i class="far fa-heart"></i></a>
-                    </div>
-                </div>
-            </div>
+                </a>
+            </c:forEach>
+
+
         </div>
     </div>
     <%@ include file="/WEB-INF/view/layout/footer.jsp" %>

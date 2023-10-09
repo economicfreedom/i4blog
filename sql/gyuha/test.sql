@@ -334,7 +334,229 @@ FROM user u
          JOIN profile p ON u.id = p.user_id
 where u.id = 1004;
 
-select * from user
-where id =1007;
-select * from profile;
+select *
+from user
+where id = 1007;
+select *
+from profile;
 
+ALTER TABLE board
+    ADD board_thumbnail text;
+
+
+select *
+from board;
+
+
+SELECT u.user_nickname,
+       u.id,
+       b.id,
+       b.board_title,
+       date_format(b.board_created_at,'%Y년 %m월 %d일') as board_created_at,
+       IF(CHAR_LENGTH(b.board_content) > 136, CONCAT(SUBSTRING(b.board_content, 1, 136), '...'),
+          b.board_content)   AS board_content,
+       COALESCE(l.`like`, 0) AS like_count,
+       l.user_id             AS like_user,
+       count(*) over (partition by b.id,c.id) as comment_count
+
+
+FROM `user` u
+         JOIN
+     board b ON u.id = b.user_id
+         LEFT JOIN
+     profile p ON u.id = p.user_id
+         LEFT JOIN
+     `like` l ON b.id = l.board_id
+         LEFT JOIN
+     comment c ON b.id = c.board_id
+
+group by u.user_nickname, u.id, b.id, b.board_title,
+         IF(CHAR_LENGTH(b.board_content) > 136, CONCAT(SUBSTRING(b.board_content, 1, 136), '...'),
+            b.board_content), COALESCE(l.`like`, 0), l.user_id, B.board_created_at
+ORDER BY b.board_created_at
+
+LIMIT 24,24;
+
+
+
+select *
+from board
+where user_id = 43;
+insert into board(user_id, board_title, board_content, board_category) value (43, '좀돼라', '시발진짜', '아아');
+CREATE TABLE `user`
+(
+    `id`              int          NOT NULL COMMENT '고유 식별자 ID',
+    `user_id`         varchar(20)  NOT NULL COMMENT '로그인 ID',
+    `user_name`       varchar(45)  NOT NULL,
+    `user_password`   varchar(100) NOT NULL,
+    `user_nickname`   varchar(45)  NOT NULL,
+    `user_phone`      varchar(13)  NOT NULL,
+    `user_email`      varchar(100) NOT NULL,
+    `user_created_at` timestamp    NOT NULL DEFAULT now(),
+    `user_deleted_at` timestamp    NULL,
+    `user_state`      tinyint      NOT NULL DEFAULT 1 COMMENT '0:탈퇴, 1:활성화',
+    `user_role`       tinyint      NOT NULL DEFAULT 1 COMMENT '0:관리자, 1:회원'
+);
+
+CREATE TABLE `board`
+(
+    `id`               int          NOT NULL COMMENT '고유 식별자 ID',
+    `user_id`          int          NOT NULL,
+    `board_title`      varchar(150) NOT NULL,
+    `board_content`    longtext     NOT NULL,
+    `board_category`   varchar(30)  NOT NULL,
+    `board_created_at` timestamp    NOT NULL DEFAULT now(),
+    `board_updated_at` timestamp    NULL     DEFAULT now(),
+    `board_deleted_at` timestamp    NULL,
+    `board_count`      int          NULL     DEFAULT 0,
+    `board_public`     tinyint      NOT NULL DEFAULT 1 COMMENT '0:비공개, 1:공개',
+    `board_state`      tinyint      NOT NULL DEFAULT 1 COMMENT '0:삭제, 1:존재'
+);
+
+CREATE TABLE `comment`
+(
+    `id`                 int           NOT NULL COMMENT '고유 식별자 ID',
+    `comment_writer`     int           NOT NULL COMMENT '고유 식별자 ID',
+    `board_id`           int           NOT NULL COMMENT '고유 식별자 ID',
+    `user_id`            int           NOT NULL,
+    `comment_content`    varchar(3000) NOT NULL,
+    `comment_created_at` timestamp     NOT NULL DEFAULT now(),
+    `comment_updated_at` timestamp     NULL     DEFAULT now(),
+    `comment_deleted_at` timestamp     NULL,
+    `comment_public`     tinyint       NOT NULL DEFAULT 1 COMMENT '0:비공개, 1:공개',
+    `comment_state`      tinyint       NOT NULL DEFAULT 1 COMMENT '0:삭제, 1:존재'
+);
+
+CREATE TABLE `report`
+(
+    `id`                int          NOT NULL COMMENT '고유 식별자 ID',
+    `user_id`           int          NOT NULL COMMENT '고유 식별자 ID',
+    `board_id`          int          NULL,
+    `comment_id`        int          NULL,
+    `report_content`    varchar(100) NOT NULL,
+    `report_type`       varchar(10)  NOT NULL COMMENT '신고된 글 유형(게시글/댓글)',
+    `report_created_at` timestamp    NOT NULL DEFAULT now()
+);
+
+CREATE TABLE `profile`
+(
+    `id`              int          NOT NULL COMMENT '고유 식별자 ID',
+    `user_id`         int          NOT NULL COMMENT '고유 식별자 ID',
+    `profile_title`   varchar(100) NOT NULL,
+    `profile_content` text         NULL,
+    `img_original`    text         NULL,
+    `img_thumbnail`   text         NULL
+);
+
+CREATE TABLE `category`
+(
+    `id`            int         NOT NULL COMMENT '고유 식별자 ID',
+    `user_id`       int         NOT NULL,
+    `category_name` varchar(30) NOT NULL
+);
+
+CREATE TABLE `follow`
+(
+    `id`           int NOT NULL COMMENT '고유 식별자 ID',
+    `follower_id`  int NOT NULL COMMENT '팔로우하려는 사람',
+    `following_id` int NOT NULL COMMENT '팔로우 대상자'
+);
+
+CREATE TABLE `like`
+(
+    `board_id` int NOT NULL COMMENT '고유 식별자 ID',
+    `like`     int NOT NULL DEFAULT 0 COMMENT '좋아요개수',
+    `user_id`  int NOT NULL COMMENT '고유 식별자 ID'
+);
+
+CREATE TABLE `gpt`
+(
+    `id`       int      NOT NULL,
+    `user_id`  int      NOT NULL COMMENT '고유 식별자 ID',
+    `board_id` int      NOT NULL COMMENT '고유 식별자 ID',
+    `request`  text     NOT NULL,
+    `response` longtext NOT NULL,
+    `count`    TINYINT  NOT NULL DEFAULT 3 COMMENT '0이 되면 사용불가'
+);
+
+CREATE TABLE `Untitled`
+(
+    `id`          int NOT NULL COMMENT '고유 식별자 ID',
+    `follow_from` int NOT NULL COMMENT '팔로우 하는 회원 번호',
+    `follow_to`   int NOT NULL COMMENT '팔로우 대상 회원 번호'
+);
+
+ALTER TABLE `user`
+    ADD CONSTRAINT `PK_USER` PRIMARY KEY (
+                                          `id`
+        );
+
+ALTER TABLE `board`
+    ADD CONSTRAINT `PK_BOARD` PRIMARY KEY (
+                                           `id`
+        );
+
+ALTER TABLE `comment`
+    ADD CONSTRAINT `PK_COMMENT` PRIMARY KEY (
+                                             `id`
+        );
+
+ALTER TABLE `report`
+    ADD CONSTRAINT `PK_REPORT` PRIMARY KEY (
+                                            `id`
+        );
+
+ALTER TABLE `profile`
+    ADD CONSTRAINT `PK_PROFILE` PRIMARY KEY (
+                                             `id`
+        );
+
+ALTER TABLE `category`
+    ADD CONSTRAINT `PK_CATEGORY` PRIMARY KEY (
+                                              `id`
+        );
+
+ALTER TABLE `follow`
+    ADD CONSTRAINT `PK_FOLLOW` PRIMARY KEY (
+                                            `id`
+        );
+
+ALTER TABLE `gpt`
+    ADD CONSTRAINT `PK_GPT` PRIMARY KEY (
+                                         `id`
+        );
+
+ALTER TABLE `Untitled`
+    ADD CONSTRAINT `PK_UNTITLED` PRIMARY KEY (
+                                              `id`
+        );
+
+ALTER TABLE `user`
+    MODIFY `id` int NOT NULL AUTO_INCREMENT;
+ALTER TABLE `board`
+    MODIFY `id` int NOT NULL AUTO_INCREMENT;
+ALTER TABLE `comment`
+    MODIFY `id` int NOT NULL AUTO_INCREMENT;
+ALTER TABLE `report`
+    MODIFY `id` int NOT NULL AUTO_INCREMENT;
+ALTER TABLE `profile`
+    MODIFY `id` int NOT NULL AUTO_INCREMENT;
+ALTER TABLE `category`
+    MODIFY `id` int NOT NULL AUTO_INCREMENT;
+ALTER TABLE `follow`
+    MODIFY `id` int NOT NULL AUTO_INCREMENT;
+ALTER TABLE `gpt`
+    MODIFY `id` int NOT NULL AUTO_INCREMENT;
+ALTER TABLE `Untitled`
+    MODIFY `id` int NOT NULL AUTO_INCREMENT;
+
+INSERT INTO `profile` (`user_id`, `profile_title`, `profile_content`, `img_original`, `img_thumbnail`)
+VALUES (1, 'John\'s Profile', 'Hello, I am John from New York. I love hiking and photography.',
+        'path/to/john/original.jpg', 'path/to/john/thumbnail.jpg'),
+       (2, 'Jane\'s Profile', 'Hi, Jane here! I am a software developer and a tech enthusiast.',
+        'path/to/jane/original.jpg', 'path/to/jane/thumbnail.jpg'),
+       (3, 'Mike\'s Profile', 'Mike here. I am a professional chef. Cooking is my passion.',
+        'path/to/mike/original.jpg', 'path/to/mike/thumbnail.jpg');
+
+select *
+from profile;

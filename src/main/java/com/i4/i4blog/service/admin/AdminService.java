@@ -61,16 +61,16 @@ public class AdminService {
     public SevenDaysDataDTO getSevenDaysDataDTO() {
         List<GraphDataVO> user =
                 adminRepository.countDataForLastSevenDays("user"
-                        , "user_regdate");
+                        , "user_created_at");
         List<GraphDataVO> board =
                 adminRepository.countDataForLastSevenDays("board"
-                        , "board_created");
+                        , "board_created_at");
         List<GraphDataVO> comment =
                 adminRepository.countDataForLastSevenDays("comment"
-                        , "comment_date");
+                        , "comment_created_at");
         List<GraphDataVO> report =
                 adminRepository.countDataForLastSevenDays("report"
-                        , "report_date");
+                        , "report_created_at");
 
         List<Integer> userCounts = extractCountsAndDates(user).getLeft();
         List<Integer> boardCounts = extractCountsAndDates(board).getLeft();
