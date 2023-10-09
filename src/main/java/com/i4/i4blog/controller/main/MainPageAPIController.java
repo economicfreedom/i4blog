@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -19,8 +20,8 @@ import java.util.List;
 @RequiredArgsConstructor
 public class MainPageAPIController {
     private final MainService mainService;
-    @GetMapping("/default")
-    public PageDTO mainPage(@RequestParam Integer pageNum){
+    @GetMapping("/default-pagedto")
+    public Object mainPage(@RequestParam Integer pageNum){
         Criteria criteria = new Criteria();
         criteria.setPageNum(pageNum);
         criteria.setCountPerPage(24);
@@ -30,10 +31,14 @@ public class MainPageAPIController {
         pageDTO.setCri(criteria);
 
         pageDTO.setArticleTotalCount(count);
-
-        return pageDTO;
+        List<Object> list = new ArrayList<>();
+        list.add(pageDTO);
+        list.add(mainList);
+//        return pageDTO;
+        return list;
 
     }
+//        @GetMapping("/default")
 
 
 }

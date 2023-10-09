@@ -28,7 +28,7 @@
                             <c:choose>
                                 <c:when test="${profile.imgThumbnail==null}">
 
-                                    <img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt=""
+                                    <img src="/img/default-profile" alt=""
                                          class="d-block ui-w-80" id="image-preview">
                                 </c:when>
                                 <c:otherwise>

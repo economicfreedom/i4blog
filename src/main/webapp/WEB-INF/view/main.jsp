@@ -29,36 +29,13 @@
     }
 
 </style>
-<script>
-    $(document).ready(function () {
-        let page_num = 1;
+<script src="/js/main-page.js">
 
-        $(window).scroll(function () {
-            var scrT = $(window).scrollTop();
-
-            if (scrT >= $(document).height() - $(window).height() - 10) {  // 10픽셀 근처에 왔을 때 동작
-                page_num++;
-                $.ajax({
-                    url:"/default?pageNum="+page_num,
-                    contentType:"application/json",
-                    type:"get",
-                    success:function (res){
-                        console.log(res)
-                    }
-
-                })
-            } else {
-                //아닐때 이벤트
-            }
-        });
-
-
-    });
 </script>
 <section id="gallery">
     <div class="container">
         <h1> hd</h1>
-        <div class="row">
+        <div class="row" id="main-page">
             <c:forEach items="${mainList}" var="main">
                 <a href="/blog/${main.userId}/board/view/${main.boardId}">
                     <div class="col-lg-4 mb-3">

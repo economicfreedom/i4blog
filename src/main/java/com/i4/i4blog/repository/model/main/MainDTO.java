@@ -14,9 +14,9 @@ public class MainDTO {
     private Integer boardId;
     private String boardTitle;
     private String boardContent;
+    private String boardThumbnail;
     private Integer likeCount;
     private Integer likeUserId;
-    private String boardThumbnail;
     private String imgThumbnail;
     private Integer commentCount;
     private String boardCreatedAt;
