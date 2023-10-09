@@ -1,13 +1,11 @@
 package com.i4.i4blog.service.user;
 
-import com.i4.i4blog.dto.user.UserJoinFormDto;
-import com.i4.i4blog.repository.model.user.User;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-
+import com.i4.i4blog.dto.user.UserJoinFormDto;
 import com.i4.i4blog.repository.interfaces.user.UserRepository;
-
+import com.i4.i4blog.repository.model.user.User;
 
 import lombok.RequiredArgsConstructor;
 
@@ -17,7 +15,10 @@ public class UserService {
 	private final UserRepository userRepository;
 	private final PasswordEncoder passwordEncoder;
 	
-
+	/**
+	 * 회원가입 기능 서비스
+	 * @param userJoinFormDto
+	 */
 	public void userJoinService(UserJoinFormDto userJoinFormDto) {
 		String encodePassword = passwordEncoder.encode(userJoinFormDto.getUserPassword());
 		User user = User.builder()
@@ -38,5 +39,9 @@ public class UserService {
 
 	public Integer getId(String userId) {
 		return userRepository.getId(userId);
+	}
+
+	public Integer findByUserIdCheck(String userId) {
+		return userRepository.findByUserIdCheck(userId);
 	}
 }

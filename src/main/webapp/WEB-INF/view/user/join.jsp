@@ -23,6 +23,11 @@
 						placeholder="비밀번호" >
 			</div>
 			<div class="col">
+				<label for="userPassword2">비밀번호 확인</label>
+					<input type="password" id="userPassword2" name="userPassword2" class="form-control"
+						placeholder="비밀번호 확인" >
+			</div>
+			<div class="col">
 				<label for="userName">이름</label>
 					<input type="text" id="userName" name="userName" class="form-control"
 						placeholder="이름" maxlength="10">
