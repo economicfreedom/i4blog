@@ -17,9 +17,11 @@ public class Board {
 	private String boardTitle;
 	private String boardContent;
 	private String boardCategory;
-	private Timestamp boardCreated;
-	private Timestamp boardUpdate;
+	private Timestamp boardCreatedAt;
+	private Timestamp boardUpdatedAt;
+	private Timestamp boardDeletedAt;
 	private Integer boardCount;
 	private Integer boardPublic;
 	private Integer boardState;
+	private String boardThumbnail;
 }

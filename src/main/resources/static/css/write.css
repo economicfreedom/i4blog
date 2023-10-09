@@ -1,0 +1,32 @@
+.form-option {
+	display: flex;
+	justify-content: space-between;
+}
+
+.form-option .category {
+	border: 1px solid #ced4da;
+	border-radius: 0.25rem;
+	width: 70%;
+	height: calc(1.5em + .75rem + 2px);
+	line-height: calc(1.5em + .75rem + 2px);
+}
+
+.form-option .category label {
+	width: 15%;
+	text-align: center;
+}
+
+
+.form-option .input-radio {
+	border: 1px solid #ced4da;
+	border-radius: 0.25rem;
+	width: 29%;
+	height: calc(1.5em + .75rem + 2px);
+	line-height: calc(1.5em + .75rem + 2px);
+	text-align: center
+}
+
+.boardCategory {
+	width: 83%;
+	border: none;
+}
