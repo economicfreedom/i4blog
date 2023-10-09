@@ -69,6 +69,7 @@ public class BoardController {
 	
 	@GetMapping("/view/{id}")
 	public String boardView(Model model, @PathVariable Integer id) {
+
 		boardService.updateCount(id);
 		BoardVO board = boardService.findById(id);
 		model.addAttribute("board", board);
