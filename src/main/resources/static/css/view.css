@@ -1,0 +1,39 @@
+.category {
+	margin-top: 10px;
+	color: rgb(123, 109, 109);
+	display: flex;
+	justify-content: space-between;
+}
+
+.title {
+	margin-bottom : 40px;
+}
+
+.view-container {
+	display: flex;
+	justify-content: space-between;
+	border-bottom: 1px solid rgb(123, 109, 109);
+}
+
+.view-container .information {
+	display: flex;
+	justify-content: start;
+}
+
+.view-container .information p:first-child {
+	margin-right: 30px;
+	font-weight: bold;
+}
+
+.view-container .information p:nth-child(2) {
+	color: rgb(123, 109, 109);
+}
+
+.like-heart {
+    color: gray;
+    cursor: pointer;
+}
+
+.content {
+	margin: 50px 0;
+}

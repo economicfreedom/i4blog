@@ -10,6 +10,10 @@ import com.i4.i4blog.vo.board.BoardVO;
 
 @Mapper
 public interface BoardRepository {
+	/**
+	 * 게시글 작성
+	 * @param board
+	 */
     public int insert(Board board);
 
     /**
@@ -19,24 +23,28 @@ public interface BoardRepository {
 	 */
     public int deleteById(Integer id);
     
+    /**
+     * 사용자의 게시글 목록 (userId로 게시글 목록보기)
+     * @param userId
+     * @return List<Board>
+     */
     public List<Board> findByUserId(Integer userId);
+    
     public List<Board> findAllByUserId(Integer userId);
     
+    /**
+     * 게시글 id로 글 상세보기
+     * @param id
+     * @return 
+     */
     public BoardVO findById(Integer id);
-    public int updateCount(Integer id);
     
-//  서비스에서 처리
-//  if문을 걸어서 board에 있는 user_id(프라이머리키) 얘를 가지고
-//  프린시펄에 있는 getName으로 user테이블에 user_id(아이디)를 사용해서 id를 가져옴
-//  이 두개를 비교해서 같으면 따로 board List 메소드를 만들어서 처리한다던지
-
-  
-//  id를 가지고 다시 user테이블에서 user_id의 값을 가져옴
-//  프린시펄에 있는 if(principal.getName().equals(userId)) {
-//  	 같을 시 로직 처리
-//  	{
-//  		다를 시 로직 처리
-//  	}
-  
-//  }
+    /**
+     * 조회수 +1
+     * @param id
+     */
+    public int updateCount(Integer id);
+    public int updateById(Integer id);
+    public Board getBoard(Integer id);
+    
 }

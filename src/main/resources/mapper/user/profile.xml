@@ -8,8 +8,8 @@
     </update>
     <update id="saveImg">
         update profile
-        set profile_filename = #{originalImg},
-            profile_filepath =#{thumbNail}
+        set img_original = #{originalImg},
+            img_thumbnail =#{thumbNail}
         where user_id = (select id
                          from user
                          where user_id = #{userId})
@@ -34,8 +34,8 @@ SELECT p.id
      , u.id             AS user_id
      , profile_title
      , profile_content
-     , profile_filename as img_original
-     , profile_filepath as img_thumbnail
+     , img_original
+     , img_thumbnail
      , user_nickname
      , user_email
 FROM user u

@@ -1,29 +1,34 @@
 <%@ page contentType="text/html; charset=UTF-8" language="java" pageEncoding="UTF-8" %>
-<%@ include file="/WEB-INF/view/layout/header.jsp"%>
+<%@ include file="/WEB-INF/view/layout/category-header.jsp"%>
+<link rel="stylesheet" href="/css/view.css">
 
 
 <div class="container">
-	<div class="py-5 text-center">
-		<h1>게시글 상세보기 페이지</h1>
-	</div>
-	<div class="form-group">
+	<div class="form-group category">
 		<p>${board.boardCategory}</p>
+		
 	</div>
-	<div class="form-group">
-		<p>${board.userNickname}</p>
+	<div class="title">
+		<h1>${board.boardTitle}</h1>
 	</div>
-	<div class="form-group">
-		<p>${board.boardCreated}</p>
+	<div class="form-group view-container">
+		<div class="information">
+			<p>${board.userNickname}</p>
+			<p>${board.boardCreatedAt}</p>
+		</div>
+		<div class="function">
+			<span class="like-heart" onclick="likeToggle(this)">&#10084;</span>
+		</div>
 	</div>
-	<div class="form-group">
-		<h3>${board.boardTitle}</h3>
-	</div>
-	<div class="form-group">
+	<div class="form-group content">
 		<h5>${board.boardContent}</h5>
 	</div>
 	
+	<c:if test="board.userId == ${principal.id}">
+	</c:if>
+	<a href="/blog/${principal.id}/board/update/${board.id}" class="btn btn-warning">수정하기</a>
 	<button class="btn btn-secondary" onclick="history.back()">돌아가기</button>
 </div>
 
 
-<%@ include file="/WEB-INF/view/layout/footer.jsp"%>
+<%@ include file="/WEB-INF/view/layout/category-footer.jsp"%>

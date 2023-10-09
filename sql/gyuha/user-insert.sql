@@ -5,7 +5,7 @@ BEGIN
     DECLARE i INT DEFAULT 1;
 
     WHILE i <= 100 DO
-        INSERT INTO `user` (`user_id`, `user_name`, `user_password`, `user_nickname`, `user_phone`, `user_email`)
+        INSERT INTO user (`user_id`, `user_name`, `user_password`, `user_nickname`, `user_phone`, `user_email`)
         VALUES (
             CONCAT('userid', i), -- user_id
             CONCAT('홍길동', i), -- user_name

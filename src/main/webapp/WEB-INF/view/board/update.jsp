@@ -10,10 +10,11 @@
 
 <div class="container">
 	<div class="py-5 text-center">
-		<h3>블로그 글쓰기</h3>
+		<h3>글 수정하기</h3>
 	</div>
 
-	<form action="/blog/${principal.userId}/board/write" method="post">
+	<form action="/blog/${principal.userId}/board/update" method="post">
+		<input type="hidden" name="id" value="${board.id}">
 		<input type="hidden" name="userId" value="${principal.id}">
 		<div class="form-group form-option">
 			<div class="category">
@@ -40,7 +41,7 @@
 
 		<div class="form-group">
 		    <label for="boardTitle">제목</label>
-		    <input type="text" id="boardTitle" name="boardTitle" class="form-control" placeholder="글 제목을 입력하세요.">
+		    <input value="${board.boardTitle}" type="text" id="boardTitle" name="boardTitle" class="form-control" placeholder="글 제목을 입력하세요.">
 	  	</div>
 
 		<!-- 섬네일 start -->
@@ -51,11 +52,9 @@
 		<div class="uploadResult"></div>
 		<!-- 섬네일 end -->
 
-		<textarea id="summernote" name="boardContent"
-			placeholder="글 내용을 입력하세요."></textarea>
-		<button type="submit" class="btn btn-primary">게시글 등록</button>
-		<button type="button" class="btn btn-secondary"
-			onclick="history.back()">취소</button>
+		<textarea id="summernote" name="boardContent" placeholder="글 내용을 입력하세요.">${board.boardContent}</textarea>
+		<button type="submit" class="btn btn-primary">수정 완료</button>
+		<button type="button" class="btn btn-secondary"	onclick="history.back()">취소</button>
 	</form>
 
 </div>

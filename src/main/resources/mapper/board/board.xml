@@ -3,8 +3,8 @@
 <mapper namespace="com.i4.i4blog.repository.interfaces.board.BoardRepository">
 
 	<insert id="insert">
-		INSERT INTO BOARD (user_id, board_title, board_content, board_category, board_public)
-		 VALUE (#{userId}, #{boardTitle}, #{boardContent}, #{boardCategory}, #{boardPublic})
+		INSERT INTO BOARD (user_id, board_title, board_content, board_category, board_public, board_thumbnail)
+		 VALUE (#{userId}, #{boardTitle}, #{boardContent}, #{boardCategory}, #{boardPublic}, #{boardThumbnail})
 	</insert>
 
 	<select id="findByUserId" resultType="com.i4.i4blog.repository.model.board.Board">
@@ -12,6 +12,7 @@
 		  FROM board 
 		 WHERE user_id = #{userId}
   	 	   AND board_public = 1
+  	 	 ORDER BY board_created_at DESC
 	</select>
 
 	<select id="findAllByUserId" resultType="com.i4.i4blog.repository.model.board.Board">
@@ -27,7 +28,7 @@
 	</update>
 	
 	<select id="findById" resultType="com.i4.i4blog.vo.board.BoardVO">
-		SELECT b.id, b.board_title, b.board_title, b.board_created, b.board_category, u.user_nickname
+		SELECT b.id, b.board_title, b.board_content, b.board_created_at, b.board_category, u.user_nickname
 		  FROM board b
 		  JOIN user u
 		    ON b.user_id = u.id
@@ -40,5 +41,21 @@
 		 WHERE id = #{id}
 	</update>
 	
+	<update id="updateById">
+		UPDATE board
+		   SET board_title = #{boardTitle},
+		   	   board_content = #{boardContent},
+			   board_category = #{boardCategory},
+		       board_updated_at = now(),
+		       board_public = #{boardPublic},
+		       board_thumbnail = #{boardThumbnail}
+		 WHERE id = #{id}
+	</update>
+	
+	<select id="getBoard" resultType="com.i4.i4blog.repository.model.board.Board">
+		SELECT *
+		  FROM board 
+		 WHERE id = #{id}
+	</select>
 	
 </mapper>
