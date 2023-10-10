@@ -28,7 +28,7 @@
 	</update>
 	
 	<select id="findById" resultType="com.i4.i4blog.vo.board.BoardVO">
-		SELECT b.id, b.board_title, b.board_content, b.board_created_at, b.board_category, u.user_nickname
+		SELECT b.id, b.board_title, b.board_content, b.board_created_at, b.board_category, u.user_nickname, u.user_id,u.id AS uId
 		  FROM board b
 		  JOIN user u
 		    ON b.user_id = u.id

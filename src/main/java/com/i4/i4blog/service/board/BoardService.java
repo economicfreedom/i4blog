@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.i4.i4blog.dto.board.BoardUpdateFormDto;
 import com.i4.i4blog.dto.board.BoardWriteFormDto;
 import com.i4.i4blog.repository.interfaces.board.BoardRepository;
+import com.i4.i4blog.repository.interfaces.user.UserRepository;
 import com.i4.i4blog.repository.model.board.Board;
 import com.i4.i4blog.vo.board.BoardVO;
 
@@ -20,18 +21,21 @@ import lombok.extern.slf4j.Slf4j;
 public class BoardService {
 
 	private final BoardRepository boardRepository;
-	
+	private final UserRepository userRepository;
 	/**
 	 * 게시글 작성
 	 * @param boardWriteFormDto
 	 */
-	public void boardWriteService(BoardWriteFormDto boardWriteFormDto) {
+	public void boardWriteService(BoardWriteFormDto boardWriteFormDto,Principal principal) {
+//		Integer uid = userRepository.getId(principal.getName());
 		Board board = Board.builder()
-				.userId(boardWriteFormDto.getUserId())
+//				.userId(uid)
+				.userId(1)
 				.boardCategory(boardWriteFormDto.getBoardCategory())
 				.boardTitle(boardWriteFormDto.getBoardTitle())
 				.boardContent(boardWriteFormDto.getBoardContent())
 				.boardPublic(boardWriteFormDto.getBoardPublic())
+				.boardThumbnail(boardWriteFormDto.getThumbnail())
 				.build();
 		
 		int result = boardRepository.insert(board);

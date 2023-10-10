@@ -36,31 +36,19 @@ public class BoardController {
 		return "board/write";
 	}
 	
-	/**
-	 * 게시글 작성 기능
-	 * @param boardWriteFormDto
-	 * @return list.jsp
-	 * 게시글 작성 후 목록으로 redirect
-	 */
-	@PostMapping("/write")
-	public String boardWriteProc(BoardWriteFormDto boardWriteFormDto, Principal principal) {
-		log.info("작성된 글 {}",boardWriteFormDto);
-		boardService.boardWriteService(boardWriteFormDto);
-		
-		return "redirect:/blog/" + principal.getName() + "/board/list";
-	}
-	
+
 	/**
 	 * 사용자의 게시글 리스트 페이지
 	 */
 	@GetMapping("/list")
 	public String boardList(Model model	, Principal principal) {
-		String name = principal.getName();
-        log.info("로그인한 아이디 {}",name);
+//		String name = principal.getName();
+//        log.info("로그인한 아이디 {}",name);
 		List<Board> boardList = boardService.findByUserId(1);
 		if (boardList.isEmpty()) {
 			model.addAttribute("boardList", null);
 		} else {
+			log.info("boardList {} ",boardList);
 			model.addAttribute("boardList", boardList);
 		}
 		
@@ -104,6 +92,8 @@ public class BoardController {
 		log.info("수정된 글 {}", boardUpdateFormDto);
 		boardService.boardUpdateService(boardUpdateFormDto);
 		
-		return "redirect:/blog/" + principal.getName() + "/board/list";
+//		return "redirect:/blog/" + principal.getName() + "/board/list";
+		// 임시
+		return "redirect:/blog/" + 1 + "/board/list";
 	}
 }

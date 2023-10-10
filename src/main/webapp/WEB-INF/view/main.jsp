@@ -40,7 +40,7 @@
                 <a href="/blog/${main.userId}/board/view/${main.boardId}">
                     <div class="col-lg-4 mb-3">
                         <div class="card">
-                            <c:if test="${main.boardThumbnail == null}">
+                            <c:if test="${main.boardThumbnail == null || main.boardThumbnail.isEmpty()}">
                                 <img src="/img/default-board.jpg"
                                      alt="" class="card-img-top">
                             </c:if>

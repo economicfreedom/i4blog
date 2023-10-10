@@ -13,7 +13,8 @@
 		<h3>글 수정하기</h3>
 	</div>
 
-	<form action="/blog/${principal.userId}/board/update" method="post">
+	<%-- <form action="/blog/${principal.userId}/board/update" method="post"> --%>
+	<form action="/blog/1/board/update" method="post">
 		<input type="hidden" name="id" value="${board.id}">
 		<input type="hidden" name="userId" value="${principal.id}">
 		<div class="form-group form-option">

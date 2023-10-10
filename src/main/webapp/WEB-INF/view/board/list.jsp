@@ -11,7 +11,14 @@
 			<c:forEach var="list" items="${boardList}">
 				<div class="col">
 					<div class="card" style="width: 14rem; margin-bottom: 15px">
-					  <img src="/img/blog-icon.png" class="card-img-top" alt="..."  width="230px" height="230px">
+					
+					<c:if test="${list.boardThumbnail == null || list.boardThumbnail == ''}">
+					  <img src="/img/default-board.jpg" class="card-img-top" alt="...">
+					</c:if>
+					
+					<c:if test="${list.boardThumbnail != null }">
+					  <img src="${list.boardThumbnail}" class="card-img-top" alt="...">
+					</c:if>
 					  <div class="card-body">
 					    <h5 class="card-title">${list.boardTitle}</h5>
 					    <a href="/blog/${list.userId}/board/view/${list.id}" class="btn btn-primary">내용 보기</a>

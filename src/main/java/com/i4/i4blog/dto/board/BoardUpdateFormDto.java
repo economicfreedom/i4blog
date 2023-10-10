@@ -10,5 +10,5 @@ public class BoardUpdateFormDto {
 	private String boardContent;
 	private String boardCategory;
 	private Integer boardPublic;
-	private String boardThumbnail;
+	private String thumbnail;
 }

@@ -342,6 +342,7 @@ from profile;
 
 ALTER TABLE board
     ADD board_thumbnail text;
+    
 
 
 select *

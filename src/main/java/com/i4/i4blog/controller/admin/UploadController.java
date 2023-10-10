@@ -105,9 +105,9 @@ public class UploadController {
                 resultDTOList.add(new UploadResultDTO(fileName, uuid, folderPath));
                 uploadResponseDTO = UploadResponseDTO.builder()
                         .uploadResultDTOList(resultDTOList)
-                        .thumbnailURL(saveNameDB)
-                        .originalURL(thumbnailSaveDB).build();
-
+                        .thumbnailURL(thumbnailSaveDB)
+                        .originalURL(saveNameDB).build();
+                
             } catch (IOException e) {
                 e.printStackTrace();
             }
