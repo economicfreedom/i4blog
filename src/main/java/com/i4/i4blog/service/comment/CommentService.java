@@ -42,7 +42,6 @@ public class CommentService {
 		comment.setCommentContent(commentCreatetDto.getCommentContent());
 		comment.setUserId(commentCreatetDto.getUserId());
 		comment.setBoardId(commentCreatetDto.getBoardId());
-		comment.setCommentWriter(commentCreatetDto.getCommentWriter());
 		int result = commentRepository.create(comment);
 		return result;
 		

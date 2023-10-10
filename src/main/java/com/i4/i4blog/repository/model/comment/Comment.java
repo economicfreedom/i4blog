@@ -14,8 +14,8 @@ import lombok.NoArgsConstructor;
 public class Comment {
 	
 	private Integer id;
-	private String userId;
-	private String boardId;
+	private Integer userId;
+	private Integer boardId;
 	private String commentWriter;
 	private String commentContent;
 	private Timestamp commentCreated;
