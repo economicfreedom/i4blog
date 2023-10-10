@@ -24,4 +24,5 @@ public class Comment {
 	private String commentState;
 	
 	
+	
 }
