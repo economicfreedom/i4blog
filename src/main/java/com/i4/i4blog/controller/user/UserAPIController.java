@@ -70,7 +70,7 @@ public class UserAPIController {
      * 존재 하는 아이디면 IllegalAccessException 터트림
      * NicknameValidHandler 클래스에 alreadyNickname 참고
      */
-    @GetMapping("/userId-check")
+    @GetMapping("/user-id-check")
     public ResponseEntity<?> userIdCheck(
             @RequestParam
             @Pattern(regexp = "^[a-zA-Z0-9]{4,20}$"
@@ -100,7 +100,7 @@ public class UserAPIController {
      * 회원가입 기능
      */
     @PostMapping("/join")
-    public ResponseEntity joinProc(@Valid @RequestBody UserJoinFormDto userJoinFormDto, BindingResult bindingResult) {
+    public ResponseEntity<?> joinProc(@Valid @RequestBody UserJoinFormDto userJoinFormDto, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             throw new ConstraintViolationException("회원가입 실패", null);
         }

@@ -4,6 +4,8 @@ import com.i4.i4blog.repository.model.user.UserProfile;
 import com.i4.i4blog.service.user.UserProfileService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.access.prepost.PostAuthorize;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,6 +29,7 @@ public class UserProfileController {
      * 프로필 세팅 경로
      */
     @GetMapping("/profile-setting")
+    @PostAuthorize("isAuthenticated()")
     public String profile(Model model
                         ,Principal principal
     ) {

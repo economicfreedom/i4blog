@@ -20,6 +20,7 @@ public class MainPageController {
     public String mainPage(Model model){
         Criteria criteria = new Criteria();
         criteria.setCountPerPage(24);
+        criteria.setType("");
         List<MainDTO> mainList = mainService.defaultMainPage(criteria);
         model.addAttribute("mainList",mainList);
 
