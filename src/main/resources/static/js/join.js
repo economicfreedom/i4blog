@@ -1,11 +1,11 @@
-/*
+
 $(document).ready(function () {
 	let userId_check = false;
 	let password_check = false;
 	let password2_check = false;
-	let nickname_check = false;	
+	let nickname_check = false;
 	let phone_check = false;
-	
+
 	let expUserId = /[^0-9a-zA-Z]/gi;
 	let expEmail = /[a-z0-9]+@[a-z]+\.[a-z]{2,3}/;
 	let expUserName = /[^가-힣a-zA-Z]/gi;
@@ -14,7 +14,7 @@ $(document).ready(function () {
         clearTimeout(timeout);
         timeout = setTimeout(function () {
 			if(expUserId.test(data.userId)){
-				
+
 			}
             let userId = $("#userId").val();
             $.ajax({
@@ -52,7 +52,7 @@ $(document).ready(function () {
             				"pw-check", ture, "사용 가능"))
                     .focus();
                 password_check = true;
-                
+
         		$("#pw-check2").remove();
                 password2_check = false;
             } else {
@@ -63,11 +63,11 @@ $(document).ready(function () {
             				"pw-check", false, "비밀번호는 4~16글자만 가능합니다."))
                     .focus();
                 password_check = false;
-                
+
         		$("#pw-check2").remove();
                 password2_check = false;
             }
-            
+
             clearTimeout(timeout);
         }, 100);
     })
@@ -102,7 +102,7 @@ $(document).ready(function () {
             clearTimeout(timeout);
         }, 100);
     })
-    
+
 	// 닉네임 중복 검사
     $("#nickname").on('keyup', function () {
         clearTimeout(timeout);
@@ -132,7 +132,7 @@ $(document).ready(function () {
             })
         }, 200)
     })
-	
+
 	// 휴대전화 값 자동 변환 '000-0000-0000' 및 체크
 	$("#userPhone").on('keyup', function (event, target) {
         let pw_succeed = get_br_and_small_tag_succeed(
@@ -158,7 +158,7 @@ $(document).ready(function () {
 	        phone_check = false;
 		}
 	})
-	
+
 	// 데이터 체크 성공
     function get_br_and_small_tag(tag_id, is_true, msg) {
 		if(is_true == true)
@@ -166,7 +166,7 @@ $(document).ready(function () {
         else
 	        return '<br id="' + tag_id + '">' + '<small id="' + tag_id + '" style="color: red">' + msg + '</small>'
     }
-	
+
 	// 회원가입 기능
 	function join(){
 		let userJoinFormDto = {
@@ -177,7 +177,7 @@ $(document).ready(function () {
 				userPhone : document.querySelector("#userPhone").value,
 				userEmail : document.querySelector("#userEmail").value
 		};
-		
+
 		if(validCheck(userJoinFormDto)) {
 			$.ajax({
 			    url:"/user/join",
@@ -199,7 +199,7 @@ $(document).ready(function () {
 			console.log("회원가입 입력값 확인");
 		}
 	}
-	
+
 	// 입력값 체크
 	function validCheck(data) {
 		if(userId_check) {
@@ -229,4 +229,3 @@ $(document).ready(function () {
 		return true;
 	}
 })
-*/

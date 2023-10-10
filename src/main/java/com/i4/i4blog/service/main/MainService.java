@@ -16,9 +16,11 @@ public class MainService {
 
     private final MainPageRepository mainPageRepository;
 
-    public List<MainDTO> defaultMainPage(Criteria cri){
+
+        public List<MainDTO> defaultMainPage(Criteria cri){
         return mainPageRepository.mainPageDefault(cri);
     }
+
 
     public Integer getListCount() {
         return mainPageRepository.listCount();
