@@ -16,7 +16,7 @@ function commentCreate(){
         //data: {"comment": $("#comment").val(),"board_id": $("#board_id").val()},
         contentType: "application/json; charset=utf-8",
         data: JSON.stringify({
-        			
+        	user_id: $("#user_id").val();
         	comment_content: $("#comment_content").val(),
             board_id: $("#board_id").val()
         	
@@ -32,9 +32,9 @@ function commentCreate(){
             if(data.list.length > 0){
                 for(let i = 0; i<data.list.length; i++){
                     html += "<div class='form-group'>";
-                    html += "<input type = 'hidden' id='comment_autor_"+data.list[i].board_id + "'value>";
+                    html += "<input type = 'hidden' id='comment_autor_"+ data.list[i].board_id + "'value>";
                     html += "<input type = 'text' id='board_id'>" + $("#comment").val() + "</input>";
-                    html += "<input type = ''"
+                    
               
                 }if(data.list[i].commentWriter === $('#sessionBoard_id').val()){
                     

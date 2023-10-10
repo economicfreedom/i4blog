@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Comment {
-	
+	//엔티티 
 	private Integer id;
 	private Integer userId;
 	private Integer boardId;

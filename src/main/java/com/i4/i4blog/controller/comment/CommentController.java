@@ -64,7 +64,7 @@ public class CommentController {
 	 * 댓글 생성 기능
 	 * @param CommentCreateDto
 	 */
-	@PostMapping("/create/{userId}/{commentId}")
+	@PostMapping("/create")
 	public String createComment(CommentCreateDTO commentCreatetDto) {
 		log.info("생성된 댓글{}",commentCreatetDto);
 		commentService.commentCreateService(commentCreatetDto);		
