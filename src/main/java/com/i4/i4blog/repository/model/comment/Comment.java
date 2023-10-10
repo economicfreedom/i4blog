@@ -14,14 +14,15 @@ import lombok.NoArgsConstructor;
 public class Comment {
 	
 	private Integer id;
-	private String userId;
-	private String boardId;
+	private Integer userId;
+	private Integer boardId;
 	private String commentWriter;
 	private String commentContent;
 	private Timestamp commentCreated;
 	private Timestamp commentUpdate;
 	private String commentPublic;
 	private String commentState;
+	
 	
 	
 }

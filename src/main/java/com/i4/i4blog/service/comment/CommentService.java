@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import com.i4.i4blog.dto.comment.CommentCreatetDto;
+import com.i4.i4blog.dto.comment.CommentCreateDTO;
 import com.i4.i4blog.repository.interfaces.comment.CommentRepository;
 import com.i4.i4blog.repository.model.comment.Comment;
 import com.i4.i4blog.vo.comment.CommentVO;
@@ -25,6 +25,7 @@ import lombok.extern.slf4j.Slf4j;
 public class CommentService {
 	
 	private final CommentRepository commentRepository;
+
 	
 	/**
 	 * 댓글 리스트 - List
@@ -34,28 +35,28 @@ public class CommentService {
 	/**
 	 * 댓글 등록 - create
 	 * @param id
-	 * @return
+	 **
 	 */
-	
-	public void commentCreateService(CommentCreatetDto commentCreatetDto) {
+	public int commentCreateService(CommentCreateDTO commentCreatetDto) {
 		Comment comment = new Comment();
 		comment.setCommentContent(commentCreatetDto.getCommentContent());
-		comment.setUserId(commentCreatetDto.getUser_Id());
-		comment.setBoardId(commentCreatetDto.getBoard_Id());
+		comment.setUserId(commentCreatetDto.getUserId());
+		comment.setBoardId(commentCreatetDto.getBoardId());
 		int result = commentRepository.create(comment);
+		return result;
+		
 	}
+
 	
 
-//	public List<Comment> createtByUserId(Integer commentId) {
-//		List<Comment>commentList =commentRepository.();
-//		return commentList;
-//	}
 	
 	
 	//댓글 삭제
 	public int deleteById(Integer id){
 		return commentRepository.deleteById(id);
 	}
+
+	
 	
 
 	

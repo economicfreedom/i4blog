@@ -22,8 +22,15 @@ import java.util.List;
 public class MainPageAPIController {
     private final MainService mainService;
     @GetMapping("/default-pagedto")
-    public MainPageDTO mainPage(@RequestParam Integer pageNum){
+    public MainPageDTO mainPage(
+            @RequestParam Integer pageNum
+            ,@RequestParam String type
+
+    ){
+
         Criteria criteria = new Criteria();
+        log.info(type);
+        criteria.setType(type);
         criteria.setPageNum(pageNum);
         criteria.setCountPerPage(24);
         List<MainDTO> mainList = mainService.defaultMainPage(criteria);

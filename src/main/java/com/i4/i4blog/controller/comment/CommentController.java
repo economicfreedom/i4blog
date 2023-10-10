@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.i4.i4blog.dto.comment.CommentCreatetDto;
+import com.i4.i4blog.dto.comment.CommentCreateDTO;
 import com.i4.i4blog.repository.interfaces.comment.CommentRepository;
 import com.i4.i4blog.repository.model.board.Board;
 import com.i4.i4blog.repository.model.comment.Comment;
@@ -36,8 +36,12 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class CommentController {
 	private final CommentService commentService;
-			
+	@GetMapping("/j-test")
+	public String jTest() {
+		return "test1";
+	}
 
+	
 
 	/** 상세보기페이지
 	 * 
@@ -50,29 +54,20 @@ public class CommentController {
 	 * 댓글 목록 리스트(사용자)
 	 * 
 	 */
-	@GetMapping("/List")
+	@GetMapping("/list")
 	public String ComentList(Model model) {
-//	List<Comment> commentList = commentService.createtByUserId(1);
-//	if(commentList.isEmpty()) {
-//		model.addAttribute("commentList",null);
-//	}else {
-//		model.addAttribute("commentList",commentList);
-//	}
-	return "comment/commentList";
+		
+		return "comment/commentList";
 	}
 
 	/*
 	 * 댓글 생성 기능
 	 * @param CommentCreateDto
 	 */
-	//의존성 주입
-	
-	
-	@PostMapping("/create")
-	public String createComment(CommentCreatetDto commentCreatetDto) {
+	@PostMapping("/create/{userId}/{commentId}")
+	public String createComment(CommentCreateDTO commentCreatetDto) {
 		log.info("생성된 댓글{}",commentCreatetDto);
-		commentService.commentCreateService(commentCreatetDto);
-		
+		commentService.commentCreateService(commentCreatetDto);		
 		return "redirect:comment/comment/commentList =";
 	}
 
@@ -97,13 +92,13 @@ public class CommentController {
 	}
 		
 
-	//댓글 작성 구현
-	@ResponseBody
-	@RequestMapping(value = "/comment/commentcreate.jsp")
-	
-	public String comment_created(@RequestParam String user_id) {
-		return "comment/commentcreate";
-		
-	}
+//	//댓글 작성 구현
+//	@ResponseBody
+//	@RequestMapping(value = "/comment/commentcreate.jsp")
+//	
+//	public String comment_created(@RequestParam String user_id) {
+//		return "comment/commentcreate";
+//		
+//	}
 	
 }

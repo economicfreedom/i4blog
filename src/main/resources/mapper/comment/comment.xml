@@ -10,25 +10,30 @@ select *from comment
 
 <!-- 댓글 작성 쿼리  -->
 <insert id="create">
-Insert into comment(id, user_id, board_id, comment_writer, comment_content, comment_created)
+Insert into comment(id, user_id, board_id, comment_writer, comment_content, comment_created_at)
 value (#{id}, #{userId}, #{boardId}, #{commentWriter}, #{commentContent}, #{commentCreated})
 </insert>
 
 <!-- 댓글 수정 쿼리 -->
 <update id="updateById">
 	update comment
-	set comment_state = 0
+	set	comment_state = 0
+		user_id= #{user_Id};
+		comment_writer = #{comment_writer}		
+		comment_update= #{comment_Update}
+		comment_updated_at = now();
+		comment_public= #{comment_State}
 	Where id=#{id}
 </update>
 
-
 <!-- 댓글 삭제 쿼리  -->
-   <update id="deleteById">
-        		UPDATE comment 
-        		set comment_state = 0 
-        		where id=#{id}
-   </update>
-
-
+<delete id="deleteById">
+	UPDATE comment 
+  	set    comment_state = 0
+           comment_content = #{comment_Content}
+           comment_deleted_at = now();
+           comment_delete = #{comment_Delete}
+           comment_public= #{comment_State}
+           where id=#{id}
+</delete>
 </mapper>
-

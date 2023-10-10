@@ -1,9 +1,15 @@
 package com.i4.i4blog.controller.comment;
 
+import com.i4.i4blog.dto.comment.CommentCreateDTO;
 import com.i4.i4blog.service.board.BoardService;
 import com.i4.i4blog.service.comment.CommentService;
+import com.mysql.cj.xdevapi.Schema.CreateCollectionOptions;
+
+import javax.validation.Valid;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Repository;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -19,8 +25,26 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class CommentAPIController {
     private final CommentService commentService;
-    
    
+
+   
+    /**
+     * @return 
+     * @Commentcreate 댓글 생성단 컨트롤러 (api)
+     */
+    @PostMapping("/api/comment/list")
+    public String commentCreateApi(@RequestBody CommentCreateDTO commentCreateDTO )
+    {    	   
+    	System.out.println(commentCreateDTO);
+    	int result = commentService.commentCreateService(commentCreateDTO);
+    	if(result != 1) {
+    		System.out.println("11");
+    		return "저장 실패";
+    	} else {
+    		return "저장 성공";
+    	}
+    }
+    
     
     /**
      * @author 최규하

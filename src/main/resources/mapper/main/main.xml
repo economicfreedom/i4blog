@@ -3,34 +3,56 @@
 <mapper namespace="com.i4.i4blog.repository.interfaces.main.MainPageRepository">
     <select id="mainPageDefault" resultType="com.i4.i4blog.repository.model.main.MainDTO">
         SELECT u.user_nickname,
-               u.id                                              u_id,
-               u.user_id,
-               b.id                                           AS _board_id,
-               b.board_title,
-               date_format(b.board_created_at, '%Y년 %m월 %d일') as board_created_at,
-               b.board_thumbnail,
-               IF(CHAR_LENGTH(b.board_content) > 136, CONCAT(SUBSTRING(b.board_content, 1, 136), '...'),
-                  b.board_content)                            AS board_content,
-               COALESCE(l.`like`, 0)                          AS like_count,
-               l.user_id                                      AS like_user,
-               p.img_thumbnail,
-               count(*)                                          over (partition by b.id,c.id) as comment_count
+        u.id u_id,
+        u.user_id,
+        b.id AS _board_id,
+        b.board_title,
+        date_format(b.board_created_at, '%Y년 %m월 %d일') as board_created_at,
+        b.board_thumbnail,
+        IF(CHAR_LENGTH(b.board_content) > 136, CONCAT(SUBSTRING(b.board_content, 1, 136), '...'),
+        b.board_content) AS board_content,
+        COALESCE(l.`like`, 0) AS like_count,
+        l.user_id AS like_user,
+        p.img_thumbnail,
+        count(*) over (partition by b.id,c.id) as comment_count
         FROM `user` u
-                 JOIN
-             board b ON u.id = b.user_id
-                 LEFT JOIN
-             profile p ON u.id = p.user_id
-                 LEFT JOIN
-             `like` l ON b.id = l.board_id
-                 LEFT JOIN
-             comment c ON b.id = c.board_id
+        JOIN
+        board b ON u.id = b.user_id
+        LEFT JOIN
+        profile p ON u.id = p.user_id
+        LEFT JOIN
+        `like` l ON b.id = l.board_id
+        LEFT JOIN
+        comment c ON b.id = c.board_id
+        WHERE b.board_public = 1 AND b.board_state = 1
+        <if test="type == 'week'">
+            AND b.board_created_at BETWEEN DATE_ADD(NOW(),INTERVAL -1 WEEK ) AND NOW()
+
+        </if>
+        <if test="type == 'month'">
+            AND b.board_created_at BETWEEN DATE_ADD(NOW(),INTERVAL -1 MONTH ) AND NOW()
+
+        </if>
+
         GROUP BY u.user_nickname, u.id, b.id, b.board_title,
-                 IF(CHAR_LENGTH(b.board_content) > 136, CONCAT(SUBSTRING(b.board_content, 1, 136), '...'),
-                    b.board_content), COALESCE(l.`like`, 0), l.user_id, B.board_created_at
-        ORDER BY b.id
-            LIMIT #{offset}, #{countPerPage}
+        IF(CHAR_LENGTH(b.board_content) > 136, CONCAT(SUBSTRING(b.board_content, 1, 136), '...'),
+        b.board_content), COALESCE(l.`like`, 0), l.user_id, B.board_created_at
+
+        ORDER BY
+        <if test="type == ''">
+            b.id DESC
+        </if>
+        <if test="type == 'like'">
+            like_count desc
+                ,b.id desc
+        </if>
+        <if test="type != 'like' and type != ''">
+            b.id DESC
+        </if>
+        LIMIT #{offset}, #{countPerPage}
     </select>
     <select id="listCount" resultType="java.lang.Integer">
-        SELECT COUNT(*) FROM board
+        SELECT COUNT(*)
+        FROM board
     </select>
 </mapper>

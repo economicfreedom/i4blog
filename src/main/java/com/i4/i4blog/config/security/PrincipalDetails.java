@@ -1,8 +1,10 @@
 package com.i4.i4blog.config.security;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import com.i4.i4blog.repository.model.user.User;
@@ -20,10 +22,13 @@ public class PrincipalDetails implements UserDetails {
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
-//        ArrayList<GrantedAuthority> auth = new ArrayList<GrantedAuthority>();
-//        auth.add(new SimpleGrantedAuthority(user.getUserRole()));
-//        return auth;
-        return null;
+        ArrayList<GrantedAuthority> auth = new ArrayList<GrantedAuthority>();
+        if(user.getUserRole() == 0) {
+        	auth.add(new SimpleGrantedAuthority("ADMIN"));
+        } else {
+        	auth.add(new SimpleGrantedAuthority("USER"));
+        }
+        return auth;
 	}
 
 	@Override
