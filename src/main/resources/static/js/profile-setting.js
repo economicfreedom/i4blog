@@ -2,6 +2,8 @@ $(document).ready(function () {
 
     console.log($('#nickname').css('border-color'));
 
+
+
     //닉네임 체크 및 변경 관련
     function remove_nick_check() {
         $("#nick-check-succeed").remove();

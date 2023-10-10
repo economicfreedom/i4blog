@@ -20,6 +20,9 @@ FROM board;
 SELECT COUNT(*)
 FROM comment;
 
+insert into `like`(board_id, `like`, user_id)
+    value (4,1,1);
+
 
 insert into user(user_id, user_name, user_password, user_nickname, user_phone, user_email)
 values ('aaaa', 'bbbb', 'cccc', 'dddd', '1234', 'asdf@asdf');
@@ -32,7 +35,8 @@ from report;
 
 commit;
 select *
-from board;
+from board
+where id = 1;
 select *
 from comment;
 

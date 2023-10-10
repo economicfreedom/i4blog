@@ -161,6 +161,7 @@ $(document).ready(function () {
             $("#" + tag_id + "_check").css("color", "skyblue");
     }
     
+	// 데이터 체크 실패
     function checked_failed(tag_id, msg) {
 			$("#" + tag_id).css("border-color", "red");
             $("#" + tag_id + "_check").text(msg);
