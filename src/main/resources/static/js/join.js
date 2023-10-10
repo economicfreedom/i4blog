@@ -169,7 +169,6 @@ $(document).ready(function () {
 	}
 	// 회원가입 기능
 	$("#join").click(function (){
-		debugger;
 		if(valid_check()) {
 			let user_join_form_dto = {
 					user_id : $("#user_id").val(),
