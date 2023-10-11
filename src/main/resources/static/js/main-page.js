@@ -101,6 +101,7 @@ $(document).ready(function () {
             , like_user_id
             , like_count
         ) {
+            console.log(user_id)
 
             let heart = "♡"
 

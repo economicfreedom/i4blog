@@ -7,6 +7,7 @@ import net.coobird.thumbnailator.Thumbnailator;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -41,6 +42,7 @@ public class UploadController {
      * @return UploadResponseDTO
      * @author 최규하
      */
+    @PreAuthorize("isAuthenticated()")
     @PostMapping("/upload-img")
     public ResponseEntity<?> uploadFile(
             @RequestParam("uploadFiles") MultipartFile[] uploadFiles

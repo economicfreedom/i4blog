@@ -28,6 +28,7 @@ public interface BoardRepository {
      * @param userId
      * @return List<Board>
      */
+
     public List<Board> findByUserId(Integer userId);
     
     public List<Board> findAllByUserId(Integer userId);

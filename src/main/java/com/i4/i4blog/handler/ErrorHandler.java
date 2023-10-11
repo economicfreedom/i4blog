@@ -22,16 +22,20 @@ public class ErrorHandler implements ErrorController {
         if (status != null) {
             int statusCode = Integer.valueOf(status.toString());
             //404에러시 404에러 html페이지를 반환
+            log.error("error code {}", statusCode);
             if (statusCode == HttpStatus.NOT_FOUND.value()) {
-                log.error("404 error");
-                return "error/404error";
-            } else {
-                //그외에 에러는 아래와 같이 반환함
-                return "error";
-            }
-        }
 
-        return "error";
+                return "error/404error";
+            } else if (statusCode==HttpStatus.FORBIDDEN.value()) {
+                return "redirect:/";
+
+            } else {
+            //그외에 에러는 아래와 같이 반환함
+            return "error";
+        }
     }
+
+        return"error";
+}
     }
 

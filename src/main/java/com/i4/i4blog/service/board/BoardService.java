@@ -27,10 +27,10 @@ public class BoardService {
 	 * @param boardWriteFormDto
 	 */
 	public void boardWriteService(BoardWriteFormDto boardWriteFormDto,Principal principal) {
-//		Integer uid = userRepository.getId(principal.getName());
+		Integer uid = userRepository.getId(principal.getName());
 		Board board = Board.builder()
-//				.userId(uid)
-				.userId(1)
+				.userId(uid)
+//				.userId(1)
 				.boardCategory(boardWriteFormDto.getBoardCategory())
 				.boardTitle(boardWriteFormDto.getBoardTitle())
 				.boardContent(boardWriteFormDto.getBoardContent())
@@ -62,8 +62,9 @@ public class BoardService {
      * @param userId
      * @return List<Board>
      */
-    public List<Board> findByUserId(Integer userId) {
-    	List<Board> boardList = boardRepository.findByUserId(userId);
+    public List<Board> findByUserId(Integer id) {
+
+    	List<Board> boardList = boardRepository.findByUserId(id);
     	return boardList;
     }
     

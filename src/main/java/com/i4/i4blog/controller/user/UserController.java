@@ -3,6 +3,7 @@ package com.i4.i4blog.controller.user;
 import java.security.Principal;
 import java.util.List;
 
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -32,6 +33,7 @@ public class UserController {
     /**
      * 로그인 페이지 이동
      */
+    @PreAuthorize("isAnonymous()")
     @GetMapping("/login")
     public String login() {
         return "user/login";
@@ -50,6 +52,7 @@ public class UserController {
     /**
      * 회원가입 페이지 이동
      */
+    @PreAuthorize("isAnonymous()")
     @GetMapping("/join")
     public String join() {
         return "user/join";

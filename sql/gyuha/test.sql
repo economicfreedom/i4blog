@@ -14,7 +14,16 @@ ALTER TABLE profile
 ALTER TABLE `report`
     ADD COLUMN `report_date` TIMESTAMP NOT NULL DEFAULT NOW();
 
+select * from user;
 
+		SELECT *
+		  FROM board
+		 WHERE user_id = 201
+  	 	   AND board_public = 1
+  	 	 ORDER BY board_created_at DESC;
+
+
+select * from user where id = 201;
 SELECT COUNT(*)
 FROM board;
 SELECT COUNT(*)

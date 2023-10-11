@@ -6,6 +6,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -99,6 +100,7 @@ public class UserAPIController {
      * @author 박용세
      * 회원가입 기능
      */
+    @PreAuthorize("isAnonymous()")
     @PostMapping("/join")
     public ResponseEntity<?> joinProc(@Valid @RequestBody UserJoinFormDto userJoinFormDto, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
