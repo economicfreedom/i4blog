@@ -72,6 +72,7 @@ public class UserAPIController {
      * 존재 하는 아이디면 IllegalAccessException 터트림
      * NicknameValidHandler 클래스에 alreadyNickname 참고
      */
+
     @GetMapping("/user-id-check")
     public ResponseEntity<?> userIdCheck(
             @RequestParam
@@ -104,6 +105,7 @@ public class UserAPIController {
 
     // 추가 - 최규하
     // 내용 - 회원가입이 안 된 사용자만 접근 가능하게 추가
+    // Profile테이블 Save기능 추가
     @PreAuthorize("isAnonymous()")
     @PostMapping("/join")
     public ResponseEntity<?> joinProc(@Valid @RequestBody UserJoinFormDto userJoinFormDto, BindingResult bindingResult) {

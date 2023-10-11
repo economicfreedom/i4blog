@@ -26,6 +26,8 @@
 	
 	<a href="/blog/${board.userId}/board/update/${board.id}" class="btn btn-warning">수정하기</a>
 	<button class="btn btn-secondary" onclick="history.back()">돌아가기</button>
+
+	<%@ include file="/WEB-INF/view/comment/commentList.jsp"%>
 </div>
 
 
