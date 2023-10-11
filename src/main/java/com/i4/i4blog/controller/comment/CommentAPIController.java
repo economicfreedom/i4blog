@@ -3,7 +3,7 @@ package com.i4.i4blog.controller.comment;
 import com.i4.i4blog.dto.comment.CommentCreateDTO;
 import com.i4.i4blog.service.board.BoardService;
 import com.i4.i4blog.service.comment.CommentService;
-import com.mysql.cj.xdevapi.Schema.CreateCollectionOptions;
+//import com.mysql.cj.xdevapi.Schema.CreateCollectionOptions;
 
 import javax.validation.Valid;
 
