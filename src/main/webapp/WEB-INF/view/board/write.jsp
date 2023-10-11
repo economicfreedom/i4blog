@@ -14,9 +14,8 @@
 		<h3>블로그 글쓰기</h3>
 	</div>
 
-	<!-- 테스트 완료 후 주석 해제 -->
-	<!-- <form action="/blog/${principal.userId}/board/write" method="post" id="write-form"> -->
-	<form action="/blog/1/board/write" method="post" id="write-form">
+	
+	<form action="/blog/${principal.userId}/board/write" method="post" id="write-form">
 		<div class="form-group form-option">
 			<div class="category">
 				<label for="board-category">카테고리</label> <select
@@ -49,13 +48,15 @@
 			<input name="uploadFiles" type="file">
 		</div>
 		<div class="uploadResult"></div>
+		<input type="text" name="thumbnail" id="thumbnail" hidden value="">
 		<!-- 섬네일 end -->
 
-		<textarea id="summernote" name="board-content"
-			placeholder="글 내용을 입력하세요."></textarea>
-		<button type="button" id="submit-btn" class="btn btn-primary">게시글 등록</button>
-		<input type="text" name="thumbnail" id="thumbnail" hidden value="">
-		<button type="button" class="btn btn-secondary"	onclick="history.back()">취소</button>
+		<textarea id="summernote" name="board-content" placeholder="글 내용을 입력하세요."></textarea>
+		
+		<div class="text-center mt-3">
+			<button type="button" id="submit-btn" class="btn btn-primary">게시글 등록</button>
+			<button type="button" class="btn btn-secondary"	onclick="history.back()">취소</button>
+		</div>
 	</form>
 
 </div>

@@ -1,12 +1,13 @@
 <%@ page contentType="text/html; charset=UTF-8" language="java" pageEncoding="UTF-8" %>
 <%@ include file="/WEB-INF/view/layout/category-header.jsp"%>
+<script src="/js/view.js"></script>
 <link rel="stylesheet" href="/css/view.css">
 
 
 <div class="container">
+	<input type="text" hidden name="id" id="id" value="${board.id}">
 	<div class="form-group category">
 		<p>${board.boardCategory}</p>
-		
 	</div>
 	<div class="title">
 		<h1>${board.boardTitle}</h1>
@@ -25,6 +26,7 @@
 	</div>
 	
 	<a href="/blog/${board.userId}/board/update/${board.id}" class="btn btn-warning">수정하기</a>
+	<button type="button" id="delete" class="btn btn-info">삭제</button>
 	<button class="btn btn-secondary" onclick="history.back()">돌아가기</button>
 
 	<%@ include file="/WEB-INF/view/comment/commentList.jsp"%>

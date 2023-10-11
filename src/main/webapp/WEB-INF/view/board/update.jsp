@@ -1,6 +1,7 @@
 <%@ page contentType="text/html; charset=UTF-8" language="java"
 	pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/view/layout/header.jsp"%>
+<script src="/js/update.js"></script>
 <link rel="stylesheet" href="/css/write.css">
 
 <!-- summernote css/js -->
@@ -41,8 +42,7 @@
 
 		<div class="form-group">
 			<label for="board-title">제목</label> <input
-				value="${board.boardTitle}" type="text" id="board-title"
-				name="board-title" class="form-control" placeholder="글 제목을 입력하세요.">
+				value="${board.boardTitle}" type="text" id="board-title" name="board-title" class="form-control" placeholder="글 제목을 입력하세요.">
 		</div>
 
 		<!-- 섬네일 start -->
@@ -51,8 +51,7 @@
 				<div class="form-group">
 					<c:if
 						test="${board.boardThumbnail == null || board.boardThumbnail == ''}">
-						<img src="/img/default-board.jpg" alt="..." width="200px"
-							height="200px">
+						<img src="/img/default-board.jpg" alt="..." width="200px" height="200px">
 					</c:if>
 					<c:if test="${board.boardThumbnail != null }">
 						<img src="${board.boardThumbnail}" class="card-img-top" alt="..."
@@ -70,12 +69,11 @@
 
 		<!-- 섬네일 end -->
 
-		<textarea id="summernote" name="board-content"
-			placeholder="글 내용을 입력하세요.">${board.boardContent}</textarea>
-		<button type="button" id="submit-btn" class="btn btn-primary">수정
-			완료</button>
-		<button type="button" class="btn btn-secondary"
-			onclick="history.back()">취소</button>
+		<textarea id="summernote" name="board-content" placeholder="글 내용을 입력하세요.">${board.boardContent}</textarea>
+		<div class="text-center mt-3">
+			<button type="button" id="submit-btn" class="btn btn-primary">수정 완료</button>
+			<button type="button" class="btn btn-secondary"	onclick="history.back()">취소</button>
+		</div>
 	</form>
 
 </div>
@@ -121,137 +119,6 @@
 								'18', '20', '22', '24', '28', '30', '36', '50',
 								'72' ]
 					});
-</script>
-
-
-<script>
-	$(document).ready(function() {
-
-		$('#submit-btn').click(function(e) {
-			let id = $('#id').val();
-			let board_category = $('#board-category').val();
-			let board_public = $('#board-public').val();
-			let board_title = $('#board-title').val();
-			let board_content = $('#summernote').val();
-			let old_thumbnail = $("#old_thumbnail").val();
-			let old_img_original = $("#old_img_original").val();
-			
-			alert("올드 이미지 오리진" + old_img_original);
-			if (board_title.length === 0) {
-				alert("제목을 입력해주세요")
-				$("#board-title").focus();
-				return;
-			}
-			if (board_content.length === 0) {
-				alert("내용을 입력해주세요")
-				$("#summernote").focus();
-				return;
-			}
-
-			let json_data = {
-				id : id,
-				board_category : board_category,
-				board_public : board_public,
-				board_title : board_title,
-				board_content : board_content,
-				old_thumbnail : old_thumbnail,
-				old_img_original : old_img_original
-			}
-
-			console.log("제이슨 : 데이터 ", JSON.stringify({
-				board_category : board_category,
-				board_public : board_public,
-				board_title : board_title,
-				board_content : board_content
-			}))
-			console.log("json_data", json_data)
-
-			/* 		$("form").preventDefault(); */
-
-			var inputFile = $("input[type = 'file']");
-			console.log(inputFile[0].files.length);
-
-			if (inputFile[0].files.length === 0) {
-				// inputFile이 없으면 서브밋
-				// 메소드 만들어서 코드 줄이기
-				$.ajax({
-					type : "put",
-					url : "/board/update",
-					dataType : "json",
-					contentType : "application/json",
-					data : JSON.stringify(json_data),
-					success : function(res) {
-						alert("썸네일 없을때");
-						console.log(res);
-						let url = res.message;
-						location.href = url;
-					},
-					error : function(res) {
-						console.log("error " + res);
-						alert("너임?");
-					}
-				});
-			} else {
-				var formData = new FormData();
-				var files = inputFile[0].files;
-
-				for (var i = 0; i < files.length; i++) {
-					console.log(files[i]);
-					formData.append("uploadFiles", files[i]);
-				}
-
-				let width = 200;
-				let height = 200;
-				formData.append("w", width);
-				formData.append("h", height);
-				formData.append("type", "board");
-				console.log(formData)
-				//실제 업로드 부분
-				//upload ajax
-				$.ajax({
-					url : '/upload-img',
-					processData : false,
-					contentType : false,
-					data : formData,
-					type : 'POST',
-					dataType : 'json',
-					success : function(result) {
-						let thumbnail = result.thumbnailURL;
-						let original_img = result.originalURL;
-						console.log(result.thumbnailURL);
-						json_data.thumbnail = thumbnail;
-						json_data.original_img = original_img;
-						console.log(json_data)
-						$.ajax({
-							type : "PUT",
-							url : "/board/update",
-							dataType : "json",
-							contentType : "application/json",
-							data : JSON.stringify(json_data),
-							success : function(res) {
-								console.log(res);
-								console.log(res);
-								let url = res.message;
-								location.href = url;
-
-							},
-							error : function(res) {
-								console.log(res);
-								alert(res.message)
-							}
-						});
-					},
-					error : function(jqXHR, textStatus, errorThrown) {
-						console.log(textStatus);
-					},
-
-				}); //$.ajax
-
-			}
-
-		}) // end of click
-
-	}) // end of ready
 </script>
 
 <%@ include file="/WEB-INF/view/layout/footer.jsp"%>

@@ -24,7 +24,8 @@ CREATE TABLE `board` (
 	`board_count`	int	NULL	DEFAULT 0,
 	`board_public`	tinyint	NOT NULL	DEFAULT 1	COMMENT '0:비공개, 1:공개',
 	`board_state`	tinyint	NOT NULL	DEFAULT 1	COMMENT '0:삭제, 1:존재',
-	`board_thumbnail`	text	NULL
+	`board_thumbnail`	text	NULL,
+	`board_img_original`	text	NULL
 );
 
 CREATE TABLE `comment` (

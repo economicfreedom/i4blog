@@ -75,7 +75,6 @@ public class BoardAPIController {
     ) {
         CustomMessage customMessage = new CustomMessage();
 
-
         log.info("작성된 글 {}", boardWriteFormDto);
         boardService.boardWriteService(boardWriteFormDto, principal);
 
@@ -101,7 +100,6 @@ public class BoardAPIController {
         	images.add(boardUpdateFormDto.getOldImgOriginal());
         	uploadService.imgRemove(images);
 		}
-        
         
         String url = "/blog/" + principal.getName() + "/board/view/" + boardUpdateFormDto.getId() ;
         System.out.println("url 저장");
