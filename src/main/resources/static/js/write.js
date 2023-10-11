@@ -82,11 +82,13 @@
 				type: 'POST',
 				dataType: 'json',
 				success: function(result) {
+					
 					let thumbnail = result.thumbnailURL;
-					let originalImg = result.originalURL;
+					let original_img = result.originalURL;
 					console.log(result.thumbnailURL);
+					console.log(result.originalURL);
                     json_data.thumbnail = thumbnail;
-                    json_data.originalImg = imgOriginal;
+                    json_data.original_img = original_img;
 
 					$.ajax({
 						type: "POST",
@@ -98,7 +100,6 @@
 							console.log(res);
 							let url = res.message;
 							location.href = url;
-
 						}
 						, error: function(res) {
 							console.log(res);

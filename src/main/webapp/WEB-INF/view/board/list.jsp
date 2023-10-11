@@ -26,15 +26,22 @@
     }
 </style>
 
-<!-- 본인 리스트 페이지에서만 작성 버튼 노출되도록 변경 필요 -->
-<a href="/blog/${principal.userId}/board/write/${list.id}" class="btn btn-primary">게시글 작성</a>
+
+<sec:authorize access="isAuthenticated()">
+   	<c:if test="${blogUser.userId eq principal.userId}">
+		<a href="/blog/${principal.userId}/board/write" class="btn btn-primary">게시글 작성</a>
+   	</c:if>
+</sec:authorize>
 <br>
 
 <div class="row">
-	<c:choose>
+	<%-- ${boardList.get(0).userId}
+	${boardList.get(0).strUserId}
+	${boardList.get(0).boardTitle} --%>
+ 	<c:choose>
 		<c:when test="${boardList != null}">
 			<c:forEach var="list" items="${boardList}">
-				<a href="/blog/${list.userId}/board/view/${list.id}" class="card-list">
+				<a href="/blog/${list.strUserId}/board/view/${list.id}" class="card-list">
 					<div class="col">
 						<div class="card" style="width: 14rem; margin-bottom: 15px">
 							<c:if test="${list.boardThumbnail == null || list.boardThumbnail == ''}">
@@ -48,7 +55,7 @@
 							</div>
 						</div>
 					</div>
-			</a>
+				</a>
 			</c:forEach>
 		</c:when>
 		<c:otherwise>

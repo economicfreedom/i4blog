@@ -45,4 +45,4 @@ mybatis:
 org:
   zerock:
     upload:
-      path: C:\Users\GGG\IdeaProjects\i4blog\src\main\resources\static
+      path: \src\main\resources\static

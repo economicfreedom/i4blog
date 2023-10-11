@@ -4,6 +4,7 @@ import com.i4.i4blog.dto.board.BoardUpdateFormDto;
 import com.i4.i4blog.repository.model.board.Board;
 import com.i4.i4blog.service.board.BoardService;
 import com.i4.i4blog.service.user.UserService;
+import com.i4.i4blog.vo.board.BoardListVo;
 import com.i4.i4blog.vo.board.BoardVO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -41,13 +42,14 @@ public class BoardController {
      * 사용자의 게시글 리스트 페이지
      */
     @GetMapping("/list")
-    public String boardList(Model model, Principal principal) {
-        String name = principal.getName();
+    public String boardList(Model model, @PathVariable String userId) {
 //        log.info("로그인한 아이디 {}",name);
-        Integer id = userService.getId(name);
+//        Integer id = userService.getId(name);
+    	Integer id = userService.getId(userId);
 
 
-        List<Board> boardList = boardService.findByUserId(id);
+        List<BoardListVo> boardList = boardService.findByUserId(id);
+//        boardList.get(0).getUId();
         if (boardList.isEmpty()) {
             log.info("list is empty {}", boardList);
             model.addAttribute("boardList", null);
@@ -69,11 +71,11 @@ public class BoardController {
      */
     @GetMapping("/view/{id}")
     public String boardView(Model model, @PathVariable Integer id) {
-
         boardService.updateCount(id);
         BoardVO board = boardService.findById(id);
         model.addAttribute("board", board);
 
+        System.out.println(board);
         return "board/view";
     }
 

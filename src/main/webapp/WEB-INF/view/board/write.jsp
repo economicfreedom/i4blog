@@ -55,8 +55,7 @@
 			placeholder="글 내용을 입력하세요."></textarea>
 		<button type="button" id="submit-btn" class="btn btn-primary">게시글 등록</button>
 		<input type="text" name="thumbnail" id="thumbnail" hidden value="">
-		<button type="button" class="btn btn-secondary"
-			onclick="history.back()">취소</button>
+		<button type="button" class="btn btn-secondary"	onclick="history.back()">취소</button>
 	</form>
 
 </div>

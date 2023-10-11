@@ -14,6 +14,7 @@ import lombok.NoArgsConstructor;
 public class Board {
 	private Integer id;
 	private Integer userId;
+	private String uId;
 	private String boardTitle;
 	private String boardContent;
 	private String boardCategory;
