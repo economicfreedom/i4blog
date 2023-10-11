@@ -1,5 +1,6 @@
 package com.i4.i4blog.service.user;
 
+import com.i4.i4blog.repository.interfaces.user.UserProfileRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -14,7 +15,7 @@ import lombok.RequiredArgsConstructor;
 public class UserService {
 	private final UserRepository userRepository;
 	private final PasswordEncoder passwordEncoder;
-	
+	private final UserProfileRepository userProfileRepository;
 	/**
 	 * 회원가입 기능 서비스
 	 * @param userJoinFormDto

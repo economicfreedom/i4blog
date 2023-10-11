@@ -5,6 +5,7 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 
+import com.i4.i4blog.service.user.UserProfileService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.BindingResult;
@@ -31,7 +32,7 @@ import lombok.extern.slf4j.Slf4j;
 public class UserAPIController {
 
     private final UserService userService;
-
+    private final UserProfileService userProfileService;
     /**
      * @param nickname
      * @return ResponseEntity
@@ -110,6 +111,7 @@ public class UserAPIController {
             throw new ConstraintViolationException("회원가입 실패", null);
         }
         userService.userJoinService(userJoinFormDto);
+        userProfileService.save();
         return ResponseEntity.ok().build();
     }
 
