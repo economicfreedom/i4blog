@@ -19,6 +19,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.fasterxml.jackson.databind.PropertyNamingStrategies;
+import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import com.i4.i4blog.dto.comment.CommentCreateDTO;
 import com.i4.i4blog.repository.interfaces.comment.CommentRepository;
 import com.i4.i4blog.repository.model.board.Board;
@@ -34,6 +36,7 @@ import lombok.extern.slf4j.Slf4j;
 @RequestMapping("/comment")
 @RequiredArgsConstructor
 @Slf4j
+@JsonNaming(value =PropertyNamingStrategies.SnakeCaseStrategy.class )
 public class CommentController {
 	private final CommentService commentService;
 	@GetMapping("/j-test")
@@ -43,20 +46,18 @@ public class CommentController {
 
 	
 
-	/** 상세보기페이지
-	 * 
-	 * @param model
-	 * @return
-	 */
-	
-	
-	/*
+	/**
 	 * 댓글 목록 리스트(사용자)
 	 * 
-	 */
+	 * 
+	 **/
 	@GetMapping("/list")
-	public String ComentList(Model model) {
-		
+	public String comentList(Model model) {
+		int boardId = 1;	//테스트로 강제 지정함 
+		List<CommentVO> commentList = commentService.commentListService(boardId);
+		//addAttrbute("jsp에서 사용할 명칭",보낼 데이터)
+		// 조회 데이터를 jsp로 보내야 한다 -> model
+		model.addAttribute("commentList", commentList);
 		return "comment/commentList";
 	}
 
@@ -90,15 +91,5 @@ public class CommentController {
 	public String commentDelete() {
 		return "comment/commentDelete";
 	}
-		
 
-//	//댓글 작성 구현
-//	@ResponseBody
-//	@RequestMapping(value = "/comment/commentcreate.jsp")
-//	
-//	public String comment_created(@RequestParam String user_id) {
-//		return "comment/commentcreate";
-//		
-//	}
-	
 }

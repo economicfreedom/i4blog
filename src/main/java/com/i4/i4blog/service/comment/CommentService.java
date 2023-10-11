@@ -5,12 +5,11 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.i4.i4blog.dto.comment.CommentCreateDTO;
+import com.i4.i4blog.dto.comment.CommentUpdateDTO;
 import com.i4.i4blog.repository.interfaces.comment.CommentRepository;
 import com.i4.i4blog.repository.model.comment.Comment;
 import com.i4.i4blog.vo.comment.CommentVO;
-//import com.mysql.cj.protocol.a.NativeConstants.IntegerDataType;
 
-import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -28,10 +27,14 @@ public class CommentService {
 
 	
 	/**
-	 * 댓글 리스트 - List
-	 * 
+	 * 댓글 리스트 조회
+	 * @param - list
+	 * @return commentList  (boardId)를 가져옴 
 	 */
-	
+	public List<CommentVO> commentListService(int boardId) {
+		List<CommentVO> commentList = commentRepository.findAllByBoardId(boardId);
+		return commentList;
+	}	
 	/**
 	 * 댓글 등록 - create
 	 * @param id
@@ -42,22 +45,24 @@ public class CommentService {
 		comment.setCommentContent(commentCreatetDto.getCommentContent());
 		comment.setUserId(commentCreatetDto.getUserId());
 		comment.setBoardId(commentCreatetDto.getBoardId());
+		comment.setCommentPublic(commentCreatetDto.getCommentPublic());
 		int result = commentRepository.create(comment);
 		return result;
 		
 	}
 
-	
+	/**
+	 * 댓글 수정 - Update
+	 * @param id
+	 * @return
+	 */
 
 	
 	
 	//댓글 삭제
 	public int deleteById(Integer id){
 		return commentRepository.deleteById(id);
-	}
-
-	
-	
+	}	
 
 	
 }	

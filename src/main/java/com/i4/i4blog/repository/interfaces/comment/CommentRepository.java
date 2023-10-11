@@ -1,9 +1,7 @@
 package com.i4.i4blog.repository.interfaces.comment;
-import java.sql.Timestamp;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
-
 
 import com.i4.i4blog.repository.model.comment.Comment;
 import com.i4.i4blog.vo.comment.CommentVO;
@@ -25,15 +23,9 @@ public interface CommentRepository  {
 	public int createByUserId(Integer id);
 	
 	//댓글 수정
-	public int updateComment(Integer id);
+	public int updateComment(Comment comment);
 	//댓글 삭제
 	public int commentDelete(Integer id);
-	
-	//댓글 목록 리스트
-	public List<Comment>commentList(int commentList);
-	
-	
-	
 	//댓글 갯수
 	public int commentTotal(int commentList);
 
@@ -44,6 +36,11 @@ public interface CommentRepository  {
 	 * state가 1이었던걸 0으로 바꿈
 	 */
 	public int deleteById(Integer id);
+
+	//댓글 목록 리스트
+	public List<CommentVO> findAllByBoardId(int boardId);
+
+
 	
 	
 	

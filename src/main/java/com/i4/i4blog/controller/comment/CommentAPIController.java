@@ -1,20 +1,16 @@
 package com.i4.i4blog.controller.comment;
 
-import com.i4.i4blog.dto.comment.CommentCreateDTO;
-import com.i4.i4blog.service.board.BoardService;
-import com.i4.i4blog.service.comment.CommentService;
-import com.mysql.cj.xdevapi.Schema.CreateCollectionOptions;
-
-import javax.validation.Valid;
-
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.i4.i4blog.dto.comment.CommentCreateDTO;
+import com.i4.i4blog.service.comment.CommentService;
+
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -26,8 +22,7 @@ import lombok.extern.slf4j.Slf4j;
 public class CommentAPIController {
     private final CommentService commentService;
    
-
-   
+    
     /**
      * @return 
      * @Commentcreate 댓글 생성단 컨트롤러 (api)

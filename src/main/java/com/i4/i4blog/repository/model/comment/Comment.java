@@ -16,12 +16,12 @@ public class Comment {
 	private Integer id;
 	private Integer userId;
 	private Integer boardId;
-	private String commentWriter;
 	private String commentContent;
-	private Timestamp commentCreated;
-	private Timestamp commentUpdate;
-	private String commentPublic;
-	private String commentState;
+	private Timestamp commentCreatedAt;
+	private Timestamp commentUpdateAt;
+	private Timestamp commentDeletedAt;
+	private Integer commentPublic;
+	private Integer commentState;
 	
 	
 	
