@@ -104,6 +104,10 @@
 
 
             </div>
+            <div align="center" id="loading" hidden>
+        <img src="/img/loading.gif" style="height: 100px">
         </div>
+        </div>
+
         <%@ include file="/WEB-INF/view/layout/footer.jsp" %>
 
