@@ -28,7 +28,8 @@ FROM user u
 where id = (SELECT MAX(id) FROM user);
 SELECT *
 FROM profile;
-select *
+select *  from profile where
+             user_id = 204;
 from user;
 where id =204;
 

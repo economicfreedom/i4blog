@@ -59,7 +59,9 @@
 			</c:forEach>
 		</c:when>
 		<c:otherwise>
+					<div class="col">
 			<p>작성된 게시글이 없습니다.</p>
+						</div>
 		</c:otherwise>
 	</c:choose>
 </div>
