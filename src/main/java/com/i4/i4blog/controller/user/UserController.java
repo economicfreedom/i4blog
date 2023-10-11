@@ -33,6 +33,8 @@ public class UserController {
     /**
      * 로그인 페이지 이동
      */
+    // 추가 - 최규하
+    // 내용 - 회원가입이 안 된 사용자만 접근 가능하게 추가
     @PreAuthorize("isAnonymous()")
     @GetMapping("/login")
     public String login() {
@@ -52,6 +54,8 @@ public class UserController {
     /**
      * 회원가입 페이지 이동
      */
+    // 추가 - 최규하
+    // 내용 - 회원가입이 안 된 사용자만 접근 가능하게 추가
     @PreAuthorize("isAnonymous()")
     @GetMapping("/join")
     public String join() {

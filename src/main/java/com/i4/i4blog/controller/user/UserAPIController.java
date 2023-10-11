@@ -100,6 +100,9 @@ public class UserAPIController {
      * @author 박용세
      * 회원가입 기능
      */
+
+    // 추가 - 최규하
+    // 내용 - 회원가입이 안 된 사용자만 접근 가능하게 추가
     @PreAuthorize("isAnonymous()")
     @PostMapping("/join")
     public ResponseEntity<?> joinProc(@Valid @RequestBody UserJoinFormDto userJoinFormDto, BindingResult bindingResult) {

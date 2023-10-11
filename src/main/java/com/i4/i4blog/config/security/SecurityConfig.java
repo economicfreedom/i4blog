@@ -58,6 +58,8 @@ public class SecurityConfig {
         return new BCryptPasswordEncoder();
     }
 
+    // 추가 - 최규하
+    // 내용 - 권한 없을시 / 주소로 보내버림
     @Bean
     public AccessDeniedHandler accessDeniedHandler() {
         return new AccessDeniedHandler() {
@@ -65,7 +67,7 @@ public class SecurityConfig {
             public void handle(HttpServletRequest request, HttpServletResponse response,
                                org.springframework.security.access.AccessDeniedException accessDeniedException)
                     throws IOException, ServletException {
-                response.sendRedirect("/main");
+                response.sendRedirect("/");
             }
         };
     }

@@ -42,6 +42,8 @@ public class UploadController {
      * @return UploadResponseDTO
      * @author 최규하
      */
+    // 추가 - 최규하
+    // 내용 - 회원 가입된 사용자만 접근 가능하게 추가
     @PreAuthorize("isAuthenticated()")
     @PostMapping("/upload-img")
     public ResponseEntity<?> uploadFile(

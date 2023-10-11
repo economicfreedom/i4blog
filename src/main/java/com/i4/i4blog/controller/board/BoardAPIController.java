@@ -26,6 +26,8 @@ public class BoardAPIController {
      * 이름은 delete지만 실제론 state를 바꾸기 때문에 update로 동작함
      * state가 1이었던걸 0으로 바꿈
      */
+    // 추가 - 최규하
+    // 내용 - 회원 가입된 사용자만 접근 가능하게 추가
     @PreAuthorize("isAuthenticated()")
     @PutMapping("/del")
     public ResponseEntity<? extends Object> deleteById(
@@ -51,6 +53,8 @@ public class BoardAPIController {
      * @return list.jsp
      * 게시글 작성 후 목록으로 redirect
      */
+    // 추가 - 최규하
+    // 내용 - 회원 가입된 사용자만 접근 가능하게 추가
     @PreAuthorize("isAuthenticated()")
     @PostMapping("/write")
     public ResponseEntity<?> boardWriteProc(

@@ -84,6 +84,8 @@ public class BoardController {
      * @param id
      * @return update.jsp
      */
+    // 추가 - 최규하
+    // 내용 - 회원 가입된 사용자만 접근 가능하게 추가
     @PreAuthorize("isAuthenticated()")
     @GetMapping("/update/{id}")
     public String boardUpdate(Model model, @PathVariable Integer id) {
@@ -93,7 +95,8 @@ public class BoardController {
 
         return "board/update";
     }
-
+    // 추가 - 최규하
+    // 내용 - 회원 가입된 사용자만 접근 가능하게 추가
     @PreAuthorize("isAuthenticated()")
 
     @PostMapping("/update")
