@@ -95,17 +95,5 @@ public class BoardController {
 
         return "board/update";
     }
-    // 추가 - 최규하
-    // 내용 - 회원 가입된 사용자만 접근 가능하게 추가
-    @PreAuthorize("isAuthenticated()")
-
-    @PostMapping("/update")
-    public String boardUpdateProc(BoardUpdateFormDto boardUpdateFormDto, Principal principal) {
-        log.info("수정된 글 {}", boardUpdateFormDto);
-        boardService.boardUpdateService(boardUpdateFormDto);
-
-//		return "redirect:/blog/" + principal.getName() + "/board/list";
-        // 임시
-        return "redirect:/blog/" + 1 + "/board/list";
-    }
+   
 }

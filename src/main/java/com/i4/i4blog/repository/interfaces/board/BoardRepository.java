@@ -45,7 +45,7 @@ public interface BoardRepository {
      * @param id
      */
     public int updateCount(Integer id);
-    public int updateById(Integer id);
+    public int updateById(Board board);
     public Board getBoard(Integer id);
     
 }

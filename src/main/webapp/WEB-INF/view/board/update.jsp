@@ -13,14 +13,13 @@
 		<h3>글 수정하기</h3>
 	</div>
 
-	<%-- <form action="/blog/${principal.userId}/board/update" method="post"> --%>
-	<form action="/blog/1/board/update" method="post">
-		<input type="hidden" name="id" value="${board.id}">
+	<form action="/blog/${principal.userId}/board/update" method="post">
+		<input type="hidden" id="id" name="id" value="${board.id}">
 		<input type="hidden" name="userId" value="${principal.id}">
 		<div class="form-group form-option">
 			<div class="category">
-				<label for="boardCategory">카테고리</label> <select
-					class="boardCategory" id="boardCategory" name="boardCategory">
+				<label for="board-category">카테고리</label> <select
+					class="boardCategory" id="board-category" name="board-category">
 					<c:choose>
 						<c:when test="${empty categoryList}">
 							<option value="">---</option>
@@ -34,15 +33,16 @@
 				</select>
 			</div>
 			<div class="input-radio">
-				<label>공개<input type="radio" name="boardPublic" value="1"
-					checked="checked"></label> <label>비공개<input type="radio"
-					name="boardPublic" value="0"></label>
+				<label>공개<input type="radio" id="board-public" name="board-public" value="1"
+					checked="checked"></label>
+					<label>비공개<input type="radio" id="board-public"
+					name="board-public" value="0"></label>
 			</div>
 		</div>
 
 		<div class="form-group">
-		    <label for="boardTitle">제목</label>
-		    <input value="${board.boardTitle}" type="text" id="boardTitle" name="boardTitle" class="form-control" placeholder="글 제목을 입력하세요.">
+		    <label for="board-title">제목</label>
+		    <input value="${board.boardTitle}" type="text" id="board-title" name="board-title" class="form-control" placeholder="글 제목을 입력하세요.">
 	  	</div>
 
 		<!-- 섬네일 start -->
@@ -53,8 +53,8 @@
 		<div class="uploadResult"></div>
 		<!-- 섬네일 end -->
 
-		<textarea id="summernote" name="boardContent" placeholder="글 내용을 입력하세요.">${board.boardContent}</textarea>
-		<button type="submit" class="btn btn-primary">수정 완료</button>
+		<textarea id="summernote" name="board-content" placeholder="글 내용을 입력하세요.">${board.boardContent}</textarea>
+		<button type="button" id="submit-btn" class="btn btn-primary">수정 완료</button>
 		<button type="button" class="btn btn-secondary"	onclick="history.back()">취소</button>
 	</form>
 
@@ -103,51 +103,129 @@
 
 
 <script>
-	function show_uploaded_images(arr) {
-		console.log(arr);
-		var divArea = $(".uploadResult");
-		for (var i = 0; i < arr.length; i++) {
-			// console.log(arr[i].thumbnailURL);
-			divArea.append("<img src = '/display?fileName="
-					+ arr[i].thumbnailURL + "'>");
-		}
-	}
+        $(document).ready(function() {
+	
+	$('#submit-btn').click(function(e) {
+		let id = $('#id').val();
+		let board_category = $('#board-category').val();
+		let board_public = $('#board-public').val();
+		let board_title = $('#board-title').val();
+		let board_content = $('#summernote').val();
 
-	$('.uploadBtn').click(function() {
-		var formData = new FormData();
+		if (board_title.length === 0) {
+			alert("제목을 입력해주세요")
+			$("#board-title")
+				.focus();
+			return;
+		}
+		if (board_content.length === 0) {
+			alert("내용을 입력해주세요")
+			$("#summernote")
+				.focus();
+			return;
+		}
+
+		let json_data = {
+			id: id,
+			board_category: board_category,
+			board_public: board_public,
+			board_title: board_title,
+			board_content: board_content
+		}
+
+		console.log("제이슨 : 데이터 ",JSON.stringify({
+			board_category: board_category,
+			board_public: board_public,
+			board_title: board_title,
+			board_content: board_content
+		}))
+		console.log("json_data", json_data)
+		
+	
+		/* 		$("form").preventDefault(); */
+		
 		var inputFile = $("input[type = 'file']");
-		var files = inputFile[0].files;
+		console.log(inputFile[0].files.length);
+		
+		if (inputFile[0].files.length === 0) {
+			// inputFile이 없으면 서브밋
+			// 메소드 만들어서 코드 줄이기
+			$.ajax({
+				type: "put",
+				url: "/board/update",
+				dataType: "json",
+				contentType: "application/json",
+				data: JSON.stringify(json_data)
+				, success: function(res) {
+					alert("썸네일 없을때");
+					console.log(res);
+					let url = res.message;
+					location.href = url;
+				}
+				, error: function(res) {
+					console.log("error "+res);
+					alert("너임?");
+				}
+			});
+		} else {
+			var formData = new FormData();
+			var files = inputFile[0].files;
 
-		for (var i = 0; i < files.length; i++) {
-			console.log(files[i]);
-			formData.append("uploadFiles", files[i]);
+			for (var i = 0; i < files.length; i++) {
+				console.log(files[i]);
+				formData.append("uploadFiles", files[i]);
+			}
+
+			let width = 200;
+			let height = 200;
+			formData.append("w", width);
+			formData.append("h", height);
+			formData.append("type", "board");
+			console.log(formData)
+			//실제 업로드 부분
+			//upload ajax
+			$.ajax({
+				url: '/upload-img',
+				processData: false,
+				contentType: false,
+				data: formData,
+				type: 'POST',
+				dataType: 'json',
+				success: function(result) {
+					let thumbnail = result.thumbnailURL;
+					console.log(result.thumbnailURL);
+                    json_data.thumbnail = thumbnail;
+					console.log(json_data)
+					$.ajax({
+						type: "PUT",
+						url: "/board/update",
+						dataType: "json",
+						contentType: "application/json",
+						data: JSON.stringify(json_data),
+						success: function(res) {
+							console.log(res);
+							console.log(res);
+							let url = res.message;
+							location.href = url;
+
+						}
+						, error: function(res) {
+							console.log(res);
+							alert(res.message)
+						}
+					});
+				},
+				error: function(jqXHR, textStatus, errorThrown) {
+					console.log(textStatus);
+				},
+
+			}); //$.ajax
 
 		}
-		formData.append("w", width);
-		formData.append("h", height);
-		formData.append("type", "board");
-		console.log(formData)
 
-		// 실제 업로드 부분
-		// upload ajax
-		$.ajax({
-			url : '/uploadAjax',
-			processData : false,
-			contentType : false,
-			data : formData,
-			type : 'POST',
-			dataType : 'json',
-			success : function(result) {
-				show_uploaded_images(result.uploadResultDTOList);
+	}) // end of click
 
-				console.log(result.originalURL);
-				console.log(result.thumbnailURL);
-			},
-			error : function(jqXHR, textStatus, errorThrown) {
-				console.log(textStatus);
-			}
-		}); //$.ajax
-	})
+}) // end of ready
 </script>
 
 <%@ include file="/WEB-INF/view/layout/footer.jsp"%>

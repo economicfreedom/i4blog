@@ -32,14 +32,14 @@
 			board_title: board_title,
 			board_content: board_content
 		}))
+		
+	
 		/* 		$("form").preventDefault(); */
 		
 		var inputFile = $("input[type = 'file']");
 		console.log(inputFile[0].files.length);
 		
 		if (inputFile[0].files.length === 0) {
-			// inputFile이 없으면 서브밋
-			// 메소드 만들어서 코드 줄이기
 			$.ajax({
 				type: "POST",
 				url: "/board/write",
@@ -83,8 +83,10 @@
 				dataType: 'json',
 				success: function(result) {
 					let thumbnail = result.thumbnailURL;
+					let originalImg = result.originalURL;
 					console.log(result.thumbnailURL);
                     json_data.thumbnail = thumbnail;
+                    json_data.originalImg = imgOriginal;
 
 					$.ajax({
 						type: "POST",

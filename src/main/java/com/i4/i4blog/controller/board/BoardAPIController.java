@@ -1,5 +1,6 @@
 package com.i4.i4blog.controller.board;
 
+import com.i4.i4blog.dto.board.BoardUpdateFormDto;
 import com.i4.i4blog.dto.board.BoardWriteFormDto;
 import com.i4.i4blog.repository.interfaces.user.UserRepository;
 import com.i4.i4blog.service.board.BoardService;
@@ -77,7 +78,22 @@ public class BoardAPIController {
         return ResponseEntity.ok(customMessage);
     }
 
-
+    // 추가 - 최규하
+    // 내용 - 회원 가입된 사용자만 접근 가능하게 추가
+    @PreAuthorize("isAuthenticated()")
+    @PutMapping("/update")
+    public ResponseEntity<?> boardUpdateProc(
+    		@RequestBody
+    		BoardUpdateFormDto boardUpdateFormDto, Principal principal) {
+        log.info("수정된 글 {}", boardUpdateFormDto);
+        boardService.boardUpdateService(boardUpdateFormDto);
+        String url = "/blog/" + principal.getName() + "/board/view/" + boardUpdateFormDto.getId() ;
+        System.out.println("url 저장");
+        CustomMessage customMessage = new CustomMessage();
+        customMessage.setMessage(url);
+        return ResponseEntity.ok(customMessage);
+    }
+    
     @Data
     private class CustomMessage {
         private String message;

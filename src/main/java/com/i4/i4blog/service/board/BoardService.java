@@ -91,10 +91,14 @@ public class BoardService {
     public void boardUpdateService(BoardUpdateFormDto boardUpdateFormDto) {
     	log.info("boardUpdateService Start");
     	Board board = boardRepository.getBoard(boardUpdateFormDto.getId());
+    	log.info("boardUpdateFormDto.getBoardTitle() : {}",boardUpdateFormDto.getBoardTitle());
     	board.setBoardTitle(boardUpdateFormDto.getBoardTitle());
+    	
     	board.setBoardContent(boardUpdateFormDto.getBoardContent());
     	board.setBoardCategory(boardUpdateFormDto.getBoardCategory());
     	board.setBoardPublic(boardUpdateFormDto.getBoardPublic());
+    	board.setBoardThumbnail(boardUpdateFormDto.getThumbnail());
+    	boardRepository.updateById(board);
     }
 
 }

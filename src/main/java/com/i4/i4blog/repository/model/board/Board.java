@@ -24,4 +24,6 @@ public class Board {
 	private Integer boardPublic;
 	private Integer boardState;
 	private String boardThumbnail;
+	private String boardImgOriginal;
+	
 }
