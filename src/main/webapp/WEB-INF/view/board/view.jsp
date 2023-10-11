@@ -24,9 +24,7 @@
 		<h5>${board.boardContent}</h5>
 	</div>
 	
-	<c:if test="board.userId == ${principal.id}">
-	</c:if>
-	<a href="/blog/${principal.id}/board/update/${board.id}" class="btn btn-warning">수정하기</a>
+	<a href="/blog/${board.userId}/board/update/${board.id}" class="btn btn-warning">수정하기</a>
 	<button class="btn btn-secondary" onclick="history.back()">돌아가기</button>
 </div>
 

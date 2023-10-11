@@ -1,6 +1,7 @@
 <%@ page contentType="text/html; charset=UTF-8" language="java"
 	pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/view/layout/header.jsp"%>
+<script src="/js/write.js"></script>
 <link rel="stylesheet" href="/css/write.css">
 
 <!-- summernote css/js -->
@@ -13,12 +14,13 @@
 		<h3>블로그 글쓰기</h3>
 	</div>
 
-	<form action="/blog/${principal.userId}/board/write" method="post">
-		<input type="hidden" name="userId" value="${principal.id}">
+	<!-- 테스트 완료 후 주석 해제 -->
+	<!-- <form action="/blog/${principal.userId}/board/write" method="post" id="write-form"> -->
+	<form action="/blog/1/board/write" method="post" id="write-form">
 		<div class="form-group form-option">
 			<div class="category">
-				<label for="boardCategory">카테고리</label> <select
-					class="boardCategory" id="boardCategory" name="boardCategory">
+				<label for="board-category">카테고리</label> <select
+					class="boardCategory" id="board-category" name="board-category">
 					<c:choose>
 						<c:when test="${empty categoryList}">
 							<option value="">---</option>
@@ -32,30 +34,28 @@
 				</select>
 			</div>
 			<div class="input-radio">
-				<label>공개<input type="radio" name="boardPublic" value="1"
-					checked="checked"></label> <label>비공개<input type="radio"
-					name="boardPublic" value="0"></label>
+				<label>공개<input type="radio" id="board-public" name="board-public" value="1" checked="checked"></label>
+				<label>비공개<input type="radio" id="board-public" name="board-public" value="0"></label>
 			</div>
 		</div>
 
 		<div class="form-group">
 		    <label for="boardTitle">제목</label>
-		    <input type="text" id="boardTitle" name="boardTitle" class="form-control" placeholder="글 제목을 입력하세요.">
+		    <input type="text" id="board-title" name="board-title" class="form-control" placeholder="글 제목을 입력하세요.">
 	  	</div>
 
 		<!-- 섬네일 start -->
 		<div class="form-group">
-			<input name="uploadFiles" type="file" multiple>
-			<button class="uploadBtn">업로드</button>
+			<input name="uploadFiles" type="file">
 		</div>
 		<div class="uploadResult"></div>
 		<!-- 섬네일 end -->
 
-		<textarea id="summernote" name="boardContent"
+		<textarea id="summernote" name="board-content"
 			placeholder="글 내용을 입력하세요."></textarea>
-		<button type="submit" class="btn btn-primary">게시글 등록</button>
-		<button type="button" class="btn btn-secondary"
-			onclick="history.back()">취소</button>
+		<button type="button" id="submit-btn" class="btn btn-primary">게시글 등록</button>
+		<input type="text" name="thumbnail" id="thumbnail" hidden value="">
+		<button type="button" class="btn btn-secondary"	onclick="history.back()">취소</button>
 	</form>
 
 </div>
@@ -101,53 +101,5 @@
 	});
 </script>
 
-
-<script>
-	function show_uploaded_images(arr) {
-		console.log(arr);
-		var divArea = $(".uploadResult");
-		for (var i = 0; i < arr.length; i++) {
-			// console.log(arr[i].thumbnailURL);
-			divArea.append("<img src = '/display?fileName="
-					+ arr[i].thumbnailURL + "'>");
-		}
-	}
-
-	$('.uploadBtn').click(function() {
-		var formData = new FormData();
-		var inputFile = $("input[type = 'file']");
-		var files = inputFile[0].files;
-
-		for (var i = 0; i < files.length; i++) {
-			console.log(files[i]);
-			formData.append("uploadFiles", files[i]);
-
-		}
-		formData.append("w", width);
-		formData.append("h", height);
-		formData.append("type", "board");
-		console.log(formData)
-
-		// 실제 업로드 부분
-		// upload ajax
-		$.ajax({
-			url : '/uploadAjax',
-			processData : false,
-			contentType : false,
-			data : formData,
-			type : 'POST',
-			dataType : 'json',
-			success : function(result) {
-				show_uploaded_images(result.uploadResultDTOList);
-
-				console.log(result.originalURL);
-				console.log(result.thumbnailURL);
-			},
-			error : function(jqXHR, textStatus, errorThrown) {
-				console.log(textStatus);
-			}
-		}); //$.ajax
-	})
-</script>
 
 <%@ include file="/WEB-INF/view/layout/footer.jsp"%>

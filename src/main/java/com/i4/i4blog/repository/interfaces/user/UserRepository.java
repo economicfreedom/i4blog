@@ -14,4 +14,6 @@ public interface UserRepository {
 
 	public Integer getId(String userId);
 	public Integer findByUserIdCheck(String userId);
+	public String getNickname(String userId);
+	
 }

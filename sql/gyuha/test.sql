@@ -15,13 +15,44 @@ ALTER TABLE `report`
     ADD COLUMN `report_date` TIMESTAMP NOT NULL DEFAULT NOW();
 
 
+
+INSERT INTO profile(user_id, profile_title)
+SELECT MAX(u.id) + 1 as max, concat(user_nickname, '님의 블로그 입니다')
+FROM USER u;
+delete
+FROM profile
+where id = 6;
+INSERT INTO profile(user_id, profile_title)
+SELECT MAX(u.id) as dd, concat(user_nickname, '님의 블로그 입니다')
+FROM user u
+where id = (SELECT MAX(id) FROM user);
+SELECT *
+FROM profile;
+select *
+from user;
+where id =204;
+
+select *
+from user;
+select *
+from board;
+SELECT *
+FROM board
+WHERE user_id = 201
+  AND board_public = 1
+ORDER BY board_created_at DESC;
+
+
+select *
+from user
+where id = 201;
 SELECT COUNT(*)
 FROM board;
 SELECT COUNT(*)
 FROM comment;
 
 insert into `like`(board_id, `like`, user_id)
-    value (4,1,1);
+    value (4, 1, 1);
 
 
 insert into user(user_id, user_name, user_password, user_nickname, user_phone, user_email)
@@ -348,6 +379,7 @@ ALTER TABLE board
     ADD board_thumbnail text;
 
 
+
 select *
 from board;
 
@@ -356,12 +388,12 @@ SELECT u.user_nickname,
        u.id,
        b.id,
        b.board_title,
-       date_format(b.board_created_at,'%Y년 %m월 %d일') as board_created_at,
+       date_format(b.board_created_at, '%Y년 %m월 %d일') as board_created_at,
        IF(CHAR_LENGTH(b.board_content) > 136, CONCAT(SUBSTRING(b.board_content, 1, 136), '...'),
-          b.board_content)   AS board_content,
-       COALESCE(l.`like`, 0) AS like_count,
-       l.user_id             AS like_user,
-       count(*) over (partition by b.id,c.id) as comment_count
+          b.board_content)                            AS board_content,
+       COALESCE(l.`like`, 0)                          AS like_count,
+       l.user_id                                      AS like_user,
+       count(*) over (partition by b.id,c.id)         as comment_count
 
 
 FROM `user` u

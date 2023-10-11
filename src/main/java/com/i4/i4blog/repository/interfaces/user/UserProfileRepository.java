@@ -33,4 +33,8 @@ public interface UserProfileRepository {
             String title);
 
     void resign(String userId);
+
+    void save();
+
+    UserProfile imgPaths(Integer id);
 }

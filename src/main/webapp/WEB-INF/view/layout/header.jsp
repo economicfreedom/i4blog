@@ -57,6 +57,11 @@
                     <span  class="font-weight-bolder">${principal.userId}</span> 님
 
 	        </a>
+	        <a class="p-2 text-dark" href="/blog/${principal.userId}/board/list" >
+
+                    <span  class="font-weight-bolder">${principal.userId}</span>블로그
+
+	        </a>
 	        <a class="btn btn-outline-dark "  href="/logout">로그아웃</a>
         </sec:authorize>
     </nav>

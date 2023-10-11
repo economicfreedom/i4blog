@@ -5,7 +5,9 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 
+import com.i4.i4blog.service.user.UserProfileService;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -30,7 +32,7 @@ import lombok.extern.slf4j.Slf4j;
 public class UserAPIController {
 
     private final UserService userService;
-
+    private final UserProfileService userProfileService;
     /**
      * @param nickname
      * @return ResponseEntity
@@ -99,12 +101,17 @@ public class UserAPIController {
      * @author 박용세
      * 회원가입 기능
      */
+
+    // 추가 - 최규하
+    // 내용 - 회원가입이 안 된 사용자만 접근 가능하게 추가
+    @PreAuthorize("isAnonymous()")
     @PostMapping("/join")
     public ResponseEntity<?> joinProc(@Valid @RequestBody UserJoinFormDto userJoinFormDto, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             throw new ConstraintViolationException("회원가입 실패", null);
         }
         userService.userJoinService(userJoinFormDto);
+        userProfileService.save();
         return ResponseEntity.ok().build();
     }
 
