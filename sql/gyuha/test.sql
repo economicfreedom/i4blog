@@ -15,7 +15,7 @@ ALTER TABLE `report`
     ADD COLUMN `report_date` TIMESTAMP NOT NULL DEFAULT NOW();
 
 select * from user;
-
+select * from board;
 		SELECT *
 		  FROM board
 		 WHERE user_id = 201

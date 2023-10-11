@@ -1,4 +1,4 @@
-package com.i4.i4blog.controller.admin;
+package com.i4.i4blog.controller.upload;
 
 import com.i4.i4blog.dto.admin.UploadResponseDTO;
 import com.i4.i4blog.dto.admin.UploadResultDTO;
