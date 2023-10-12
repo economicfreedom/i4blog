@@ -322,7 +322,6 @@ function commentUpdate() {
                 <a href="#" class="btn btn-primary btn-sm btn-block" role="button">
                 <span class="glyphicon glyphicon-refresh"></span> 더보기</a>
             </div>
-        </div>
-      
+      </div> 
 </div>
 
