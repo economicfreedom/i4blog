@@ -48,5 +48,6 @@ public interface BoardRepository {
     public int updateCount(Integer id);
     public int updateById(Board board);
     public Board getBoard(Integer id);
+    public void deleteThumbnail(Integer id);
     
 }

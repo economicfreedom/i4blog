@@ -3,6 +3,7 @@ package com.i4.i4blog.controller.board;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import javax.validation.Valid;
 
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.i4.i4blog.dto.board.BoardUpdateFormDto;
 import com.i4.i4blog.dto.board.BoardWriteFormDto;
+import com.i4.i4blog.dto.board.ImgDeleteDto;
 import com.i4.i4blog.repository.interfaces.user.UserRepository;
 import com.i4.i4blog.service.board.BoardService;
 import com.i4.i4blog.service.upload.UploadService;
@@ -73,11 +75,11 @@ public class BoardAPIController {
             @RequestBody
             BoardWriteFormDto boardWriteFormDto, Principal principal
     ) {
-        CustomMessage customMessage = new CustomMessage();
 
         log.info("작성된 글 {}", boardWriteFormDto);
         boardService.boardWriteService(boardWriteFormDto, principal);
 
+        CustomMessage customMessage = new CustomMessage();
         customMessage.setMessage("/blog/" + principal.getName() + "/board/list");
 
         return ResponseEntity.ok(customMessage);
@@ -112,4 +114,22 @@ public class BoardAPIController {
     private class CustomMessage {
         private String message;
     }
+    
+    @PutMapping("/img-delete")
+    public ResponseEntity<?> deleteThumbnail(@RequestBody ImgDeleteDto imgDeleteDto) throws IllegalAccessException {
+    	Integer id = imgDeleteDto.getId();
+    	List<String> images = new ArrayList<>();
+    	images.add(imgDeleteDto.getOldThumbnail());
+    	images.add(imgDeleteDto.getOldImgOriginal());
+    	
+    	log.info("img-delete => 받아온 id {}", id);
+    	log.info("img-delete => 받아온 img {}", images);
+    	
+    	boardService.deleteThumbnail(id);
+    	uploadService.imgRemove(images);
+    	
+    	return ResponseEntity.ok("썸네일 삭제 성공");
+    }
+    
 }
+

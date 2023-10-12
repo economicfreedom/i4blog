@@ -11,9 +11,10 @@ public class BoardListVo {
 	private final String strUserId;
 	private final String boardTitle;
 	private final String boardCategory;
-	private final Timestamp boardCreatedAt;
+	private final String boardCreatedAt;
 	private final String userNickname;
 	private final String boardPublic;
 	private final String boardThumbnail;
+	private final String boardImgOriginal;
 
 }

@@ -41,13 +41,10 @@ public class BoardController {
      */
     @GetMapping("/list")
     public String boardList(Model model, @PathVariable String userId) {
-//        log.info("로그인한 아이디 {}",name);
-//        Integer id = userService.getId(name);
     	Integer id = userService.getId(userId);
 
 
         List<BoardListVo> boardList = boardService.findByUserId(id);
-//        boardList.get(0).getUId();
         if (boardList.isEmpty()) {
             log.info("list is empty {}", boardList);
             model.addAttribute("boardList", null);

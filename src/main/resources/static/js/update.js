@@ -1,5 +1,32 @@
 $(document).ready(function() {
 
+	// 섬네일 삭제
+	$('#delete-thumbnail').click(function(e) {
+		let img_delete_dto = {
+			id : $('#id').val(),
+			old_thumbnail : $('#old_thumbnail').val(),
+			old_img_original : $('#old_img_original').val()
+		};
+
+		$.ajax({
+			type: "PUT",
+			url: "/board/img-delete",
+			dataType:"json",
+			contentType: "application/json",
+			data: JSON.stringify(img_delete_dto),
+			success: function (res) {
+				alert(res);
+				location.reload();
+			},
+			error: function (res) {
+				alert("실패");
+			}
+
+		}); // end of .$ajax
+
+	}) // end of click
+
+
 	$('#submit-btn').click(function(e) {
 		let id = $('#id').val();
 		let board_category = $('#board-category').val();

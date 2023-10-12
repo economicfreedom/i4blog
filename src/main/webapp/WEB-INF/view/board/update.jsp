@@ -34,9 +34,8 @@
 				</select>
 			</div>
 			<div class="input-radio">
-				<label>공개<input type="radio" id="board-public"
-					name="board-public" value="1" checked="checked"></label> <label>비공개<input
-					type="radio" id="board-public" name="board-public" value="0"></label>
+				<label>공개<input type="radio" id="board-public" name="board-public" value="1" checked="checked"></label>
+				<label>비공개<input	type="radio" id="board-public" name="board-public" value="0"></label>
 			</div>
 		</div>
 
@@ -57,7 +56,8 @@
 						<img src="${board.boardThumbnail}" class="card-img-top" alt="..."
 							width="200px" height="200px">
 						<input type="hidden" value="${board.boardThumbnail}" id="old_thumbnail">
-						<input type="hidden" value="${board.boardImgOriginal}" id="old_img_original"> 
+						<input type="hidden" value="${board.boardImgOriginal}" id="old_img_original">
+						<button type="button" id="delete-thumbnail" class="btn btn-info">삭제</button>
 					</c:if>
 				</div>
 			</div>

@@ -65,7 +65,6 @@ public class BoardService {
      * @return List<Board>
      */
     public List<BoardListVo> findByUserId(Integer id) {
-
     	List<BoardListVo> boardList = boardRepository.findByUserId(id);
     	return boardList;
     }
@@ -111,4 +110,8 @@ public class BoardService {
     	boardRepository.updateById(board);
     }
 
+    public void deleteThumbnail(Integer id) {
+    	boardRepository.deleteThumbnail(id);
+    }
+    
 }

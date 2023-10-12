@@ -6,6 +6,7 @@
 
 <div class="container">
 	<input type="text" hidden name="id" id="id" value="${board.id}">
+	<input type="text" hidden name="id" id="user-id" value="${board.userId}">
 	<div class="form-group category">
 		<p>${board.boardCategory}</p>
 	</div>

@@ -13,10 +13,11 @@
 		     , u.user_id as str_user_id
 		     , b.board_title
 		     , b.board_category
-		     , b.board_created_at
+		     , date_format(b.board_created_at, '%Y년 %m월 %d일') as board_created_at
 		     , u.user_nickname
 		     , b.board_public
 		     , b.board_thumbnail
+		     , b.board_img_original
 		  FROM board b
 		  LEFT JOIN user u ON b.user_id = u.id
 		 WHERE b.user_id = #{userId}
@@ -78,6 +79,11 @@
 		 WHERE id = #{id}
 	</select>
 	
-	
+	<update id="deleteThumbnail">
+		UPDATE board
+		   SET board_thumbnail = null,
+		       board_img_original = null
+		 WHERE id = #{id}
+	</update>
 	
 </mapper>

@@ -1,17 +1,17 @@
 $(document).ready(function () {
 	$("#delete").click(function() {
 		let id = $('#id').val();
+		let user_id = $('#user-id').val(); 
 		console.log(id);
-		console.log(userId);
+		console.log(user_id);
 		$.ajax({
 			type: "PUT",
-			url: "board/del",
+			url: "/board/del",
 			contentType: "application/json",
 			data: id,
 			success: function (res) {
 				alert(res);
-				location.href = "/blog/" + principal.getName() + "/board/list";
-				// "/blog/" + principal.getName() + "/board/list" 여기로 이동되어야 한다.
+				location.href = "/blog/" + user_id + "/board/list";
 			},
 			error: function (res) {
 				alert("실패");
