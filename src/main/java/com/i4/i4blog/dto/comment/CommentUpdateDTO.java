@@ -10,7 +10,8 @@ import lombok.Data;
 @Data
 @JsonNaming(value =PropertyNamingStrategies.SnakeCaseStrategy.class )
 public class CommentUpdateDTO {
-	private Integer id;
+	
+	private Integer Id;
 	private Integer boardId;
 	private String commentContent;
 	private Timestamp commentUpdateAt;
