@@ -5,6 +5,7 @@ $(document).ready(function () {
 	let user_nickname_check = false;	
 	let user_phone_check = false;
 	let user_email_check = false;
+	let user_email_auth_check = false;
 	
 	let timeout;
 	
@@ -131,7 +132,7 @@ $(document).ready(function () {
 						.replace(/\-{1,2}$/g, "");
 			event.target.value = user_phone;
 			if(user_phone.length < 12 || user_phone.substr(0,2) !== "01"){
-				checked_failed("user_phone", "휴대전화를 정확히 입력해 주세요.");
+				checked_failed("user_phone", "휴대전화번호를 정확히 입력해 주세요.");
 			} else {
 		        user_phone_check = true;
 		        checked_succeed("user_phone");
@@ -145,15 +146,72 @@ $(document).ready(function () {
         timeout = setTimeout(function () {
 	        user_email_check = false;
 	        let user_email = event.target.value;
+	        // 인증 검사 다시 진행
+			$("#user_email_auth").attr("disabled","disabled");
+			$("#user_email_auth_btn").attr("disabled","disabled");
+	        user_email_auth_check = false;
 			if(!user_email.match(exp_email)){
-				checked_failed("user_email", "이메일 주소를 정확히 입력해 주세요.");
+				checked_failed("user_email", "이메일 주소를 정확히 입력해주세요.");
 			} else {
 		        user_email_check = true;
-		        checked_succeed("user_email");
+				$("#user_email").removeAttr("style");
+				$("#user_email_check").empty();
+				$("#user_email_check").removeAttr("style");
 			}
         }, 100)
 	})
 
+	// 이메일 인증 번호 전송
+	$("#user_email_send_btn").click(function (){
+		if(!user_email_check) {
+			checked_failed("user_email", "이메일 주소를 정확히 입력해주세요")
+			alert("이메일 주소를 정확히 입력해 주세요.");
+			return;
+		}
+		
+        $.ajax({
+            url: "/email/auth-send",
+            type: "post",
+            data: 'email=' + $("#user_email").val(),
+            success: function (res) {
+				$("#user_email_auth").removeAttr("disabled");
+				$("#user_email_auth_btn").removeAttr("disabled");
+				checked_succeed("user_email");
+				$("#user_email_check").text("인증 메일이 전송되었습니다.");
+				console.log("통신 성공");
+            },
+            error: function (res) {
+				console.log("통신 실패");
+            }
+        })
+	})
+	
+	// 이메일 인증 확인
+	$("#user_email_auth_btn").click(function (){
+		
+        $.ajax({
+            url: "/email/auth-check",
+            type: "post",
+            contentType: "application/json",
+            data: JSON.stringify({
+				email: $("#user_email").val(),
+				auth: $("#user_email_auth").val(),
+			}),
+            success: function (res) {
+				console.log("인증 성공");
+				alert("인증이 완료되었습니다.");
+				$("#user_email_auth").attr("hidden","true");
+				$("#user_email_auth_btn").attr("hidden","true");
+				$("#user_email").attr("disabled","disabled");
+				$("#user_email_send_btn").attr("disabled","disabled");
+				user_email_auth_check = true;
+            },
+            error: function (res) {
+				console.log("통신 실패");
+            }
+        })
+	})
+	
 	// 데이터 체크 성공
     function checked_succeed(tag_id) {
 			$("#" + tag_id).css("border-color", "blue");
@@ -167,6 +225,7 @@ $(document).ready(function () {
             $("#" + tag_id + "_check").text(msg);
             $("#" + tag_id + "_check").css("color", "red");
 	}
+	
 	// 회원가입 기능
 	$("#join").click(function (){
 		if(valid_check()) {
@@ -186,12 +245,6 @@ $(document).ready(function () {
 				contentType: "application/json; charset=utf-8",
 			    success: function(res) {
 					location.href = "/user/login";
-					/*
-			    	if(res) {
-						location.href = "/user/login";
-			    	} else {
-			    		alert("회원가입 실패");
-			    	}*/
 			    },
 			    error: function(res) {
 			        alert("회원가입 오류");
@@ -208,7 +261,7 @@ $(document).ready(function () {
 			alert("아이디를 정확히 입력하세요.");
 			return false;
 		}
-		if(!user_password_check && !user_password2_check) {
+		if(!(user_password_check && user_password2_check)) {
 			alert("비밀번호를 정확히 입력하세요.");
 			return false;
 		}
@@ -224,8 +277,8 @@ $(document).ready(function () {
 			alert("전화번호를 정확히 입력하세요.");
 			return false;
 		}
-		if(!user_email_check) {
-			alert("이메일을 정확히 입력하세요.");
+		if(!(user_email_check && user_email_auth_check)) {
+			alert("이메일 인증이 필요합니다.");
 			return false;
 		}
 		return true;

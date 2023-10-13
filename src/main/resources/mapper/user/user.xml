@@ -8,6 +8,12 @@
 		 WHERE user_id = #{userId}
 	</select>
 	
+	<select id="findByEmail" resultType="com.i4.i4blog.repository.model.user.User">
+		SELECT *
+		  FROM user
+		 WHERE user_email = #{email}
+	</select>
+	
     <select id="findByUserIdCheck" resultType="java.lang.Integer">
 		SELECT 1
 		  FROM user
@@ -20,10 +26,8 @@
 	</select>
 	
 	<select id="getNickname" resultType="java.lang.String">
-	
 		SELECT user_nickname FROM 
 		WHERE user_id = #{userId}
-		
 	</select>
 	
 	<select id="getId" resultType="java.lang.Integer">
@@ -36,8 +40,11 @@
 		 VALUE (#{userId}, #{userPassword}, #{userName}, #{userNickname}, #{userPhone}, #{userEmail})
 	</insert>
 		<select id="findProfileByUserId" resultType="com.i4.i4blog.vo.user.ProfileInfoVo">
-		SELECT a.user_id, a.user_nickname, a.user_state, a.user_role
-			 , b.profile_title, b.profile_content
+		SELECT a.user_id
+			 , a.user_nickname
+			 , a.user_role
+			 , b.profile_title
+			 , b.profile_content
 		  FROM user a
 		  LEFT JOIN profile b
 		    ON a.id = b.user_id

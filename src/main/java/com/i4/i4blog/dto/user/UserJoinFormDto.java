@@ -31,7 +31,7 @@ public class UserJoinFormDto {
 	private String userName;
 	
 	@NotBlank
-	@Size(min = 2, max = 15)
+	@Size(min = 2, max = 12)
 	@Pattern(regexp = "^[가-힣a-zA-Z0-9]+$")
 	private String userNickname;
 	

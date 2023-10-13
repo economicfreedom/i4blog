@@ -43,7 +43,7 @@
         </div>
     </div>
 
-    <div class="text-right mt-3">
+    <div class="text-right mb-3">
         <button type="button" class="btn btn-primary" onclick="categoryListSave()">저장</button>&nbsp;
         <button type="button" class="btn btn-default" onclick="history.back()">취소</button>
     </div>

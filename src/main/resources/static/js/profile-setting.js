@@ -440,14 +440,18 @@ $(document).ready(function () {
                 ,error:function (res){
                     alert(res.responseJSON.message);
                 }
-
-
             })
         }
-
-
-
-
     })
-
+    
+    $("#category-add").click(function () {
+		console.log("추가 버튼 클릭");
+		let html = "";
+    	html += '<li class="list-group-item category-item">';
+		html += '새 카테고리';
+		html += '</li>';
+		$("#category-list").append(html);
+	})
+	
+	$("#category-list").sortable();
 });

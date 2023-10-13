@@ -6,7 +6,6 @@ import lombok.Data;
 public class ProfileInfoVo {
 	private String userId;
 	private String userNickname;
-	private String userState;
 	private String userRole;
 	private String profileTitle;
 	private String profileContent;

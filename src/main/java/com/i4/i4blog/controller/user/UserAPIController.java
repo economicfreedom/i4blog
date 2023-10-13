@@ -5,7 +5,6 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 
-import com.i4.i4blog.service.user.UserProfileService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.BindingResult;
@@ -18,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.i4.i4blog.dto.user.UserJoinFormDto;
+import com.i4.i4blog.service.user.UserProfileService;
 import com.i4.i4blog.service.user.UserService;
 
 import lombok.RequiredArgsConstructor;
@@ -32,6 +32,7 @@ import lombok.extern.slf4j.Slf4j;
 public class UserAPIController {
 
     private final UserService userService;
+    
     private final UserProfileService userProfileService;
     /**
      * @param nickname
@@ -77,7 +78,7 @@ public class UserAPIController {
     public ResponseEntity<?> userIdCheck(
             @RequestParam
             @Pattern(regexp = "^[a-zA-Z0-9]{4,20}$"
-                    , message = "최소 4글자에서 최대 16글자"
+                    , message = "최소 4글자에서 최대 20글자"
                     + " 영어와 숫자만 입력 가능합니다.")
             @NotBlank(message = "아이디를 입력해주세요.")
             String userId
@@ -95,6 +96,7 @@ public class UserAPIController {
         return ResponseEntity.ok().build();
     }
 
+    
     /**
      * @param userJoinFormDto
      * @param bindingResult
@@ -117,5 +119,5 @@ public class UserAPIController {
         return ResponseEntity.ok().build();
     }
 
-
+    
 }
