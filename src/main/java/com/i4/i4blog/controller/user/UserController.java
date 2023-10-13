@@ -3,13 +3,12 @@ package com.i4.i4blog.controller.user;
 import java.security.Principal;
 import java.util.List;
 
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.i4.i4blog.dto.user.UserJoinFormDto;
 import com.i4.i4blog.repository.model.category.Category;
 import com.i4.i4blog.service.category.CategoryService;
 import com.i4.i4blog.service.user.UserService;
@@ -25,7 +24,6 @@ public class UserController {
     /**
      * @author 박용세
      */
-    private final UserService userService;
     // 테스트
     private final CategoryService categoryService;
 

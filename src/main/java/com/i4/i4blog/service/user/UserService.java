@@ -12,8 +12,8 @@ import lombok.RequiredArgsConstructor;
 @Service
 @RequiredArgsConstructor
 public class UserService {
+    private final PasswordEncoder passwordEncoder;
 	private final UserRepository userRepository;
-	private final PasswordEncoder passwordEncoder;
 	
 	/**
 	 * 회원가입 기능 서비스
@@ -44,4 +44,5 @@ public class UserService {
 	public Integer findByUserIdCheck(String userId) {
 		return userRepository.findByUserIdCheck(userId);
 	}
+
 }

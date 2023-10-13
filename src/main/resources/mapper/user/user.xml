@@ -29,8 +29,11 @@
 		 VALUE (#{userId}, #{userPassword}, #{userName}, #{userNickname}, #{userPhone}, #{userEmail})
 	</insert>
 		<select id="findProfileByUserId" resultType="com.i4.i4blog.vo.user.ProfileInfoVo">
-		SELECT a.user_id, a.user_nickname, a.user_state, a.user_role
-			 , b.profile_title, b.profile_content
+		SELECT a.user_id
+			 , a.user_nickname
+			 , a.user_role
+			 , b.profile_title
+			 , b.profile_content
 		  FROM user a
 		  LEFT JOIN profile b
 		    ON a.id = b.user_id

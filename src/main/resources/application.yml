@@ -14,21 +14,18 @@ spring:
       location: C:\\upload
       max-request-size: 30MB
       max-file-size: 10MB
-
-#  sql:
-#    init:
-#      schema-locations:
-#      - classpath:db/table.sql
-#      data-locations:
-#      - classpath:db/data.sql
-#  h2:
-#    console:
-#      enabled: true
-#  output:
-#    ansi:
-#      enabled: always
-# ???
-
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: bark6256@gmail.com
+    password: izbmomedxqhnpwvc
+    properties:
+      mail:
+        smtp:
+          starttls:
+            enable: true
+          auth: true
+      
 server:
   port: 80
   servlet:
