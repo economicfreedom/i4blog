@@ -55,10 +55,25 @@ public class UserProfileService {
      * 프로필 이미지 저장
      *
      */
+    private boolean isNull(Object t ){
+
+        if (t == null){
+            return true;
+        }
+        return false;
+
+    }
+
     public void saveImg(ProfileRequestDTO profileRequestDTO, Principal principal) {
+
 
         log.info("=== saveImg start ===");
         String userId = principal.getName();
+        Integer id = userRepository.getId(userId);
+        UserProfile profile = userProfileRepository.imgPaths(id);
+
+
+
         String originalImg = profileRequestDTO.getOriginalImg();
 
         String thumbNail = profileRequestDTO.getThumbNail();
@@ -114,5 +129,9 @@ public class UserProfileService {
 
         return true;
 
+    }
+
+    public void save() {
+        userProfileRepository.save();
     }
 }

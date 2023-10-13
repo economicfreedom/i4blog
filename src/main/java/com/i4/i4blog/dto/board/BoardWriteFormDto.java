@@ -21,4 +21,5 @@ public class BoardWriteFormDto {
 	private String boardCategory;
 	private Integer boardPublic;
 	private String thumbnail;
+	private String originalImg;
 }

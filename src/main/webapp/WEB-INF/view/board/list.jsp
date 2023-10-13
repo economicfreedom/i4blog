@@ -1,61 +1,73 @@
-<%@ page contentType="text/html; charset=UTF-8" language="java" pageEncoding="UTF-8" %>
+<%@ page contentType="text/html; charset=UTF-8" language="java"
+	pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/view/layout/category-header.jsp"%>
-<style>
-    .card-list:link {
-        text-decoration-line: none;
-        color: black;
-    }
 
-    .card-list {
-        color: black;
-    }
+<div class="container">
+	<div class="input-group mt-3">
+		<input type="text" im class="form-control rounded"
+			placeholder="검색어를 입력해주세요" aria-label="Search"
+			aria-describedby="search-addon" />
+	</div>
 
-    .card-list:hover {
-        color: gray;
-    }
+	<div class="container">
+		<div class="row mt-3">
+			<span> 200개의 결과 </span>
+		</div>
+		<sec:authorize access="isAuthenticated()">
+			<c:if test="${blogUser.userId eq principal.userId}">
+				<a href="/blog/${principal.userId}/board/write"
+					class="btn btn-primary">게시글 작성</a>
+			</c:if>
+		</sec:authorize>
+		<br>
 
-    .card-list .card {
-        transition: all 0.3s ease;
-        transform: translateY(0);
-        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    }
-
-    .card-list .card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-    }
-</style>
-
-<!-- 본인 리스트 페이지에서만 작성 버튼 노출되도록 변경 필요 -->
-<a href="/blog/${principal.userId}/board/write/${list.id}" class="btn btn-primary">게시글 작성</a>
-<br>
-
-<div class="row">
-	<c:choose>
-		<c:when test="${boardList != null}">
-			<c:forEach var="list" items="${boardList}">
-				<a href="/blog/${list.userId}/board/view/${list.id}" class="card-list">
-					<div class="col">
-						<div class="card" style="width: 14rem; margin-bottom: 15px">
-							<c:if test="${list.boardThumbnail == null || list.boardThumbnail == ''}">
-								<img src="/img/default-board.jpg" class="card-img-top" alt="...">
-							</c:if>
-							<c:if test="${list.boardThumbnail != null }">
-								<img src="${list.boardThumbnail}" class="card-img-top" alt="...">
-							</c:if>
-							<div class="card-body">
-								<h5 class="card-title">${list.boardTitle}</h5>
+		<div class="container">
+			<c:choose>
+				<c:when test="${boardList != null}">
+					<c:forEach var="list" items="${boardList}">
+						<a style="text-decoration: none; color: black;"   href="/blog/${list.strUserId}/board/view/${list.id}"
+							class="card-list">
+							<div class="d-flex justify-content-center">
+								<c:if
+									test="${list.boardImgOriginal == null || list.boardImgOriginal == ''}">
+									<img src="/img/default-board.jpg" width="500px" height="350"
+										alt="...">
+								</c:if>
+								<c:if test="${list.boardImgOriginal != null }">
+									<img src="${list.boardImgOriginal}" width="500px" height="350"
+										alt="...">
+								</c:if>
 							</div>
-						</div>
+							<div class="d-flex justify-content-center mt-4 mb-4">
+								<h4>${list.boardTitle}</h4>
+							</div>
+							<%-- <div class="d-flex justify-content-start mb-3">
+								<small> ${list.boardContent} </small>
+							</div> --%>
+							<div class="border-none d-flex">
+								<div class="border-none">
+									<small>${list.boardCreatedAt} </small>
+								</div>
+								<div class="border-none flex-fill">
+									<small>&nbsp;· 댓글 3개</small>
+								</div>
+								<div class="border-none">
+									<span style="color: red"> ♥ </span>
+								</div>
+							</div>
+						</a>
+					</c:forEach>
+				</c:when>
+				<c:otherwise>
+					<div class="col">
+						<p>작성된 게시글이 없습니다.</p>
 					</div>
-			</a>
-			</c:forEach>
-		</c:when>
-		<c:otherwise>
-			<p>작성된 게시글이 없습니다.</p>
-		</c:otherwise>
-	</c:choose>
-</div>
+				</c:otherwise>
+			</c:choose>
+		</div>
+	</div>
 
 
-<%@ include file="/WEB-INF/view/layout/category-footer.jsp"%>
+
+
+	<%@ include file="/WEB-INF/view/layout/category-footer.jsp"%>

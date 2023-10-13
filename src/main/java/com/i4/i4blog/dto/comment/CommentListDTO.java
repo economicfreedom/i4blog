@@ -8,6 +8,10 @@ import lombok.Data;
 @Data
 @JsonNaming(value =PropertyNamingStrategies.SnakeCaseStrategy.class )
 public class CommentListDTO {
-	private String commentcontent;
+	
+	private Integer userId;
+	private Integer boardId;
+	private Integer commentState;
+	private String commentContent;
 	
 }

@@ -10,6 +10,7 @@ import com.i4.i4blog.dto.board.BoardWriteFormDto;
 import com.i4.i4blog.repository.interfaces.board.BoardRepository;
 import com.i4.i4blog.repository.interfaces.user.UserRepository;
 import com.i4.i4blog.repository.model.board.Board;
+import com.i4.i4blog.vo.board.BoardListVo;
 import com.i4.i4blog.vo.board.BoardVO;
 
 import lombok.RequiredArgsConstructor;
@@ -27,15 +28,16 @@ public class BoardService {
 	 * @param boardWriteFormDto
 	 */
 	public void boardWriteService(BoardWriteFormDto boardWriteFormDto,Principal principal) {
-//		Integer uid = userRepository.getId(principal.getName());
+		Integer uid = userRepository.getId(principal.getName());
 		Board board = Board.builder()
-//				.userId(uid)
-				.userId(1)
+				.userId(uid)
+//				.userId(1)
 				.boardCategory(boardWriteFormDto.getBoardCategory())
 				.boardTitle(boardWriteFormDto.getBoardTitle())
 				.boardContent(boardWriteFormDto.getBoardContent())
 				.boardPublic(boardWriteFormDto.getBoardPublic())
 				.boardThumbnail(boardWriteFormDto.getThumbnail())
+				.boardImgOriginal(boardWriteFormDto.getOriginalImg())
 				.build();
 		
 		int result = boardRepository.insert(board);
@@ -62,8 +64,8 @@ public class BoardService {
      * @param userId
      * @return List<Board>
      */
-    public List<Board> findByUserId(Integer userId) {
-    	List<Board> boardList = boardRepository.findByUserId(userId);
+    public List<BoardListVo> findByUserId(Integer id) {
+    	List<BoardListVo> boardList = boardRepository.findByUserId(id);
     	return boardList;
     }
     
@@ -74,7 +76,10 @@ public class BoardService {
      * 게시글 id로 글 내용보기
      */
     public BoardVO findById(Integer id) {
+    	System.out.println("DB 조회 전");
     	BoardVO board = boardRepository.findById(id);
+    	System.out.println("DB 조회 후");
+    	System.out.println(board);
     	return board;
     }
     
@@ -87,13 +92,26 @@ public class BoardService {
     	return boardRepository.updateCount(id);
     }
     
+    public Board getBoard(Integer id) {
+    	return boardRepository.getBoard(id);
+    }
+    
     public void boardUpdateService(BoardUpdateFormDto boardUpdateFormDto) {
     	log.info("boardUpdateService Start");
     	Board board = boardRepository.getBoard(boardUpdateFormDto.getId());
+    	log.info("boardUpdateFormDto.getBoardTitle() : {}",boardUpdateFormDto.getBoardTitle());
     	board.setBoardTitle(boardUpdateFormDto.getBoardTitle());
+    	
     	board.setBoardContent(boardUpdateFormDto.getBoardContent());
     	board.setBoardCategory(boardUpdateFormDto.getBoardCategory());
     	board.setBoardPublic(boardUpdateFormDto.getBoardPublic());
+    	board.setBoardThumbnail(boardUpdateFormDto.getThumbnail());
+    	board.setBoardImgOriginal(boardUpdateFormDto.getOriginalImg());
+    	boardRepository.updateById(board);
     }
 
+    public void deleteThumbnail(Integer id) {
+    	boardRepository.deleteThumbnail(id);
+    }
+    
 }

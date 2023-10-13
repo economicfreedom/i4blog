@@ -6,6 +6,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 
 import com.i4.i4blog.repository.model.board.Board;
+import com.i4.i4blog.vo.board.BoardListVo;
 import com.i4.i4blog.vo.board.BoardVO;
 
 @Mapper
@@ -28,7 +29,8 @@ public interface BoardRepository {
      * @param userId
      * @return List<Board>
      */
-    public List<Board> findByUserId(Integer userId);
+
+    public List<BoardListVo> findByUserId(Integer userId);
     
     public List<Board> findAllByUserId(Integer userId);
     
@@ -44,7 +46,8 @@ public interface BoardRepository {
      * @param id
      */
     public int updateCount(Integer id);
-    public int updateById(Integer id);
+    public int updateById(Board board);
     public Board getBoard(Integer id);
+    public void deleteThumbnail(Integer id);
     
 }

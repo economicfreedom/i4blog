@@ -1,18 +1,4 @@
-package com.i4.i4blog.controller.admin;
-
-import com.i4.i4blog.dto.admin.UploadResponseDTO;
-import com.i4.i4blog.dto.admin.UploadResultDTO;
-import lombok.extern.slf4j.Slf4j;
-import net.coobird.thumbnailator.Thumbnailator;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.util.FileCopyUtils;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.multipart.MultipartFile;
+package com.i4.i4blog.controller.upload;
 
 import java.io.File;
 import java.io.IOException;
@@ -25,6 +11,23 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.util.FileCopyUtils;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
+
+import com.i4.i4blog.dto.admin.UploadResponseDTO;
+import com.i4.i4blog.dto.admin.UploadResultDTO;
+
+import lombok.extern.slf4j.Slf4j;
+import net.coobird.thumbnailator.Thumbnailator;
 
 
 @RestController
@@ -41,6 +44,9 @@ public class UploadController {
      * @return UploadResponseDTO
      * @author 최규하
      */
+    // 추가 - 최규하
+    // 내용 - 회원 가입된 사용자만 접근 가능하게 추가
+    @PreAuthorize("isAuthenticated()")
     @PostMapping("/upload-img")
     public ResponseEntity<?> uploadFile(
             @RequestParam("uploadFiles") MultipartFile[] uploadFiles

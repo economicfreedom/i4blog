@@ -3,7 +3,7 @@ package com.i4.i4blog.controller.user;
 import java.security.Principal;
 import java.util.List;
 
-import org.springframework.security.core.Authentication;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.i4.i4blog.repository.model.category.Category;
 import com.i4.i4blog.service.category.CategoryService;
-import com.i4.i4blog.service.user.UserService;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -30,6 +29,9 @@ public class UserController {
     /**
      * 로그인 페이지 이동
      */
+    // 추가 - 최규하
+    // 내용 - 회원가입이 안 된 사용자만 접근 가능하게 추가
+    @PreAuthorize("isAnonymous()")
     @GetMapping("/login")
     public String login() {
         return "user/login";
@@ -48,6 +50,9 @@ public class UserController {
     /**
      * 회원가입 페이지 이동
      */
+    // 추가 - 최규하
+    // 내용 - 회원가입이 안 된 사용자만 접근 가능하게 추가
+    @PreAuthorize("isAnonymous()")
     @GetMapping("/join")
     public String join() {
         return "user/join";

@@ -3,20 +3,30 @@
 <mapper namespace="com.i4.i4blog.repository.interfaces.board.BoardRepository">
 
 	<insert id="insert">
-		INSERT INTO BOARD (user_id, board_title, board_content, board_category, board_public, board_thumbnail)
-		 VALUE (#{userId}, #{boardTitle}, #{boardContent}, #{boardCategory}, #{boardPublic}, #{boardThumbnail})
+		INSERT INTO BOARD (user_id, board_title, board_content, board_category, board_public, board_thumbnail, board_img_original)
+		 VALUE (#{userId}, #{boardTitle}, #{boardContent}, #{boardCategory}, #{boardPublic}, #{boardThumbnail}, #{boardImgOriginal})
 	</insert>
 
-	<select id="findByUserId" resultType="com.i4.i4blog.repository.model.board.Board">
-		SELECT *
-		  FROM board 
-		 WHERE user_id = #{userId}
-  	 	   AND board_public = 1
+	<select id="findByUserId" resultType="com.i4.i4blog.vo.board.BoardListVo">
+		SELECT b.id
+		     , b.user_id
+		     , u.user_id as str_user_id
+		     , b.board_title
+		     , b.board_category
+		     , date_format(b.board_created_at, '%Y년 %m월 %d일') as board_created_at
+		     , u.user_nickname
+		     , b.board_public
+		     , b.board_thumbnail
+		     , b.board_img_original
+		  FROM board b
+		  LEFT JOIN user u ON b.user_id = u.id
+		 WHERE b.user_id = #{userId}
+  	 	   AND b.board_state = 1
   	 	 ORDER BY board_created_at DESC
 	</select>
 
 	<select id="findAllByUserId" resultType="com.i4.i4blog.repository.model.board.Board">
-		SELECT *
+		SELECT b.*, u.user_id as uId
 		  FROM board 
 		 WHERE user_id = #{userId}
 	</select>
@@ -28,7 +38,17 @@
 	</update>
 	
 	<select id="findById" resultType="com.i4.i4blog.vo.board.BoardVO">
-		SELECT b.id, b.board_title, b.board_content, b.board_created_at, b.board_category, u.user_nickname, u.user_id,u.id AS uId
+		SELECT b.id
+			 , u.id AS uId
+			 , u.user_id
+			 , b.board_content
+			 , b.board_title
+			 , b.board_category
+			 , b.board_created_at
+			 , b.board_count
+			 , u.user_nickname
+			 , b.board_thumbnail
+			 , b.board_img_original
 		  FROM board b
 		  JOIN user u
 		    ON b.user_id = u.id
@@ -48,7 +68,8 @@
 			   board_category = #{boardCategory},
 		       board_updated_at = now(),
 		       board_public = #{boardPublic},
-		       board_thumbnail = #{boardThumbnail}
+		       board_thumbnail = #{boardThumbnail},
+		       board_img_original = #{boardImgOriginal}
 		 WHERE id = #{id}
 	</update>
 	
@@ -57,5 +78,12 @@
 		  FROM board 
 		 WHERE id = #{id}
 	</select>
+	
+	<update id="deleteThumbnail">
+		UPDATE board
+		   SET board_thumbnail = null,
+		       board_img_original = null
+		 WHERE id = #{id}
+	</update>
 	
 </mapper>

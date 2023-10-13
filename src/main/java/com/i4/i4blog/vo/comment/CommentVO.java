@@ -12,13 +12,12 @@ import lombok.Getter;
  */
 @Data
 public class CommentVO {
-	private Integer id;						//게시글 아이디
+	private Integer id;						//댓글 번호
 	private Integer boardId;				//게시글 번호
 	private Integer userId;					//댓글 대상 번호
-	private String commentcontent;			//댓글 내용
+	private String commentContent;			//댓글 내용
 	private Timestamp commentCreated;		//댓글 작성일
-	private Integer commentWriter;			//댓글 작성자
 	private	Timestamp commentUpdated;		//댓글 수정일
-	private String comment_Public;			//댓글 삭제 여부 
-	private Integer board_Writer;			//게시글 작성자
+	private String commentPublic;			//댓글 공개 여부 
+	private String commentState;			//댓글 상태 여부 
 }

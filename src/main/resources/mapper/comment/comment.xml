@@ -2,38 +2,48 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace ="com.i4.i4blog.repository.interfaces.comment.CommentRepository">
 
- <!--댓글  목록조회 쿼리  -->
+<!-- 댓글의 고정 아이디 값 찾기 -->
 <select id="commentById" resultType= "com.i4.i4blog.repository.model.comment.Comment">
-select *from comment
- where comment_id = #{commentId}
+select * from comment
+ where id = #{id}
+</select>
+
+<!--댓글  목록조회 쿼리  -->
+<select id ="findAllByBoardId" resultType ="com.i4.i4blog.vo.comment.CommentVO">
+select id
+	 , board_id
+     , user_id
+     , comment_content
+     , comment_created_at
+     , comment_updated_at
+     , comment_public
+     , comment_public
+  from comment
+ where board_id = #{boardId};
 </select>
 
 <!-- 댓글 작성 쿼리  -->
 <insert id="create">
-Insert into comment(id, user_id, board_id, comment_writer, comment_content, comment_created_at)
-value (#{id}, #{userId}, #{boardId}, #{commentWriter}, #{commentContent}, #{commentCreated})
+Insert into comment(user_id, board_id, comment_content,comment_public)
+value (#{userId}, #{boardId}, #{commentContent}, #{commentPublic})
 </insert>
 
 <!-- 댓글 수정 쿼리 -->
-<update id="updateById">
+<update id="updateComment">
 	update comment
-	set	comment_state = 0
-		user_id= #{user_Id};
-		comment_writer = #{comment_writer}		
-		comment_update= #{comment_Update}
-		comment_updated_at = now();
-		comment_public= #{comment_State}
+	set	
+		comment_content = #{commentContent},
+		comment_updated_at = now(),
+		comment_public= #{commentPublic}
 	Where id=#{id}
 </update>
 
+
+
 <!-- 댓글 삭제 쿼리  -->
-<delete id="deleteById">
-	UPDATE comment 
-  	set    comment_state = 0
-           comment_content = #{comment_Content}
-           comment_deleted_at = now();
-           comment_delete = #{comment_Delete}
-           comment_public= #{comment_State}
-           where id=#{id}
-</delete>
+<update id="deleteById">
+	UPDATE board
+	SET board_state = 0
+	WHERE id=#{id}
+</update>
 </mapper>

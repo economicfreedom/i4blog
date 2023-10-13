@@ -42,4 +42,4 @@ mybatis:
 org:
   zerock:
     upload:
-      path: C:\upload
+      path: \src\main\resources\static

@@ -9,6 +9,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
@@ -22,6 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.i4.i4blog.dto.user.EmailAuthDto;
 import com.i4.i4blog.dto.user.UserJoinFormDto;
 import com.i4.i4blog.service.user.EmailService;
+import com.i4.i4blog.service.user.UserProfileService;
 import com.i4.i4blog.service.user.UserService;
 
 import lombok.RequiredArgsConstructor;
@@ -39,6 +41,7 @@ public class UserAPIController {
     private final EmailService emailService;
     private final PasswordEncoder passwordEncoder;
     
+    private final UserProfileService userProfileService;
     /**
      * @param nickname
      * @return ResponseEntity
@@ -78,6 +81,7 @@ public class UserAPIController {
      * 존재 하는 아이디면 IllegalAccessException 터트림
      * NicknameValidHandler 클래스에 alreadyNickname 참고
      */
+
     @GetMapping("/user-id-check")
     public ResponseEntity<?> userIdCheck(
             @RequestParam
@@ -185,12 +189,18 @@ public class UserAPIController {
      * @author 박용세
      * 회원가입 기능
      */
+
+    // 추가 - 최규하
+    // 내용 - 회원가입이 안 된 사용자만 접근 가능하게 추가
+    // Profile테이블 Save기능 추가
+    @PreAuthorize("isAnonymous()")
     @PostMapping("/join")
     public ResponseEntity<?> joinProc(@Valid @RequestBody UserJoinFormDto userJoinFormDto, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             throw new ConstraintViolationException("회원가입 실패", null);
         }
         userService.userJoinService(userJoinFormDto);
+        userProfileService.save();
         return ResponseEntity.ok().build();
     }
 

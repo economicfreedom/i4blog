@@ -1,0 +1,9 @@
+DROP TABLE user;
+DROP TABLE board;
+DROP TABLE category;
+DROP TABLE comment;
+DROP TABLE profile;
+DROP TABLE report;
+DROP TABLE follow;
+DROP TABLE `like`;
+DROP TABLE gpt;
