@@ -48,8 +48,11 @@ FROM user u
          JOIN profile p ON u.id = p.user_id
 where u.id = #{id}
     </select>
-    <select id="imgPaths" resultType="com.i4.i4blog.repository.model.user.UserProfile">
-        SELECT img_original,img_thumbnail FROM profile
+    <select id="imgPaths" resultType="com.i4.i4blog.dto.user.ProfileIMGDTO">
+        SELECT img_original, img_thumbnail
+        FROM profile
         WHERE user_id = #{id}
     </select>
+
+
 </mapper>

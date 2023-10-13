@@ -7,6 +7,7 @@ import com.i4.i4blog.util.Criteria;
 import com.i4.i4blog.util.PageDTO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,6 +28,7 @@ public class AdminController {
 
     private final AdminService adminService;
 
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/main")
     public String showMain(Model model) {
         log.info("showMain Start ==>");
@@ -39,6 +41,7 @@ public class AdminController {
     }
 
     @GetMapping("/report")
+    @PreAuthorize("hasRole('ADMIN')")
     public String reportBoard(Model model
 
             , @RequestParam(value = "page-num"

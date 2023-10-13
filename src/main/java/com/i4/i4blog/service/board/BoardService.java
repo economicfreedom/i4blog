@@ -3,6 +3,8 @@ package com.i4.i4blog.service.board;
 import java.security.Principal;
 import java.util.List;
 
+import com.i4.i4blog.dto.main.SearchResultDTO;
+import com.i4.i4blog.util.Criteria;
 import org.springframework.stereotype.Service;
 
 import com.i4.i4blog.dto.board.BoardUpdateFormDto;
@@ -109,6 +111,12 @@ public class BoardService {
     	board.setBoardImgOriginal(boardUpdateFormDto.getOriginalImg());
     	boardRepository.updateById(board);
     }
+	public List<SearchResultDTO> boardPagingList(Criteria cri){
+		return boardRepository.boardPagingList(cri);
+	}
+	public Integer getSearchTotal(Criteria cri){
+		return boardRepository.getSearchTotal(cri);
+	}
 
     public void deleteThumbnail(Integer id) {
     	boardRepository.deleteThumbnail(id);
