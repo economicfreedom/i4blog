@@ -18,4 +18,8 @@ $(document).ready(function () {
 			}
 		}); // end of .$ajax
 	}); // end of #delete
+	
+	$("#like-heart").click(function() {
+		
+	}) // end of #like
 }) // # end of $(document).ready

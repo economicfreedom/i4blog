@@ -3,7 +3,6 @@ package com.i4.i4blog.controller.board;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import javax.validation.Valid;
 
@@ -20,6 +19,7 @@ import com.i4.i4blog.dto.board.BoardWriteFormDto;
 import com.i4.i4blog.dto.board.ImgDeleteDto;
 import com.i4.i4blog.repository.interfaces.user.UserRepository;
 import com.i4.i4blog.service.board.BoardService;
+import com.i4.i4blog.service.like.LikeService;
 import com.i4.i4blog.service.upload.UploadService;
 
 import lombok.Data;
@@ -34,6 +34,8 @@ public class BoardAPIController {
     private final BoardService boardService;
     private final UserRepository userRepository;
     private final UploadService uploadService;
+    private final LikeService likeService;
+    
     /**
      * @author 최규하
      * 이름은 delete지만 실제론 state를 바꾸기 때문에 update로 동작함
@@ -125,11 +127,13 @@ public class BoardAPIController {
     	log.info("img-delete => 받아온 id {}", id);
     	log.info("img-delete => 받아온 img {}", images);
     	
-    	boardService.deleteThumbnail(id);
     	uploadService.imgRemove(images);
+    	boardService.deleteThumbnail(id);
     	
-    	return ResponseEntity.ok("썸네일 삭제 성공");
+    	return ResponseEntity.ok().build();
     }
+    
+    
     
 }
 

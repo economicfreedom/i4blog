@@ -19,7 +19,7 @@
 			<p>${board.boardCreatedAt}</p>
 		</div>
 		<div class="function">
-			<span class="like-heart" onclick="likeToggle(this)">&#10084;</span>
+			<span id="like-heart" class="like-heart" onclick="likeToggle(this)">♡</span>
 		</div>
 	</div>
 	<div class="form-group content">

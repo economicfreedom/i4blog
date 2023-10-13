@@ -35,7 +35,8 @@
 		INSERT into user(user_id, user_password, user_name, user_nickname, user_phone, user_email)
 		 VALUE (#{userId}, #{userPassword}, #{userName}, #{userNickname}, #{userPhone}, #{userEmail})
 	</insert>
-		<select id="findProfileByUserId" resultType="com.i4.i4blog.vo.user.ProfileInfoVo">
+	
+	<select id="findProfileByUserId" resultType="com.i4.i4blog.vo.user.ProfileInfoVo">
 		SELECT a.user_id, a.user_nickname, a.user_state, a.user_role
 			 , b.profile_title, b.profile_content
 		  FROM user a
@@ -43,4 +44,5 @@
 		    ON a.id = b.user_id
 		 WHERE a.user_id = #{userId}
 	</select>
+	
 </mapper>

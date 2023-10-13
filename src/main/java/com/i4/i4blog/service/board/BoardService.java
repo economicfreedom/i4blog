@@ -27,11 +27,10 @@ public class BoardService {
 	 * 게시글 작성
 	 * @param boardWriteFormDto
 	 */
-	public void boardWriteService(BoardWriteFormDto boardWriteFormDto,Principal principal) {
+	public void boardWriteService(BoardWriteFormDto boardWriteFormDto, Principal principal) {
 		Integer uid = userRepository.getId(principal.getName());
 		Board board = Board.builder()
 				.userId(uid)
-//				.userId(1)
 				.boardCategory(boardWriteFormDto.getBoardCategory())
 				.boardTitle(boardWriteFormDto.getBoardTitle())
 				.boardContent(boardWriteFormDto.getBoardContent())
