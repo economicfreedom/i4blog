@@ -2,8 +2,11 @@ package com.i4.i4blog.vo.comment;
 
 import java.sql.Timestamp;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 /*
  * 김민환 
@@ -11,6 +14,9 @@ import lombok.Getter;
  * 비밀 댓글 유무 처리, 조회수,게시글 작성자 등등 모델링  
  */
 @Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class CommentVO {
 	private Integer id;						//댓글 번호
 	private Integer boardId;				//게시글 번호

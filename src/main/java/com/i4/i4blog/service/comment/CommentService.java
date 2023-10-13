@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.i4.i4blog.dto.comment.CommentCreateDTO;
+import com.i4.i4blog.dto.comment.CommentDeleteDTO;
 import com.i4.i4blog.dto.comment.CommentUpdateDTO;
 import com.i4.i4blog.repository.interfaces.comment.CommentRepository;
 import com.i4.i4blog.repository.model.comment.Comment;
@@ -45,14 +46,32 @@ public class CommentService {
 	 * @return commentRepository에서comment 객체를 생성함
 	 **
 	 */
-	public int commentCreateService(CommentCreateDTO commentCreateDto) {
+	//	public int commentCreateService(CommentCreateDTO commentCreateDto) {
+	//		Comment comment = new Comment();
+	//		comment.setCommentContent(commentCreateDto.getCommentContent());
+	//		comment.setUserId(commentCreateDto.getUserId());
+	//		comment.setBoardId(commentCreateDto.getBoardId());
+	//		comment.setCommentPublic(commentCreateDto.getCommentPublic());
+	//		int result = commentRepository.create(comment);
+	//		return result;
+	//		
+	//	}
+		
+	//샘플 테이터 (나중에 테스트할예정입니다)
+	@Transactional
+	public CommentVO commentCreateService(CommentCreateDTO commentCreateDto) {
 		Comment comment = new Comment();
 		comment.setCommentContent(commentCreateDto.getCommentContent());
 		comment.setUserId(commentCreateDto.getUserId());
 		comment.setBoardId(commentCreateDto.getBoardId());
 		comment.setCommentPublic(commentCreateDto.getCommentPublic());
 		int result = commentRepository.create(comment);
-		return result;
+		// 마지막에 등록된 댓글 들고 오기
+		// 마직막 요소  userID , board_id --> select  
+		CommentVO entidyCommentVO = null;
+		
+		
+		return entidyCommentVO;
 		
 	}
 
@@ -62,10 +81,12 @@ public class CommentService {
 	 * @return
 	 */
 	public void updateCommentService(CommentUpdateDTO commentUpdateDTO) {
-		System.out.println("service");
+		
 		int id = commentUpdateDTO.getId();
+		
 	    Comment comment = commentRepository.commentById(id);
 	    System.out.println("comment - " + comment);
+	    System.out.println("commentRepository");
 	    if (comment != null) {
 	        // 2. Comment 객체 업데이트
 	        comment.setCommentContent(commentUpdateDTO.getCommentContent()); // 예시: 내용 업데이트
@@ -83,7 +104,31 @@ public class CommentService {
 	
 	
 	
-	//댓글 삭제
+	/**
+	 * 
+	 * 댓글 삭제
+	 * @param commentDeleteDTO
+	 */
+	public void deleteCommentService(Integer id) {
+	  
+	    
+	    Comment comment = commentRepository.commentById(id);
+	    if (comment != null) {
+	        // 댓글을 삭제 처리합니다.
+	        commentRepository.deleteComment(id);
+	        System.out.println("댓글 삭제 완료");
+	    } else {
+	        // 댓글을 찾지 못한 경우 예외 처리
+	        throw new NotFoundException("댓글을 찾을 수 없습니다.");
+	    }
+	}
+
+	/**
+	 * 
+	 * @param id
+	 * @return
+	 *여기 부분은 댓글이 삭제되었는지 아닌지 유무 확인 
+	 */
 	public int deleteById(Integer id){
 		return commentRepository.deleteById(id);
 	}

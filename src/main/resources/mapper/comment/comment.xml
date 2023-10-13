@@ -40,10 +40,18 @@ value (#{userId}, #{boardId}, #{commentContent}, #{commentPublic})
 
 
 
-<!-- 댓글 삭제 쿼리  -->
+<!-- 이름만 delete이지 실제론 state를 바꾸기위해서 만듬 1,0  -->
 <update id="deleteById">
 	UPDATE board
 	SET board_state = 0
 	WHERE id=#{id}
 </update>
+
+<!-- 댓글 삭제 쿼리  -->
+<delete id="deleteComment">
+  DELETE FROM comment
+  WHERE id = #{id}
+</delete>
+
+
 </mapper>

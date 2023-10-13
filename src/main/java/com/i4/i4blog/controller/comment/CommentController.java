@@ -35,15 +35,15 @@ public class CommentController {
 
 	/**
 	 * 댓글 목록 리스트(사용자)
-	 * 
+	 * //addAttrbute("jsp에서 사용할 명칭",보낼 데이터)
+	 * 조회 데이터를 jsp로 보내야 한다 -> model
 	 * 
 	 **/
 	@GetMapping("/list")
 	public String comentList(Model model) {
 		int boardId = 1;	//테스트로 강제 지정함 
-		List<CommentVO> commentList = commentService.commentListService(boardId);
-		//addAttrbute("jsp에서 사용할 명칭",보낼 데이터)
-		// 조회 데이터를 jsp로 보내야 한다 -> model
+		System.out.println(commentService);
+		List<CommentVO> commentList = commentService.commentListService(boardId);		
 		model.addAttribute("commentList", commentList);
 		return "comment/commentList";
 	}
