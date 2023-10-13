@@ -8,14 +8,12 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
 import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.security.core.Transient;
 import org.springframework.stereotype.Service;
 
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 @Service
-@Transient
 public class EmailService {
 
     private final JavaMailSender emailSender;
@@ -27,9 +25,10 @@ public class EmailService {
      * @author 박용세
      * 메일 주소를 받아 인증번호를 생성 후 인증번호와 함께 메일을 보낸다.
      */
-	public String sendCodeToEmail(String email) throws Exception {
+	public String sendAuthToEmail(String toEmail) throws Exception {
         String authCode = this.createCode();
-        this.sendEmail(email, authCode);
+        MimeMessage emailForm = authEmailForm(toEmail, authCode);
+        sendEmail(emailForm);
         return authCode;
 	}
 	
@@ -54,13 +53,12 @@ public class EmailService {
     }
     
     /**
-     * @param toEmail
+     * @param emailForm
      * @param auth
      * @author 박용세
      * 메일을 실제로 전송하는 기능
      */
-    public void sendEmail(String toEmail, String auth) {
-        MimeMessage emailForm = createEmailForm(toEmail, auth);
+    public void sendEmail(MimeMessage emailForm) {
         try {
             emailSender.send(emailForm);
         } catch (Exception e) {
@@ -75,7 +73,7 @@ public class EmailService {
      * @author 박용세
      * 메일로 전송할 제목 및 내용 작성
      */
-    private MimeMessage createEmailForm(String toEmail, String auth) {
+    private MimeMessage authEmailForm(String toEmail, String auth) {
         String title = "i4-blog 회원가입을 위한 인증 메일입니다";
         
     	String text = "";
@@ -89,8 +87,48 @@ public class EmailService {
 			message.setSubject(title);
 			message.setText(text, "utf-8", "html");
 		} catch (Exception e) {
-			System.out.println("message 생성 실패 : " + e.getMessage());
+			System.out.println("인증 message 생성 실패 : " + e.getMessage());
 		}
         return message;
     }
+    
+    /**
+     * @param email
+     * @return authCode
+     * @throws Exception
+     * @author 박용세
+     * 메일 주소와 아이디를 받아 id 정보와 함께 메일을 전송한다.
+     */
+    public void sendUserIdToEmail(String toEmail, String userId) throws Exception {
+    	MimeMessage emailForm = userIdEmailForm(toEmail, userId);
+    	sendEmail(emailForm);
+    }
+    
+    /**
+     * @param toEmail
+     * @param auth
+     * @return
+     * @author 박용세
+     * 메일로 전송할 제목 및 내용 작성
+     */
+    private MimeMessage userIdEmailForm(String toEmail, String userId) {
+    	String title = "i4-blog 아이디 찾기 메일입니다";
+    	
+    	String text = "";
+    	text += "<h2>i4-blog 아이디 찾기</h2><br>";
+    	text += "<h3>i4-blog에 가입되어 있는 아이디는 </h3>";
+    	text += "<h1>" + userId + "</h1>";
+    	text += "<h3> 입니다</h3>";
+    	MimeMessage message = emailSender.createMimeMessage();
+    	try {
+    		message.setFrom(new InternetAddress("i4blog@blog.com", "i4blog"));
+    		message.addRecipients(MimeMessage.RecipientType.TO, toEmail);
+    		message.setSubject(title);
+    		message.setText(text, "utf-8", "html");
+    	} catch (Exception e) {
+    		System.out.println("인증 message 생성 실패 : " + e.getMessage());
+    	}
+    	return message;
+    }
+    
 }

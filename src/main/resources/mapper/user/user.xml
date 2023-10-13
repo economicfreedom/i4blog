@@ -8,6 +8,12 @@
 		 WHERE user_id = #{userId}
 	</select>
 	
+	<select id="findByEmail" resultType="com.i4.i4blog.repository.model.user.User">
+		SELECT *
+		  FROM user
+		 WHERE user_email = #{email}
+	</select>
+	
     <select id="findByUserIdCheck" resultType="java.lang.Integer">
 		SELECT 1
 		  FROM user
@@ -20,10 +26,8 @@
 	</select>
 	
 	<select id="getNickname" resultType="java.lang.String">
-	
 		SELECT user_nickname FROM 
 		WHERE user_id = #{userId}
-		
 	</select>
 	
 	<select id="getId" resultType="java.lang.Integer">

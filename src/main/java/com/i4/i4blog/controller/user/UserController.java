@@ -58,6 +58,12 @@ public class UserController {
         return "user/join";
     }
 
+    @PreAuthorize("isAnonymous()")
+    @GetMapping("/forgot")
+    public String userForgot() {
+    	return "user/userForgot";
+    }
+    
     // 카테고리 테스트중
     @GetMapping("/category-setting")
     public String categorySetting(Model model) {

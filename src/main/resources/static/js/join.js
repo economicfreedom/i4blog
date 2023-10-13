@@ -170,7 +170,7 @@ $(document).ready(function () {
 		}
 		
         $.ajax({
-            url: "/user/email-send",
+            url: "/email/auth-send",
             type: "post",
             data: 'email=' + $("#user_email").val(),
             success: function (res) {
@@ -190,7 +190,7 @@ $(document).ready(function () {
 	$("#user_email_auth_btn").click(function (){
 		
         $.ajax({
-            url: "/user/email-auth",
+            url: "/email/auth-check",
             type: "post",
             contentType: "application/json",
             data: JSON.stringify({
@@ -245,12 +245,6 @@ $(document).ready(function () {
 				contentType: "application/json; charset=utf-8",
 			    success: function(res) {
 					location.href = "/user/login";
-					/*
-			    	if(res) {
-						location.href = "/user/login";
-			    	} else {
-			    		alert("회원가입 실패");
-			    	}*/
 			    },
 			    error: function(res) {
 			        alert("회원가입 오류");
