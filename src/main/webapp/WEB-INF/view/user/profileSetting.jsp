@@ -2,6 +2,7 @@
 <%@ include file="/WEB-INF/view/layout/header.jsp" %>
 <link rel="stylesheet" href="/css/profile.css">
 <script src="/js/profile-setting.js"></script>
+<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
 <div class="container light-style flex-grow-1 container-p-y">
 
 
@@ -14,6 +15,7 @@
                     <a class="list-group-item list-group-item-action" data-toggle="list"
                        href="#account-change-password">비밀번호 변경</a>
                     <a class="list-group-item list-group-item-action" data-toggle="list" href="#account-info">소개글 변경</a>
+                    <a class="list-group-item list-group-item-action" data-toggle="list" href="#account-category">카테고리 관리</a>
                     <a class="list-group-item list-group-item-action" data-toggle="list" href="#account-connections">회원 탈퇴</a>
 
                 </div>
@@ -114,30 +116,34 @@
 
 
                     </div>
-                    <div class="tab-pane fade" id="account-social-links">
+                    <div class="tab-pane fade" id="account-category">
                         <div class="card-body pb-2">
-
-                            <div class="form-group">
-                                <label class="form-label">Twitter</label>
-                                <input type="text" class="form-control" value="https://twitter.com/user">
-                            </div>
-                            <div class="form-group">
-                                <label class="form-label">Facebook</label>
-                                <input type="text" class="form-control" value="https://www.facebook.com/user">
-                            </div>
-                            <div class="form-group">
-                                <label class="form-label">Google+</label>
-                                <input type="text" class="form-control" value="">
-                            </div>
-                            <div class="form-group">
-                                <label class="form-label">LinkedIn</label>
-                                <input type="text" class="form-control" value="">
-                            </div>
-                            <div class="form-group">
-                                <label class="form-label">Instagram</label>
-                                <input type="text" class="form-control" value="https://www.instagram.com/user">
-                            </div>
-
+	                        <h5 class="mb-3 py-3">카테고리 설정</h5>
+					        <div class="row">
+					        	<div class="col-12">
+					            	<button type="button" id="category-add" class="btn btn-outline-secondary btn-sm">추가</button>
+					        	</div>
+					            <div class="col-md-4">
+									<ul class="list-group card" id="category-list">
+										<c:forEach var="category" items="${categoryList}">
+						                	<li class="list-group-item category-item" value="${category.id}">
+						                		${category.categoryName}
+											</li>
+										</c:forEach>
+					                </ul>
+					            </div>
+					            <div class="col-md-8">
+					            	<div class="card">
+										<div class="row form-group category-value" style="padding-top: 20px">
+											<div class="col-md-2 text-right"><label class="form-label">이름</label></div>
+											<div class="col-md-7"><input type="text" id="category-name" class="form-control mb-2"></div>
+											<div class="col-md-3"><button type="button" id="category-name-save" class="btn btn-outline-primary">저장</button></div>
+										</div>
+					            	</div>
+					            	<br>
+							        <button type="button" class="btn btn-outline-primary">저장</button>
+					            </div>
+					        </div>
                         </div>
                     </div>
                     <div class="tab-pane fade" id="account-connections">
@@ -157,80 +163,6 @@
                         </button>
 
 
-                    </div>
-                    <div class="tab-pane fade" id="account-notifications">
-                        <div class="card-body pb-2">
-
-                            <h6 class="mb-4">Activity</h6>
-
-                            <div class="form-group">
-                                <label class="switcher">
-                                    <input type="checkbox" class="switcher-input" checked="">
-                                    <span class="switcher-indicator">
-                      <span class="switcher-yes"></span>
-                      <span class="switcher-no"></span>
-                    </span>
-                                    <span class="switcher-label">Email me when someone comments on my article</span>
-                                </label>
-                            </div>
-                            <div class="form-group">
-                                <label class="switcher">
-                                    <input type="checkbox" class="switcher-input" checked="">
-                                    <span class="switcher-indicator">
-                      <span class="switcher-yes"></span>
-                      <span class="switcher-no"></span>
-                    </span>
-                                    <span class="switcher-label">Email me when someone answers on my forum thread</span>
-                                </label>
-                            </div>
-                            <div class="form-group">
-                                <label class="switcher">
-                                    <input type="checkbox" class="switcher-input">
-                                    <span class="switcher-indicator">
-                      <span class="switcher-yes"></span>
-                      <span class="switcher-no"></span>
-                    </span>
-                                    <span class="switcher-label">Email me when someone follows me</span>
-                                </label>
-                            </div>
-                        </div>
-                        <hr class="border-light m-0">
-                        <div class="card-body pb-2">
-
-                            <h6 class="mb-4">Application</h6>
-
-                            <div class="form-group">
-                                <label class="switcher">
-                                    <input type="checkbox" class="switcher-input" checked="">
-                                    <span class="switcher-indicator">
-                      <span class="switcher-yes"></span>
-                      <span class="switcher-no"></span>
-                    </span>
-                                    <span class="switcher-label">News and announcements</span>
-                                </label>
-                            </div>
-                            <div class="form-group">
-                                <label class="switcher">
-                                    <input type="checkbox" class="switcher-input">
-                                    <span class="switcher-indicator">
-                      <span class="switcher-yes"></span>
-                      <span class="switcher-no"></span>
-                    </span>
-                                    <span class="switcher-label">Weekly product updates</span>
-                                </label>
-                            </div>
-                            <div class="form-group">
-                                <label class="switcher">
-                                    <input type="checkbox" class="switcher-input" checked="">
-                                    <span class="switcher-indicator">
-                      <span class="switcher-yes"></span>
-                      <span class="switcher-no"></span>
-                    </span>
-                                    <span class="switcher-label">Weekly blog digest</span>
-                                </label>
-                            </div>
-
-                        </div>
                     </div>
                 </div>
             </div>

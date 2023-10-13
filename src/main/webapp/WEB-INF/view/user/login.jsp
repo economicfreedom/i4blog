@@ -11,7 +11,8 @@
 	<label for="userPassword" class="sr-only">비밀번호</label>
 		<input type="password" id="userPassword" name="userPassword" class="form-control" placeholder="비밀번호" required>
 	<button class="btn btn-lg btn-primary btn-block" type="submit">로그인</button>
-	<p class="mt-5 mb-3 text-muted"></p>
-	<a href="/user/join">회원가입</a>
+	<br>
+	<span style="float:left; width:45%;"><a href="/user/join">회원가입</a></span>
+	<span style="text-align:right; width:54%;"><a href="/user/forgot">아이디/비밀번호 찾기</a></span>
 </form>
 <%@ include file="/WEB-INF/view/layout/footer.jsp"%>

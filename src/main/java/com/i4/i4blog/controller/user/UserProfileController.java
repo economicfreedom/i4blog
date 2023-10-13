@@ -1,17 +1,21 @@
 package com.i4.i4blog.controller.user;
 
-import com.i4.i4blog.repository.model.user.UserProfile;
-import com.i4.i4blog.service.user.UserProfileService;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
+import java.security.Principal;
+import java.util.List;
+
 import org.springframework.security.access.prepost.PostAuthorize;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import java.security.Principal;
+import com.i4.i4blog.repository.model.category.Category;
+import com.i4.i4blog.repository.model.user.UserProfile;
+import com.i4.i4blog.service.category.CategoryService;
+import com.i4.i4blog.service.user.UserProfileService;
+
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 @RequestMapping("/user")
 @RequiredArgsConstructor
@@ -20,6 +24,7 @@ import java.security.Principal;
 public class UserProfileController {
 
     private final UserProfileService userProfileService;
+    private final CategoryService categoryService;
 
     /**
      *
@@ -39,8 +44,9 @@ public class UserProfileController {
 
         log.info("profile == {}",profile);
         model.addAttribute("profile", profile);
-
-
+        
+        List<Category> categoryList = categoryService.findByUserId(userId);
+        model.addAttribute("categoryList", categoryList);
         return "user/profileSetting";
     }
 
