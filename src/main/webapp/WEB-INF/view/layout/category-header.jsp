@@ -20,12 +20,5 @@
 				</c:otherwise>
 			</c:choose>
 			</div>
-        	<sec:authorize access="isAuthenticated()">
-		    	<c:if test="${blogUser.userId eq principal.userId}">
-					<div class="d-fles flex-column">
-						<a href="#">관리</a>
-					</div>
-		    	</c:if>
-			</sec:authorize>
 		</div>
 		<div class="d-flex flex-fill category-other card">
