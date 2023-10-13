@@ -23,22 +23,44 @@ public interface CommentRepository  {
 	public int createByUserId(Integer id);
 	
 	//댓글 수정
+	public Comment getComment(Integer id);
+	
+
+	//댓글 업데이트 한다 
 	public int updateComment(Comment comment);
+	
 	//댓글 삭제
-	public int commentDelete(Integer id);
+	public int deleteComment(Integer id);
+	
+	//댓글 수정 아이디 
+	public int UpdateById(Integer id);
+	
+	
+
 	//댓글 갯수
 	public int commentTotal(int commentList);
-
+	
+	//댓글 목록 리스트
+	public List<CommentVO> findAllByBoardId(int boardId);
 	
 	/**
 	 * @author 최규하
 	 * 이름은 delete지만 실제론 state를 바꾸기 때문에 update로 동작함
 	 * state가 1이었던걸 0으로 바꿈
 	 */
+	//
 	public int deleteById(Integer id);
 
-	//댓글 목록 리스트
-	public List<CommentVO> findAllByBoardId(int boardId);
+	public Comment commentById(int id);
+	
+
+	
+
+
+	
+	
+
+
 
 
 	
