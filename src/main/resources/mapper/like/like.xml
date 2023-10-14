@@ -9,6 +9,15 @@
 		   AND user_id = #{userId}
 	</select>
 	
+	<insert id="insertByUserIdAndBoardId">
+		INSERT INTO `like` (board_id, user_id)
+		VALUES (#{boardId}, #{userId})
+	</insert>
 	
-	
+	<delete id="deleteByUserIdAndBoardId" parameterType="int">
+		DELETE
+		  FROM `like`
+		 WHERE board_id = #{boardId}
+		   AND user_id = #{userId}
+	</delete>
 </mapper>

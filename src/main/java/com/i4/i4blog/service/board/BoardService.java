@@ -80,16 +80,12 @@ public class BoardService {
      * 게시글 id로 글 내용보기
      */
     public BoardVO findById(Integer id) {
-        System.out.println("DB 조회 전");
         BoardVO board = boardRepository.findById(id);
-        System.out.println("DB 조회 후");
-        System.out.println(board);
         return board;
     }
 
     /**
      * 조회수 +1
-     *
      * @param id
      * @return
      */

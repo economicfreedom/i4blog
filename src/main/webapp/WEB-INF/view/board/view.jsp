@@ -19,12 +19,14 @@
 			<p>${board.boardCreatedAt}</p>
 		</div>
 		<div class="function">
-			<span id="like-heart" class="like-heart" onclick="likeToggle(this)">♡</span>
+			<span id="like-heart" class="like-heart" >♡</span>
+			<p>${board.likeCount}</p>
 		</div>
 	</div>
 	<div class="form-group content">
 		<h5>${board.boardContent}</h5>
 	</div>
+	
 	
 	<a href="/blog/${board.userId}/board/update/${board.id}" class="btn btn-warning">수정하기</a>
 	<button type="button" id="delete" class="btn btn-info">삭제</button>

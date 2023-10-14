@@ -4,9 +4,16 @@
 
 <div class="container">
 	<div class="input-group mt-3">
-		<input type="text" im class="form-control rounded"
+		<select id="type">
+			<option ${sessionScope.type == 'title' ? 'selected':''} value="title">제목</option>
+            <option ${sessionScope.type == 'content' ? 'selected':''} value="content">내용</option>
+		</select>
+		<input type="text" id="keyword" value="${sessionScope.keyword}" class="form-control rounded"
 			placeholder="검색어를 입력해주세요" aria-label="Search"
 			aria-describedby="search-addon" />
+		<input type="hidden" id="user-id" name="user-id" value="${list.strUserId}">
+		<input type="image" id="search" src="/img/search.jpg" width="50" height="50">
+		
 	</div>
 
 	<div class="container">
