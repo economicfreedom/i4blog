@@ -25,7 +25,7 @@ public class LikeService {
 	 * 좋아요가 있는지 없는지 검토
 	 */
 	public boolean existsLike(Integer boardId, Principal principal) {
-		Integer userId = userRepository.getId(principal.getName());
+		Integer userId = userRepository.getIdByUserId(principal.getName());
 		return likeRepository.findByUserIdAndBoardId(boardId, userId);
 	}
 	
@@ -34,7 +34,7 @@ public class LikeService {
 	 * 좋아요 데이터가 있는지 조회하여 없다면 좋아요 insert
 	 */
 	public void addLike(Integer boardId, Principal principal) {
-		Integer userId = userRepository.getId(principal.getName());
+		Integer userId = userRepository.getIdByUserId(principal.getName());
 		
 		if (!existsLike(boardId, principal)) {
 			Like like =  new Like();
@@ -50,7 +50,7 @@ public class LikeService {
 	 * 좋아요 데이터가 있다면 delete
 	 */
 	public void deleteLike(Integer boardId, Principal principal) {
-		Integer userId = userRepository.getId(principal.getName());
+		Integer userId = userRepository.getIdByUserId(principal.getName());
 		
 		if (existsLike(boardId, principal)) {
 			likeRepository.deleteByUserIdAndBoardId(boardId, userId);
