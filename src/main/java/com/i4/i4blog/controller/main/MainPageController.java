@@ -25,6 +25,12 @@ public class MainPageController {
     private final BoardService boardService;
     private final SearchService searchService;
 
+    /**
+     * @author 최규하
+     * 메인 페이지 컨트롤러
+     */
+
+
     @GetMapping("/")
     public String mainPage(Model model) {
         Criteria criteria = new Criteria();
@@ -37,6 +43,7 @@ public class MainPageController {
 
     }
 
+    // ser
     @GetMapping("/search")
     public String searchPage(
             @RequestParam(value = "page-num"
