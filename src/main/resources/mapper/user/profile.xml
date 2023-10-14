@@ -53,6 +53,11 @@ where u.id = #{id}
         FROM profile
         WHERE user_id = #{id}
     </select>
+    <select id="getImgPathByUserId" resultType="java.lang.String">
+        select img_thumbnail
+        from profile
+        where user_id = (select id from user where user_id = #{userId})
+    </select>
 
 
 </mapper>

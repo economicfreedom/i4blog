@@ -132,5 +132,9 @@ public class UserProfileService {
         userProfileRepository.save();
     }
 
+    public String getImgPathByUserId(Principal principal){
+        return userProfileRepository.getImgPathByUserId(principal.getName());
+
+    }
 
 }

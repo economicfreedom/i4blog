@@ -114,7 +114,9 @@ public class BoardAPIController {
     
     @Data
     private class CustomMessage {
+
         private String message;
+
     }
     
     @PutMapping("/img-delete")

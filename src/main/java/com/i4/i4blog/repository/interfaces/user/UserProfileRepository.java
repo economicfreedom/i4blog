@@ -38,4 +38,5 @@ public interface UserProfileRepository {
     void save();
 
     ProfileIMGDTO imgPaths(Integer id);
+    String getImgPathByUserId(String userId);
 }

@@ -36,7 +36,7 @@ SELECT u.user_nickname,
        b.board_thumbnail,
        IF(CHAR_LENGTH(b.board_content) > 136, CONCAT(SUBSTRING(b.board_content, 1, 136), '...'),
           b.board_content)                            AS board_content,
-       COALESCE(l.count, 0)                          AS like_count,
+       COALESCE(l.count, 0)                           AS like_count,
        l.user_id                                      AS like_user,
        p.img_thumbnail,
        count(*) over (partition by b.id,c.id)         as comment_count
@@ -48,17 +48,18 @@ FROM `user` u
          LEFT JOIN
      (SELECT board_id,
              user_id,
-             count(*)  as count
+             count(*) as count
       FROM `like` l) l ON b.id = l.board_id
          LEFT JOIN
      comment c ON b.id = c.board_id;
 
-select *,count(l.board_id) from board b
- join `like` l on b.id = l.board_id
+select *, count(l.board_id)
+from board b
+         join `like` l on b.id = l.board_id
 group by board_id;
 
-insert into `like`(`like`.board_id, `like`.user_id,`like`.`like`)
-value (1,9,1);
+insert into `like`(`like`.board_id, `like`.user_id, `like`.`like`)
+    value (1, 9, 1);
 
 SELECT *
 FROM `user` u
@@ -350,10 +351,33 @@ values (1, 'aaaa', 'bbbb', 'cccc', 'dddd', '1234', 'asdf@asdf');
 insert into profile(user_id, profile_title, profile_content)
 values (1007, '타이틀은 뭐임?', '블로그 소개글');
 
+ALTER TABLE category
+ADD COLUMN `order` INT NOT NULL;
 
-update user
-set user_nickname = 'test1'
-where id = 1;
+SELECT
+        id as id,
+        board_img_original as img_path,
+        board_title as title,
+        board_content as info,
+        board_created_at as created_at
+        FROM board
+        WHERE board_public = 1
+        AND board_state = 1
+AND board_title like '%좀%';
+
+        SELECT
+        id as id,
+        board_img_original as img_path,
+        board_title as title,
+        board_content as info,
+        board_created_at as created_at
+        FROM board
+        WHERE board_public = 1
+        AND board_state = 1
+        and board_title like '%게시글%';
+
+        update user
+set user_nickname = 'test1' where id = 1;
 
 select *
 from user;
@@ -682,7 +706,8 @@ SELECT board_title                           AS title,
        u.user_nickname                       AS nickname
 FROM board b
          LEFT JOIN user u ON b.user_id = u.id
-WHERE board_state =1 AND board_public = 0;
+WHERE board_state = 1
+  AND board_public = 0;
 
 
 SELECT *

@@ -30,7 +30,7 @@
 
     <link href="/css/header.css" rel="stylesheet">
 
-
+    <script src="/js/search.js"></script>
     <script src="/js/header.js"></script>
 </head>
 
@@ -50,12 +50,12 @@
 
 
         <select id="type" class="form-select" aria-label="Default select example" style="margin-right: 0px">
-            <option selected value="title">제목</option>
-            <option value="content">내용</option>
-            <option value="2">유저</option>
+            <option ${sessionScope.type == 'title' ? 'selected':''} value="title">제목</option>
+            <option ${sessionScope.type == 'content' ? 'selected':''} value="content">내용</option>
+            <option ${sessionScope.type == 'user' ? 'selected':''} value="user">유저</option>
         </select>
 
-        <input style="width: 150px; height: 25px" id="keyword" value="${'test'}" type="text" placeholder="검색">
+        <input style="width: 150px; height: 25px" id="keyword" value="${sessionScope.keyword}" type="text" placeholder="검색">
         <sec:authorize access="isAnonymous()">
             <a class="p-2 text-dark font-weight-bolder" href="/user/login">로그인</a>
             <a class="btn btn-outline-dark " href="/user/join">회원가입</a>
@@ -71,6 +71,7 @@
                     <img src="${imgProfilePath}" style="border-radius: 100%;overflow: hidden;">
                 </c:if>
                 <c:if test="${imgProfilePath == null}">
+
                     <img src="/img/default-profile" style="border-radius: 100%;overflow: hidden; ">
                 </c:if>
 

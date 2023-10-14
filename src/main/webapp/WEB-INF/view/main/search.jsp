@@ -5,7 +5,8 @@
 </script>
 <style>
     a {
-
+        color: black;
+        text-decoration-color: black;
     }
 </style>
 
@@ -15,32 +16,40 @@
         <span class="h4">${pageDTO.cri.keyword}</span> <span class="h4" style="color: red">(${pageDTO.articleTotalCount})</span>
         <hr style="border: solid 1px black;">
         <c:forEach var="result" items="${results}">
+            <c:choose>
+                <c:when test="${typeIsTitleOrContent}">
+                    <a href="/blog/${result.userId}/board/view/${result.id}">
+                </c:when>
+                <c:otherwise>
+                    <a href="/blog/${result.userId}/board/list">
+                </c:otherwise>
+            </c:choose>
+                <ul style="list-style-type: none; padding: 0;">
+                    <li style="display: flex; align-items: center;">
+                        <c:choose>
 
-            <ul style="list-style-type: none; padding: 0;">
-                <li style="display: flex; align-items: center;">
-                    <c:choose>
-
-                        <c:when test="${result.imgPath ==null}">
-                            <c:if test="${typeIsTitleOrContent}">
-                                <img src="/img/default-boarder.png" alt="" style="margin-right: 10px;">
-                            </c:if>
-                            <c:if test="${!typeIsTitleOrContent}">
-                                <img src="/img/default-profile.png" alt="" style="margin-right: 10px;">
-                            </c:if>
-                        </c:when>
-                        <c:otherwise>
-                            <img src="${result.imgPath}" alt="" style="margin-right: 10px;">
-                        </c:otherwise>
-                    </c:choose>
-                    <div>
-                        <h3>${result.title}</h3>
-                        <small>${result.info}</small>
-                        <br>
-                        <small style="margin-top: 500px; margin-bottom: 0px; color: gray">${result.createdAt}</small>
-                    </div>
-                </li>
-            </ul>
-            <hr>
+                            <c:when test="${result.imgPath ==null}">
+                                <c:if test="${typeIsTitleOrContent}">
+                                    <img src="/img/default-boarder.png" alt="" style="margin-right: 10px;">
+                                </c:if>
+                                <c:if test="${!typeIsTitleOrContent}">
+                                    <img src="/img/default-profile.png" alt="" style="margin-right: 10px;">
+                                </c:if>
+                            </c:when>
+                            <c:otherwise>
+                                <img src="${result.imgPath}" alt="" style="margin-right: 10px;">
+                            </c:otherwise>
+                        </c:choose>
+                        <div>
+                            <h3>${result.title}</h3>
+                            <small>${result.info}</small>
+                            <br>
+                            <small style="margin-top: 500px; margin-bottom: 0px; color: gray">${result.createdAt}</small>
+                        </div>
+                    </li>
+                </ul>
+                <hr>
+            </a>
         </c:forEach>
     </div>
     <!-- 페이징 -->

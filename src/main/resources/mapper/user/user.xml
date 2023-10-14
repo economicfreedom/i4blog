@@ -51,4 +51,5 @@
 		    ON a.id = b.user_id
 		 WHERE a.user_id = #{userId}
 	</select>
+
 </mapper>
