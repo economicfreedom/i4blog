@@ -3,11 +3,9 @@ package com.i4.i4blog.service.board;
 import com.i4.i4blog.dto.board.BoardUpdateFormDto;
 import com.i4.i4blog.dto.board.BoardWriteFormDto;
 
-import com.i4.i4blog.dto.search.SearchResultDTO;
 import com.i4.i4blog.repository.interfaces.board.BoardRepository;
 import com.i4.i4blog.repository.interfaces.user.UserRepository;
 import com.i4.i4blog.repository.model.board.Board;
-import com.i4.i4blog.util.Criteria;
 import com.i4.i4blog.vo.board.BoardListVo;
 import com.i4.i4blog.vo.board.BoardVO;
 import lombok.RequiredArgsConstructor;
@@ -31,7 +29,7 @@ public class BoardService {
      * @param boardWriteFormDto
      */
     public void boardWriteService(BoardWriteFormDto boardWriteFormDto, Principal principal) {
-        Integer uid = userRepository.getId(principal.getName());
+        Integer uid = userRepository.getIdByUserId(principal.getName());
         Board board = Board.builder()
                 .userId(uid)
                 .boardCategory(boardWriteFormDto.getBoardCategory())

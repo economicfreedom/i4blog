@@ -352,32 +352,31 @@ insert into profile(user_id, profile_title, profile_content)
 values (1007, '타이틀은 뭐임?', '블로그 소개글');
 
 ALTER TABLE category
-ADD COLUMN `order` INT NOT NULL;
+    ADD COLUMN `order` INT NOT NULL;
 
-SELECT
-        id as id,
-        board_img_original as img_path,
-        board_title as title,
-        board_content as info,
-        board_created_at as created_at
-        FROM board
-        WHERE board_public = 1
-        AND board_state = 1
-AND board_title like '%좀%';
+SELECT id                 as id,
+       board_img_original as img_path,
+       board_title        as title,
+       board_content      as info,
+       board_created_at   as created_at
+FROM board
+WHERE board_public = 1
+  AND board_state = 1
+  AND board_title like '%좀%';
 
-        SELECT
-        id as id,
-        board_img_original as img_path,
-        board_title as title,
-        board_content as info,
-        board_created_at as created_at
-        FROM board
-        WHERE board_public = 1
-        AND board_state = 1
-        and board_title like '%게시글%';
+SELECT id                 as id,
+       board_img_original as img_path,
+       board_title        as title,
+       board_content      as info,
+       board_created_at   as created_at
+FROM board
+WHERE board_public = 1
+  AND board_state = 1
+  and board_title like '%게시글%';
 
-        update user
-set user_nickname = 'test1' where id = 1;
+update user
+set user_nickname = 'test1'
+where id = 1;
 
 select *
 from user;
@@ -879,4 +878,33 @@ ALTER TABLE `Untitled`
                                               `id`
         );
 
+
+ALTER TABLE user
+    add
+        column count tinyint not null default 3;
+
+SELECT count
+FROM user
+WHERE user_id = 'zxcv1234';
+
+UPDATE user
+set count = (SELECT count FROM user) - 1
+where user_id = 'zxcv1234';
+
+
+UPDATE user
+set count = 3
+where user_id = 'zxcv1234';
+
+select *
+from user
+order by id desc;
+
+alter table gpt
+    drop board_id;
+commit;
+
+UPDATE user
+set count = count - 1
+where user_id = 'zxcv1234';
 

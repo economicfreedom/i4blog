@@ -114,7 +114,7 @@ $(document).ready(function () {
 
             let b_thumbnail = "/img/default-board.jpg";
             let p_thumbnail = "/img/default-profile.png";
-
+            let fier ='' ;
             console.log(board_thumbnail)
             console.log(img_thumbnail)
 
@@ -130,10 +130,8 @@ $(document).ready(function () {
 
             }
 
-            if (like_user_id == 100) {
-
-                heart = "♥";
-
+            if(like_count > 10){
+                fier = '🔥';
             }
             let create = '<a href="/blog/' + user_id + '/board/view/' + board_id + '">'
                 + '<div class="col-lg-4 mb-3">'
@@ -147,7 +145,7 @@ $(document).ready(function () {
                 + '</small>'
                 + '<a href=""></a>'
                 + '<hr>'
-                + '<a href="#">'
+                + '<a href="/blog/'+user_id+'/board/list">'
                 + '<img src="' + p_thumbnail + '"'
                 + ' style="border-radius: 70%;"'
                 + ' width="30px"'
@@ -156,10 +154,11 @@ $(document).ready(function () {
                 + '<span style="font-size: 14px"> ' + user_nickname + ' </span>'
                 + '</a>'
                 + '<div style="float:right">'
-                + '<small style="border: none;background-color: white; font-size: 22px;color: red;">'
-                + heart
+                + fier
+                + ' <small style= "vertical-align: -1.5px; border: none;background-color: white; font-size: 3px;color: gray;">'
+                + '좋아요'
                 + '</small> '
-                + '<small style="vertical-align: 3px; font-weight: bold">' + like_count + '</small>'
+                + '<small style=" font-size: 3px "> ' + like_count + '</small>'
                 + '</div>'
                 + "</div>"
                 + '</div>'

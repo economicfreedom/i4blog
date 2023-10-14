@@ -36,8 +36,8 @@ public class UserService {
 		return userRepository.findUserNickname(nickname);
 	}
 
-	public Integer getId(String userId) {
-		return userRepository.getId(userId);
+	public Integer getIdByUserId(String userId) {
+		return userRepository.getIdByUserId(userId);
 	}
 
 	public Integer findByUserIdCheck(String userId) {
@@ -46,6 +46,26 @@ public class UserService {
 
 	public User findByEmail(String email) {
 		return userRepository.findByEmail(email);
+	}
+
+	    /**
+     * @param userId
+     * @return id
+     * 남은 지피티 사용회수를 가져옴
+     * @author 촤규하
+     */
+
+	public byte getGptCountByUserId(String userId){
+		return userRepository.getGptCountByUserId(userId);
+	}
+	    /**
+     * @param userId
+     * @return id
+     * 남은 지피티 사용회수를 가져옴
+     * @author 촤규하
+     */
+	public void decrementUsageCountByUserId(String userId){
+		userRepository.decrementUsageCountByUserId(userId);
 	}
 
 }

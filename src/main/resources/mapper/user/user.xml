@@ -1,55 +1,74 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.i4.i4blog.repository.interfaces.user.UserRepository">
-	
-	<select id="findByUserId" resultType="com.i4.i4blog.repository.model.user.User">
-		SELECT *
-		  FROM user
-		 WHERE user_id = #{userId}
-	</select>
 
-	<select id="findByEmail" resultType="com.i4.i4blog.repository.model.user.User">
-		SELECT *
-		  FROM user
-		 WHERE user_email = #{email}
-	</select>
+
+    <select id="findByUserId" resultType="com.i4.i4blog.repository.model.user.User">
+        SELECT *
+        FROM user
+        WHERE user_id = #{userId}
+    </select>
+
+    <select id="findByEmail" resultType="com.i4.i4blog.repository.model.user.User">
+        SELECT *
+        FROM user
+        WHERE user_email = #{email}
+    </select>
 
     <select id="findByUserIdCheck" resultType="java.lang.Integer">
-		SELECT 1
-		  FROM user
-		 WHERE user_id = #{userId}
-	</select>
-	
+        SELECT 1
+        FROM user
+        WHERE user_id = #{userId}
+    </select>
+
     <select id="findUserNickname" resultType="java.lang.Integer">
-		SELECT 1 FROm user
-		WHERE user_nickname = #{nickname}
-	</select>
+        SELECT 1
+        FROm user
+        WHERE user_nickname = #{nickname}
+    </select>
 
-	<select id="getNickname" resultType="java.lang.String">
+    <select id="getNickname" resultType="java.lang.String">
 
-		SELECT user_nickname FROM 
-		WHERE user_id = #{userId}
+        SELECT user_nickname
+        FROM WHERE user_id = #{userId}
 
-	</select>
+    </select>
 
-	<select id="getId" resultType="java.lang.Integer">
-		select id from user
-		where user_id = #{userId}
-	</select>
-	<insert id="insert">
-		INSERT into user(user_id, user_password, user_name, user_nickname, user_phone, user_email)
-		 VALUE (#{userId}, #{userPassword}, #{userName}, #{userNickname}, #{userPhone}, #{userEmail})
-	</insert>
-		<select id="findProfileByUserId" resultType="com.i4.i4blog.vo.user.ProfileInfoVo">
-		SELECT a.user_id
-			 , a.user_nickname
-			 , a.user_role
-			 , b.profile_title
-			 , b.profile_content
-		  FROM user a
-		  LEFT JOIN profile b
-		    ON a.id = b.user_id
-		 WHERE a.user_id = #{userId}
-	</select>
+    <select id="getIdByUserId" resultType="java.lang.Integer">
+        select id
+        from user
+        where user_id = #{userId}
+    </select>
+    <insert id="insert">
+        INSERT into user(user_id, user_password, user_name, user_nickname, user_phone, user_email)
+            VALUE (#{userId}, #{userPassword}, #{userName}, #{userNickname}, #{userPhone}, #{userEmail})
+    </insert>
+    <select id="findProfileByUserId" resultType="com.i4.i4blog.vo.user.ProfileInfoVo">
+        SELECT a.user_id
+             , a.user_nickname
+             , a.user_role
+             , b.profile_title
+             , b.profile_content
+        FROM user a
+                 LEFT JOIN profile b
+                           ON a.id = b.user_id
+        WHERE a.user_id = #{userId}
+    </select>
+    <select id="getGptCountByUserId" resultType="java.lang.Byte">
+        SELECT count
+        FROM user
+        WHERE user_id = #{userId}
+    </select>
+
+
+    <update id="decrementUsageCountByUserId">
+        UPDATE user
+        set count = count - 1
+        where user_id = #{userId}
+    </update>
+    <update id="resetGptCountAllUser">
+        UPDATE user
+        SET count =3
+    </update>
 
 </mapper>
