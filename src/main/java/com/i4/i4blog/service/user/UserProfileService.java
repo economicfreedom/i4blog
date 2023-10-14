@@ -31,8 +31,8 @@ public class UserProfileService {
      */
 
     public UserProfile findByUserId(String userId) {
-        Integer id = userRepository.getId(userId);
-        log.info("userRepository.getId(userId)  : {}", id);
+        Integer id = userRepository.getIdByUserId(userId);
+        log.info("userRepository.getIdByUserId(userId)  : {}", id);
         log.info("userProfileRepository.findByUserId(id) : {}"
                 , userProfileRepository.findByUserId(id));
         return userProfileRepository.findByUserId(id);
@@ -64,7 +64,7 @@ public class UserProfileService {
 
         log.info("=== saveImg start ===");
         String userId = principal.getName();
-        Integer id = userRepository.getId(userId);
+        Integer id = userRepository.getIdByUserId(userId);
         log.info("id 값 : {}", id);
 //        log.info("???? {}", userProfileRepository.imgPaths(id));
         ProfileIMGDTO profile = userProfileRepository.imgPaths(id);
@@ -89,7 +89,7 @@ public class UserProfileService {
         if (pwCheck(userPassword, reqOriginalPw)) return false;
 
 
-        Integer id = userRepository.getId(principal.getName());
+        Integer id = userRepository.getIdByUserId(principal.getName());
         String newPw = passwordEncoder.encode(pwChangeRequestDTO.getNewPw());
 
         userProfileRepository.changePw(id, newPw);
@@ -107,7 +107,7 @@ public class UserProfileService {
     }
 
     public void saveTitleInfo(String userId, ProfileInfoDTO profileInfoDTO) {
-        Integer id = userRepository.getId(userId);
+        Integer id = userRepository.getIdByUserId(userId);
         String info = profileInfoDTO.getInfo();
         String title = profileInfoDTO.getTitle();
 

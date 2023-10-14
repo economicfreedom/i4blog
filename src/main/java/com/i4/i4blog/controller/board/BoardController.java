@@ -1,5 +1,6 @@
 package com.i4.i4blog.controller.board;
 
+import java.security.Principal;
 import java.util.List;
 
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -29,9 +30,18 @@ public class BoardController {
     /**
      * 게시글 작성 페이지
      */
+    // 추가
+    // 최규하
+    // GPT 카운트
     @PreAuthorize("isAuthenticated()")
     @GetMapping("/write")
-    public String boardWrite() {
+    public String boardWrite(Model model, Principal principal) {
+
+
+
+        byte count = userService.getGptCountByUserId(principal.getName());
+        model.addAttribute("gptCount",count);
+
         return "board/write";
     }
 
@@ -41,7 +51,7 @@ public class BoardController {
      */
     @GetMapping("/list")
     public String boardList(Model model, @PathVariable String userId) {
-    	Integer id = userService.getId(userId);
+    	Integer id = userService.getIdByUserId(userId);
 
 
         List<BoardListVo> boardList = boardService.findByUserId(id);
