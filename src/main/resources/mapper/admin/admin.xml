@@ -35,10 +35,11 @@
         <result property="boardId" column="board_id"/>
         <result property="reportContent" column="report_content"/>
         <result property="reportType" column="report_type"/>
-        <result property="reportDate" column="report_date"/>
+        <result property="reportDate" column="report_created_at"/>
         <result property="boardTitle" column="board_title"/>
         <result property="state" column="state"/>
         <result property="count" column="count"/>
+        <result property="strUserId" column="str_user_id"></result>
     </resultMap>
 
 
@@ -49,8 +50,9 @@
             , r.board_id
             , r.report_content
             , r.report_type
-            , r.report_date
+            , r.report_created_at
             , b.board_title
+            , u.user_id as str_user_id
             , (CASE
             WHEN b.board_state = 0 THEN '삭제된 게시글'
             WHEN b.board_state = 1 THEN '존재하는 게시글'
@@ -59,14 +61,16 @@
             , count(*) over (partition by r.board_id) as count
             FROM report r
             JOIN board b ON r.board_id = b.id
+            JOIN user u ON b.user_id = u.id
+            ORDER BY b.board_state desc
             <if test="orderBy == 'date'">
 
-                ORDER BY r.id desc
+                , r.id desc
 
             </if>
             <if test="orderBy == 'count'">
 
-                ORDER BY count desc
+                , count desc
 
             </if>
 
@@ -85,8 +89,9 @@
             , b.board_title
             , r.report_content
             , r.report_type
-            , r.report_date
+            , r.report_created_at
             , c.comment_content
+            , u.user_id as str_user_id
             , (CASE
             WHEN c.comment_state = 0 THEN '삭제된 댓글'
             WHEN c.comment_State = 1 THEN '존재하는 댓글'
@@ -96,12 +101,14 @@
             FROM report r
             JOIN comment c ON r.comment_id = c.id
             JOIN board b ON c.board_id = b.id
+            JOIN user u ON u.id = b.user_id
+            ORDER BY b.board_state desc
             <if test="orderBy == 'date'">
-                ORDER BY r.id desc
+                , r.id desc
 
             </if>
             <if test="orderBy == 'count'">
-                ORDER BY count desc
+                , BY count desc
 
             </if>
             <if test="orderBy == ''">
@@ -148,4 +155,18 @@
      ORDER BY
          days.num DESC
  </select>
+    <select id="userMangeList" resultType="com.i4.i4blog.repository.model.admin.UserManage">
+        SELECT u.id,
+               u.user_id,
+               u.user_email,
+               u.user_created_at,
+               COALESCE(COUNT(b.id), 0) as board_count,
+               COALESCE(COUNT(c.id), 0) as comment_count
+        FROM user u
+                 LEFT JOIN board b ON u.id = b.user_id
+                 LEFT JOIN comment c on c.user_id = u.id
+        GROUP BY u.id, u.user_id, u.user_email, u.user_created_at
+            LIMIT #{offset}, #{countPerPage}
+
+    </select>
 </mapper>

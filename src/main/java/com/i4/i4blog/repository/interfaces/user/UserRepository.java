@@ -50,4 +50,11 @@ public interface UserRepository {
      * count 3으로 초기화
      */
     public void resetGptCountAllUser();
+
+    /**
+     * @param userId
+     * @return userNickname
+     * @author 최규하
+     */
+    public String getUserNicknameByUserId(String userId);
 }
