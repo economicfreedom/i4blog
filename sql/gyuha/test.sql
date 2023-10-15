@@ -940,3 +940,23 @@ FROM user u
          LEFT JOIN board b ON u.id = b.user_id
          LEFT JOIN comment c on c.user_id = u.id
 GROUP BY u.id, u.user_id, u.user_email, u.user_created_at;
+
+SELECT u.id,
+       u.user_id,
+       u.user_nickname,
+       u.user_email,
+       date_format(u.user_created_at, '%Y년 %m월 %d일') as user_created_at,
+       COALESCE(COUNT(DISTINCT b.id), 0)             as board_count,
+       COALESCE(COUNT(DISTINCT c.id), 0)             as comment_count
+FROM user u
+         LEFT JOIN board b ON u.id = b.user_id
+         LEFT JOIN comment c on c.user_id = u.id
+GROUP BY u.id, u.user_id, u.user_nickname, u.user_email, u.user_created_at
+ORDER BY u.user_created_at
+LIMIT 0,5;
+
+select user_role from user
+where id= 1;
+
+
+

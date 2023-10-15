@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.i4.i4blog.repository.interfaces.admin.AdminRepository">
+    <update id="userRoleUp">
+
+        update user
+        set user_role = 0
+        where id = #{id}
+
+
+    </update>
 
     <select id="dateCount" resultType="com.i4.i4blog.repository.model.admin.DateCountDTO">
 
@@ -104,11 +112,11 @@
             JOIN user u ON u.id = b.user_id
             ORDER BY b.board_state desc
             <if test="orderBy == 'date'">
-                , r.id desc
+                , r.report_created_at desc
 
             </if>
             <if test="orderBy == 'count'">
-                , BY count desc
+                , count desc
 
             </if>
             <if test="orderBy == ''">
@@ -157,16 +165,36 @@
  </select>
     <select id="userMangeList" resultType="com.i4.i4blog.repository.model.admin.UserManage">
         SELECT u.id,
-               u.user_id,
-               u.user_email,
-               u.user_created_at,
-               COALESCE(COUNT(b.id), 0) as board_count,
-               COALESCE(COUNT(c.id), 0) as comment_count
+        u.user_id,
+        u.user_nickname,
+        u.user_email,
+        date_format(u.user_created_at, '%Y년 %m월 %d일') as user_created_at,
+        COALESCE(COUNT(DISTINCT b.id), 0) as board_count,
+        COALESCE(COUNT(DISTINCT c.id), 0) as comment_count
         FROM user u
-                 LEFT JOIN board b ON u.id = b.user_id
-                 LEFT JOIN comment c on c.user_id = u.id
-        GROUP BY u.id, u.user_id, u.user_email, u.user_created_at
-            LIMIT #{offset}, #{countPerPage}
+        LEFT JOIN board b ON u.id = b.user_id
+        LEFT JOIN comment c on c.user_id = u.id
+        <if test="keyword != null">
+            WHERE u.user_nickname like concat('%',#{keyword},'%')
+        </if>
 
+        GROUP BY u.id, u.user_id, u.user_nickname, u.user_email, u.user_created_at
+        <choose>
+            <when test="orderBy == 'date'">
+                ORDER BY u.user_created_at
+            </when>
+            <when test="orderBy == 'board-count'">
+                ORDER BY board_count
+            </when>
+            <when test="orderBy == 'comment-count'">
+                ORDER BY comment_count
+            </when>
+        </choose>
+
+        LIMIT #{offset}, #{countPerPage}
+
+    </select>
+    <select id="userCount" resultType="java.lang.Integer">
+        select count(id) from user
     </select>
 </mapper>

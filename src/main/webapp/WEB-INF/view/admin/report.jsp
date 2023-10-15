@@ -24,13 +24,13 @@
         <div class="row-5">
             <form action="">
                 <div class="search-wrap clearfix">
-                    <div class="form-check-inline">
+                    <div class="form-check-inline admin-report">
                         <label class="form-check-label">
                             <input type="radio" class="form-check-input" name="optradio"
                                    value="date" ${pageDTO.cri.orderBy == 'date' ? 'checked' : ''}><b>최신순</b>
                         </label>
                     </div>
-                    <div class="form-check-inline">
+                    <div class="form-check-inline admin-report">
                         <label class="form-check-label">
                             <input type="radio" class="form-check-input" name="optradio"
                                    value="count" ${pageDTO.cri.orderBy == 'count' ? 'checked' : ''}><b>누적순</b>
@@ -40,12 +40,12 @@
                         <option value="board" ${pageDTO.cri.type == 'board' ? 'selected' : ''}>게시글</option>
                         <option value="comment" ${pageDTO.cri.type == 'comment' ? 'selected' : ''}>댓글</option>
                     </select>
-                    <%--                                        <div class="form-check form-check-inline">--%>
+                    <%--                                        <div class="form-check form-check-inline admin-report">--%>
                     <%--                                            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1"--%>
                     <%--                                                   value="board" ${pageDTO.cri.type == 'freeboard_title' ? 'selected' : ''}>--%>
                     <%--                                            <label class="form-check-label" for="inlineRadio1">게시글</label>--%>
                     <%--                                        </div>--%>
-                    <%--                    <div class="form-check form-check-inline">--%>
+                    <%--                    <div class="form-check form-check-inline admin-report">--%>
                     <%--                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2"--%>
                     <%--                               value="comment" ${pageDTO.cri.type == 'freeboard_content' ? 'selected' : ''}>--%>
                     <%--                        <label class="form-check-label" for="inlineRadio2">댓글</label>--%>

@@ -1,5 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" language="java" pageEncoding="UTF-8" %>
 <%@include file="/WEB-INF/view/admin/mainHeader.jsp" %>
+<script src="/js/admin-user.js"></script>
 <main class="col-9 py-md-3 pl-md-5 bd-content" role="main">
     <div class="container">
         <div class="row-4">
@@ -10,31 +11,35 @@
         <div class="row-5">
             <form action="">
                 <div class="search-wrap clearfix">
-                    <div class="form-check-inline">
+                    <div class="form-check-inline admin-user">
                         <label class="form-check-label">
                             <input type="radio" class="form-check-input" name="optradio"
                                    value="date" ${pageDTO.cri.orderBy == 'date' ? 'checked' : ''}><b>가입일자</b>
                         </label>
                     </div>
-                    <div class="form-check-inline">
+                    <div class="form-check-inline admin-user">
                         <label class="form-check-label">
                             <input type="radio" class="form-check-input" name="optradio"
-                                   value="count" ${pageDTO.cri.orderBy == 'board-count' ? 'checked' : ''}><b>게시글 갯수</b>
+                                   value="board-count" ${pageDTO.cri.orderBy == 'board-count' ? 'checked' : ''}><b>게시글
+                            갯수</b>
                         </label>
                     </div>
-                    <div class="form-check-inline">
+                    <div class="form-check-inline admin-user">
                         <label class="form-check-label">
                             <input type="radio" class="form-check-input" name="optradio"
-                                   value="count" ${pageDTO.cri.orderBy == 'comment-count' ? 'checked' : ''}><b>댓글 갯수</b>
+                                   value="comment-count" ${pageDTO.cri.orderBy == 'comment-count' ? 'checked' : ''}><b>댓글
+                            갯수</b>
                         </label>
                     </div>
 
                     <div class="input-group mb-3">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text" id="basic-addon1">@</span>
+                        <input type="text" class="form-control" value="${pageDTO.cri.keyword}" placeholder=""
+                               aria-label="Username"
+                               aria-describedby="basic-addon1"
+                               id="user-search">
+                        <div class="input-group-prepend" id="user-search-icon">
+                            <span class="input-group-text" id="basic-addon1">🔍</span>
                         </div>
-                        <input type="text" class="form-control" placeholder="" aria-label="Username"
-                               aria-describedby="basic-addon1">
                     </div>
 
                 </div>
@@ -56,40 +61,68 @@
                 </thead>
                 <tbody>
 
-                <%--                <c:forEach var="report" items="${reportList}">--%>
+                <c:forEach var="user" items="${userManages}">
                 <tr>
 
-                    <th scope="row">유저 아이디</th>
+
+                        <%--                    <td>${user.userId}</td>--%>
+
+                        <%--                        <td><a href="/blog/${report.strUserId}//board/view/${report.boardId}">${report.boardTitle}</a>--%>
+                        <%--                    </td>--%>
+                    <td>${user.id}</td>
+                    <td>${user.userNickname}</td>
+                    <td>${user.userEmail}</td>
+                    <td>${user.boardCount}</td>
+                    <td>${user.commentCount}</td>
+                    <th>${user.userCreatedAt}</th>
 
 
-                    <%--                        <td><a href="/blog/${report.strUserId}//board/view/${report.boardId}">${report.boardTitle}</a>--%>
-<%--                    </td>--%>
-                    <td>테스트1</td>
-                    <td>2</td>
-                    <td>3</td>
-                    <td>4</td>
-                    <td>5</td>
-                    <%--                        <c:choose>--%>
-                    <%--                            <c:when test="${report.state == '존재하는 게시글'||report.state == '존재하는 댓글'}">--%>
-                    <%--                                <td>--%>
-                    <%--                                    <button type="button" class="btn btn-outline-danger delete"--%>
-                    <%--                                            value="${report.reportType == '게시글' ? report.boardId : report.commentId}">--%>
-                    <%--                                        삭제--%>
-                    <%--                                    </button>--%>
-                    <%--                                </td>--%>
-                    <%--                            </c:when>--%>
-                    <%--                            <c:otherwise>--%>
-
-                    <%--                            </c:otherwise>--%>
-                    <%--                        </c:choose>--%>
-                    <%--                    </tr>--%>
-                    <%--                </c:forEach>--%>
                     <td>
-                        <button>테스트</button>
+                        <button type="button" class="btn btn-outline-danger delete" onclick="role_up(${user.id})">
+                            삭제
+                        </button>
                     </td>
+
+
+                    </c:forEach>
                 </tr>
                 </tbody>
             </table>
+
+
+            <div class="cri">
+                <form action="<c:url value='/admin/user' />" name="page-form">
+                    <div class="text-center clearfix">
+                        <ul class="pagination" id="pagination">
+                            <c:if test="${pageDTO.prev}">
+                                <li class="page-item "><a class="page-link" href="#"
+                                                          data-page-num="${pageDTO.beginPage-1}">Prev</a>
+                                </li>
+                            </c:if>
+
+                            <c:forEach var="num" begin="${pageDTO.beginPage}" end="${pageDTO.endPage}">
+                                <li class="${pageDTO.cri.pageNum == num ? 'age-item active' : ''}" page-item>
+                                    <a class="page-link" href="#" data-page-num="${num}"
+                                       style="${pageDTO.cri.pageNum == num ? 'background-color:#e0ecef' : ''}">${num}</a>
+                                </li>
+                            </c:forEach>
+
+                            <c:if test="${pageDTO.next}">
+                                <li class="page-item"><a class="page-link" href="#"
+                                                         data-page-num="${pageDTO.endPage+1}">Next</a></li>
+                            </c:if>
+                        </ul>
+
+                        <!-- 페이지 관련 버튼을 클릭 시 같이 숨겨서 보낼 값 -->
+                        <input type="hidden" name="page-num" value="${pageDTO.cri.pageNum}">
+                        <input type="hidden" name="count-per-page" value="${pageDTO.cri.countPerPage}">
+                        <input type="hidden" name="keyword" value="${pageDTO.cri.keyword}">
+                        <input type="hidden" name="type" value="${pageDTO.cri.type}">
+                        <input type="hidden" name="order-by" value="${pageDTO.cri.orderBy}">
+
+                    </div>
+                </form>
+            </div>
 
         </div>
     </div>

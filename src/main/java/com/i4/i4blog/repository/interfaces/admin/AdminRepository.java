@@ -53,4 +53,9 @@ public interface AdminRepository {
 	*/
 
     List<UserManage> userMangeList(Criteria cri);
+
+    Integer userCount(Criteria cri);
+
+    void userRoleUp(Integer id);
+
 }
