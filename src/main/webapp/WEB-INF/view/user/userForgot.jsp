@@ -19,13 +19,12 @@
 	<div class="d-flex flex-row email">
 		<input type="email" id="user_email" name="user_email" class="form-control"
 			placeholder="이메일" maxlength="100">
-		<button type="button" id="user_email_send_btn" class="form-control" style="width: 25%">전송</button>
+		<button type="button" id="email_auth_send_btn" class="form-control" style="width: 25%">전송</button>
 	</div>
 	<div><small id="user_email_check"></small></div>
 	<div class="d-flex flex-row email">
 		<input type="text" id="user_email_auth" name="user_email_auth" class="form-control"
-			placeholder="인증 번호" maxlength="8" disabled="disabled" width="30%">
-		<button type="button" id="user_email_auth_btn" class="form-control" style="width: 25%" disabled="disabled">인증</button>
+			placeholder="인증 번호" maxlength="8" disabled="disabled">
 	</div>
 	<div><small id="user_email_auth_check"></small></div>
 	<button class="btn btn-primary btn-block" type="button" id="forgot-pw">비밀번호 찾기</button>

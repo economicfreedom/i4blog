@@ -152,12 +152,22 @@ $(document).ready(function () {
 	        user_email_auth_check = false;
 			if(!user_email.match(exp_email)){
 				checked_failed("user_email", "이메일 주소를 정확히 입력해주세요.");
-			} else {
+				return;
+			} 
+            $.ajax({
+                url: "/user/email-check?&userEmail=" + user_email,
+                type: "get",
+                contentType: "json",
+                success: function (res) {
 		        user_email_check = true;
 				$("#user_email").removeAttr("style");
 				$("#user_email_check").empty();
 				$("#user_email_check").removeAttr("style");
-			}
+				},
+                error: function (res) {
+					checked_failed("user_email", "중복된 이메일 입니다.");
+                }
+            })
         }, 100)
 	})
 

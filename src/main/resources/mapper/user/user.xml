@@ -13,6 +13,20 @@
 		  FROM user
 		 WHERE user_email = #{email}
 	</select>
+	
+	<select id="findByUserIdAndEmail" resultType="com.i4.i4blog.repository.model.user.User">
+		SELECT *
+		  FROM user
+		 WHERE user_id = ${userId}
+		   AND user_email = #{email}
+	</select>
+	
+	<select id="findByIdAndPassword" resultType="com.i4.i4blog.repository.model.user.User">
+		SELECT *
+		  FROM user
+		 WHERE user_id = ${userId}
+		   AND user_password = #{userPassword}
+	</select>
 
     <select id="findByUserIdCheck" resultType="java.lang.Integer">
 		SELECT 1
