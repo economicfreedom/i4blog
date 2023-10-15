@@ -1,5 +1,5 @@
 $(document).ready(function () {
-    let last_call_time = 0;
+        let last_call_time = 0;
         let page_num = 1;
         let end_page = 2;
         let next;
@@ -7,22 +7,24 @@ $(document).ready(function () {
         $(window).scroll(function () {
             var scr_t = $(window).scrollTop();
 
-            if (scr_t >= $(document).height() - $(window).height() - 100) {  // 10픽셀 근처에 왔을 때 동작
+            if (scr_t >= $(document).height() - $(window).height() - 10) {  // 10픽셀 근처에 왔을 때 동작
 
-                $("#loading").attr("hidden", false);
+                // $("#loading").attr("hidden", false);
 
-                setTimeout(function () {
-                    if (page_num === 1 || end_page > page_num || next) {
-                        page_num++;
-                        page_ajax();
+                // setTimeout(function () {
+                if (page_num === 1 || end_page > page_num || next) {
+                    page_num++;
+                    let select = $("#order-by").val();
 
-                    } else {
+                    page_ajax(select);
 
-                    }
-                }, 1500)
+                } else {
+
+                }
+                // }, 1500)
 
             } else {
-                //아닐때 이벤트
+                // $("#loading").attr("hidden", true);
             }
         });
 
@@ -67,9 +69,10 @@ $(document).ready(function () {
             } // end of for
         }
 
-        function page_ajax(type) {
+        function page_ajax(type, click) {
             let now = Date.now();
-            if (now - last_call_time > 1500) { // 3초가 지났는지 확인
+
+            // if (now - last_call_time > 1500 || click) { // 3초가 지났는지 확인
                 last_call_time = now;
                 $.ajax({
                     url: "/default-pagedto?pageNum=" + page_num + "&type=" + type,
@@ -78,12 +81,16 @@ $(document).ready(function () {
                     success: function (res) {
                         console.log(res)
                         make(res);
-                        $("#loading").attr("hidden", true);
+                        // $("#loading").attr("hidden", true);
 
+                    }, error: function () {
+                        // console.log("동작함")
+                        // $("#loading").attr("hidden", true);
                     }
 
+
                 })
-            }
+            // }
 
         }
 
@@ -107,7 +114,7 @@ $(document).ready(function () {
 
             let b_thumbnail = "/img/default-board.jpg";
             let p_thumbnail = "/img/default-profile.png";
-
+            let fier ='' ;
             console.log(board_thumbnail)
             console.log(img_thumbnail)
 
@@ -123,10 +130,8 @@ $(document).ready(function () {
 
             }
 
-            if (like_user_id == 100) {
-
-                heart = "♥";
-
+            if(like_count > 10){
+                fier = '🔥';
             }
             let create = '<a href="/blog/' + user_id + '/board/view/' + board_id + '">'
                 + '<div class="col-lg-4 mb-3">'
@@ -140,7 +145,7 @@ $(document).ready(function () {
                 + '</small>'
                 + '<a href=""></a>'
                 + '<hr>'
-                + '<a href="#">'
+                + '<a href="/blog/'+user_id+'/board/list">'
                 + '<img src="' + p_thumbnail + '"'
                 + ' style="border-radius: 70%;"'
                 + ' width="30px"'
@@ -149,10 +154,11 @@ $(document).ready(function () {
                 + '<span style="font-size: 14px"> ' + user_nickname + ' </span>'
                 + '</a>'
                 + '<div style="float:right">'
-                + '<small style="border: none;background-color: white; font-size: 22px;color: red;">'
-                + heart
+                + fier
+                + ' <small style= "vertical-align: -1.5px; border: none;background-color: white; font-size: 3px;color: gray;">'
+                + '좋아요'
                 + '</small> '
-                + '<small style="vertical-align: 3px; font-weight: bold">' + like_count + '</small>'
+                + '<small style=" font-size: 3px "> ' + like_count + '</small>'
                 + '</div>'
                 + "</div>"
                 + '</div>'
@@ -169,7 +175,7 @@ $(document).ready(function () {
             console.log(select);
             page_num = 1;
             $("#main-page").children().remove();
-            page_ajax(select);
+            page_ajax(select, true);
 
 
         })

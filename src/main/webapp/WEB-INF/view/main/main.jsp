@@ -70,7 +70,7 @@
                                     <a href=""></a>
 
                                     <hr>
-                                    <a href="#">
+                                    <a href="/blog/${main.userId}/board/list">
                                         <c:if test="${main.imgThumbnail == null}">
                                             <img src="/img/default-profile.png"
                                                  style="border-radius: 70%;"
@@ -82,19 +82,14 @@
                                         <span style="font-size: 14px">${main.userNickname}</span>
                                     </a>
                                     <div style="float:right">
-                                        <c:if test="${principal==null}">
-                                            <small style="border: none;background-color: white; font-size: 22px;color: red;">
-                                                ♡
-                                            </small>
-                                        </c:if>
-                                        <c:if test="${principal!=null}">
 
-                                            <button style="border: none;background-color: white; font-size: 22px;color: red; ">
-                                                ♥
-                                            </button>
-                                        </c:if>
+                                        <small style="vertical-align: -1.5px; border: none;background-color: white; font-size: 3px;color: gray;">
 
-                                        <small style="vertical-align: 3px; font-weight: bold">${main.likeCount}</small>
+                                            좋아요
+                                        </small>
+
+
+                                        <small style=" font-size: 3px "> ${main.likeCount}</small>
                                     </div>
                                 </div>
                             </div>
@@ -105,8 +100,8 @@
 
             </div>
             <div align="center" id="loading" hidden>
-        <img src="/img/loading.gif" style="height: 100px">
-        </div>
+                <img src="/img/loading.gif" style="height: 100px">
+            </div>
         </div>
 
         <%@ include file="/WEB-INF/view/layout/footer.jsp" %>

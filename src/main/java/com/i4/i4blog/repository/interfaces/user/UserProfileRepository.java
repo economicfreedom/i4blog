@@ -2,6 +2,7 @@ package com.i4.i4blog.repository.interfaces.user;
 
 import com.i4.i4blog.dto.user.ProfileRequestDTO;
 import com.i4.i4blog.repository.model.user.UserProfile;
+import com.i4.i4blog.dto.user.ProfileIMGDTO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -36,5 +37,6 @@ public interface UserProfileRepository {
 
     void save();
 
-    UserProfile imgPaths(Integer id);
+    ProfileIMGDTO imgPaths(Integer id);
+    String getImgPathByUserId(String userId);
 }

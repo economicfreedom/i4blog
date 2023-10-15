@@ -14,10 +14,12 @@ public class BoardWriteFormDto {
 	
 	private Integer userId;
 	
-//	@NotEmpty(message = "제목을 입력해주세요.")
+	@NotBlank(message = "제목을 입력해주세요.")
 	private String boardTitle;
-//	@NotEmpty(message = "내용을 입력해주세요.")
+	
+	@NotBlank(message = "내용을 입력해주세요.")
 	private String boardContent;
+	
 	private String boardCategory;
 	private Integer boardPublic;
 	private String thumbnail;

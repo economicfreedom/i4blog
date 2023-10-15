@@ -21,4 +21,5 @@ public class BoardVO {
 	private final String userNickname;
 	private final String boardThumbnail;
 	private final String boardImgOriginal;
+	private final Integer likeCount;
 }

@@ -4,26 +4,27 @@ import org.apache.ibatis.annotations.Mapper;
 
 @Mapper
 public interface LikeRepository {
+	
 	/**
 	 * 좋아요가 있는지 없는지 검토
-	 * @param userId
 	 * @param boardId
+	 * @param userId
 	 * @return
 	 */
-	public Boolean findByUserIdAndBoardId(Integer userId, Integer boardId);
+	public int findByUserIdAndBoardId(Integer boardId, Integer userId);
 	
 	/**
 	 * 좋아요 증가
-	 * @param userId
 	 * @param boardId
+	 * @param userId
 	 * @return
 	 */
-	public int insertByUserIdAndBoardId(Integer userId, Integer boardId);
+	public int insertByUserIdAndBoardId(Integer boardId, Integer userId);
 	
 	/**
 	 * 좋아요 삭제
-	 * @param userId
 	 * @param boardId
+	 * @param userId
 	 */
-	public void deleteByUserIdAndBoardId(Integer userId, Integer boardId);
+	public void deleteByUserIdAndBoardId(Integer boardId, Integer userId);
 }

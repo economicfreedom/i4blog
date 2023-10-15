@@ -43,8 +43,12 @@ public class UserService {
 		return userRepository.findUserNickname(nickname);
 	}
 
-	public Integer getId(String userId) {
-		return userRepository.getId(userId);
+	public String getUserNicknameByUserId(String userId){
+		return userRepository.getUserNicknameByUserId(userId);
+	}
+
+	public Integer getIdByUserId(String userId) {
+		return userRepository.getIdByUserId(userId);
 	}
 
 	public Integer findByUserIdCheck(String userId) {
@@ -66,6 +70,26 @@ public class UserService {
 	@Transactional
 	public void updatePassword(Integer id, String newPw) {
 		userProfileRepository.changePw(id, newPw);
+	}
+	
+	    /**
+     * @param userId
+     * @return id
+     * 남은 지피티 사용회수를 가져옴
+     * @author 촤규하
+     */
+
+	public byte getGptCountByUserId(String userId){
+		return userRepository.getGptCountByUserId(userId);
+	}
+	    /**
+     * @param userId
+     * @return id
+     * 남은 지피티 사용회수를 가져옴
+     * @author 촤규하
+     */
+	public void decrementUsageCountByUserId(String userId){
+		userRepository.decrementUsageCountByUserId(userId);
 	}
 
 }

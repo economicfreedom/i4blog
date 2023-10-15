@@ -81,7 +81,7 @@
 
                         <th scope="row">${report.id}</th>
 
-                        <td><a href="<c:url value=''/>">${report.boardTitle}</a></td>
+                        <td><a href="/blog/${report.strUserId}//board/view/${report.boardId}">${report.boardTitle}</a></td>
                         <td>${report.userId}</td>
                         <td>${report.reportContent}</td>
                         <td>${report.reportType}</td>
@@ -112,7 +112,7 @@
                         <ul class="pagination" id="pagination">
                             <c:if test="${pageDTO.prev}">
                                 <li class="page-item "><a class="page-link" href="#"
-                                                          data-page-num="${pageDTO.beginPage-1}">Prev</a>
+                                                          data-page-num="${pageDTO.beginPage-1}">이전</a>
                                 </li>
                             </c:if>
 
@@ -125,7 +125,7 @@
 
                             <c:if test="${pageDTO.next}">
                                 <li class="page-item"><a class="page-link" href="#"
-                                                         data-page-num="${pageDTO.endPage+1}">Next</a></li>
+                                                         data-page-num="${pageDTO.endPage+1}">다음</a></li>
                             </c:if>
                         </ul>
 

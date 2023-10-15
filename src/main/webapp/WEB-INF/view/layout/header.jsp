@@ -1,6 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" language="java" pageEncoding="UTF-8" %>
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!doctype html>
 <html lang="en">
 <head>
@@ -19,8 +19,8 @@
     <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
     <meta name="generator" content="Hugo 0.101.0">
     <sec:authorize access="isAuthenticated()">
-		<sec:authentication property="principal.user" var="principal"/>
-	</sec:authorize>
+        <sec:authentication property="principal.user" var="principal"/>
+    </sec:authorize>
     <title>Pricing example · Bootstrap v4.6</title>
 
     <link rel="canonical" href="https://getbootstrap.com/docs/4.6/examples/pricing/">
@@ -30,7 +30,7 @@
 
     <link href="/css/header.css" rel="stylesheet">
 
-
+    <script src="/js/search.js"></script>
     <script src="/js/header.js"></script>
 </head>
 
@@ -47,22 +47,38 @@
         <%--                        height: 40%">--%>
         <%--            <img src="serach.jpg" style="width:10%;height:10%;">--%>
         <%--        </button>--%>
+
+
+        <select id="type" class="form-select" aria-label="Default select example" style="margin-right: 0px">
+            <option ${sessionScope.type == 'title' ? 'selected':''} value="title">제목</option>
+            <option ${sessionScope.type == 'content' ? 'selected':''} value="content">내용</option>
+            <option ${sessionScope.type == 'user' ? 'selected':''} value="user">유저</option>
+        </select>
+
+        <input style="width: 150px; height: 25px" id="keyword" value="${sessionScope.keyword}" type="text" placeholder="검색">
         <sec:authorize access="isAnonymous()">
-	        <a class="p-2 text-dark font-weight-bolder" href="/user/login">로그인</a>
-	        <a class="btn btn-outline-dark "  href="/user/join">회원가입</a>
+            <a class="p-2 text-dark font-weight-bolder" href="/user/login">로그인</a>
+            <a class="btn btn-outline-dark " href="/user/join">회원가입</a>
         </sec:authorize>
         <sec:authorize access="isAuthenticated()">
-	        <a class="p-2 text-dark" href="/user/profile-setting" >
 
-                    <span  class="font-weight-bolder">${principal.userId}</span> 님
+            <a class="p-2 text-dark" href="/blog/${principal.userId}/board/list">
 
-	        </a>
-	        <a class="p-2 text-dark" href="/blog/${principal.userId}/board/list" >
+                <span class="font-weight-bolder">${principal.userId}</span>블로그</a>
+            <a class="p-2 text-dark" href="/user/profile-setting">
 
-                    <span  class="font-weight-bolder">${principal.userId}</span>블로그
+                <c:if test="${imgProfilePath != null}">
+                    <img src="${imgProfilePath}" style="border-radius: 100%;overflow: hidden;">
+                </c:if>
+                <c:if test="${imgProfilePath == null}">
 
-	        </a>
-	        <a class="btn btn-outline-dark "  href="/logout">로그아웃</a>
+                    <img src="/img/default-profile" style="border-radius: 100%;overflow: hidden; ">
+                </c:if>
+
+            </a>
+            <a class="btn btn-outline-dark " href="/logout">로그아웃</a>
+
+
         </sec:authorize>
     </nav>
 </div>

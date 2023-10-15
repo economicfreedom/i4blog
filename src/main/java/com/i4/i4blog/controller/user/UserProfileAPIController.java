@@ -1,6 +1,5 @@
 package com.i4.i4blog.controller.user;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.i4.i4blog.dto.user.ProfileInfoDTO;
 import com.i4.i4blog.dto.user.ProfileRequestDTO;
 import com.i4.i4blog.dto.user.PwChangeRequestDTO;
@@ -76,7 +75,7 @@ public class UserProfileAPIController {
         }
 
         String userId = principal.getName();
-        Integer id = userService.getId(userId);
+        Integer id = userService.getIdByUserId(userId);
         log.info(userId);
         profileRequestDTO.setId(id);
         userProfileService.changeNickname(profileRequestDTO);
