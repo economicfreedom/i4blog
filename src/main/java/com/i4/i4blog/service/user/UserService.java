@@ -36,6 +36,10 @@ public class UserService {
 		return userRepository.findUserNickname(nickname);
 	}
 
+	public String getUserNicknameByUserId(String userId){
+		return userRepository.getUserNicknameByUserId(userId);
+	}
+
 	public Integer getIdByUserId(String userId) {
 		return userRepository.getIdByUserId(userId);
 	}

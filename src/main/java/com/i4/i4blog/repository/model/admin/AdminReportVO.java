@@ -22,4 +22,5 @@ public class AdminReportVO {
     private  String reportDate;
     private  String state;
     private  Integer count;
+    private String strUserId;
 }
