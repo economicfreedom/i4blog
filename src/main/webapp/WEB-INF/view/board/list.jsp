@@ -13,7 +13,6 @@
 			aria-describedby="search-addon" />
 		<input type="hidden" id="user-id" name="user-id" value="${list.strUserId}">
 		<input type="image" id="search" src="/img/search.jpg" width="50" height="50">
-		
 	</div>
 
 	<div class="container">
@@ -47,6 +46,7 @@
 							</div>
 							<div class="d-flex justify-content-center mt-4 mb-4">
 								<h4>${list.boardTitle}</h4>
+								<h4>${list.strUserId}</h4>
 							</div>
 							<%-- <div class="d-flex justify-content-start mb-3">
 								<small> ${list.boardContent} </small>

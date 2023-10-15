@@ -11,7 +11,7 @@ public interface LikeRepository {
 	 * @param userId
 	 * @return
 	 */
-	public Boolean findByUserIdAndBoardId(Integer boardId, Integer userId);
+	public int findByUserIdAndBoardId(Integer boardId, Integer userId);
 	
 	/**
 	 * 좋아요 증가

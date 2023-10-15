@@ -1,6 +1,7 @@
 package com.i4.i4blog.controller.like;
 
 import java.security.Principal;
+import java.util.Map;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -22,10 +23,14 @@ public class LikeAPIController {
 	private final LikeService likeService;
 	
 	@PostMapping("/add-like")
-	public ResponseEntity<?> addLike(@RequestBody Integer boardId, Principal principal) {
-		likeService.addLike(boardId, principal);
+	public ResponseEntity<?> addLike(@RequestBody Map<String, Integer> boardId, Principal principal) {
+		log.info("json_data boardId 값은 ==> {}", boardId);
 		
-		return ResponseEntity.ok("/blog/" + principal.getName() + "/board/view/" + boardId);
+		Integer bId = (Integer) boardId.get("boardId");
+		log.info("boardId 값은 ==> {}", bId);
+		likeService.addLike(bId, principal);
+		
+		return ResponseEntity.ok("좋아요 성공");
 	}
 	
 	@DeleteMapping("/delete-like")

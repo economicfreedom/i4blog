@@ -9,9 +9,9 @@
 
 	<select id="findByUserId" resultType="com.i4.i4blog.vo.board.BoardListVo">
 		SELECT a.id, a.user_id, a.str_user_id, a.board_title, a.board_category
-			 , date_format(a.board_created_at, '%Y년 %m월 %d일') AS board_created_at
-		     , a.user_nickname, a.board_public, a.board_thumbnail, a.board_img_original
-		     , count(l.board_id) AS like_count
+		 , date_format(a.board_created_at, '%Y년 %m월 %d일') AS board_created_at
+		 , a.user_nickname, a.board_public, a.board_thumbnail, a.board_img_original
+		 , count(l.board_id) AS like_count
 		  FROM (
 				SELECT b.id
 				     , b.user_id
@@ -26,9 +26,12 @@
 				  FROM board b
 				  LEFT JOIN user u ON b.user_id = u.id
 				 WHERE b.user_id = #{userId}
-		  	 	   AND b.board_state = 1 ) as A
+		  	 	   AND b.board_state = 1 ) AS a
   	 	  LEFT JOIN `like` as l
-  	 	    ON A.id = l.user_id
+  	 	    ON a.id = l.board_id
+		 GROUP BY a.id, a.user_id, a.str_user_id, a.board_title, a.board_category
+			    , a.board_created_at, a.user_nickname, a.board_public
+			    , a.board_thumbnail, a.board_img_original
   	 	 ORDER BY board_created_at DESC
 	</select>
 
