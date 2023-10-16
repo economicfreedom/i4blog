@@ -1,38 +1,38 @@
-$(document).ready(function () {
-	
+$(document).ready(function() {
+
 	// 게시글 삭제
 	$("#delete").click(function() {
 		let id = $('#id').val();
-		let user_id = $('#user-id').val(); 
-		
+		let user_id = $('#user-id').val();
+
 		console.log(id);
 		console.log(user_id);
-		
+
 		$.ajax({
 			type: "PUT",
 			url: "/board/del",
 			contentType: "application/json",
 			data: id,
-			success: function (res) {
+			success: function(res) {
 				alert(res);
 				location.href = "/blog/" + user_id + "/board/list";
 			},
-			error: function (res) {
+			error: function(res) {
 				alert("실패");
 			}
 		}); // end of .$ajax
 	}); // end of #delete
-	
-	
+
+
+	// 좋아요 기능 
 	$("#like-heart").click(function() {
 		let board_id = $('#id').val();
-		let user_id = $('#user-id').val();
 		let like_icon = $('#like-heart');
 		let like_count = Number($("#like-count").text());
-		
+
 		console.log(like_icon);
 
-		if(like_icon.hasClass("empty")) { // 좋아요 하지 않은 상태 => 좋아요 추가
+		if (like_icon.hasClass("empty")) { // 좋아요 하지 않은 상태 => 좋아요 추가
 			$.ajax({
 				type: "POST",
 				url: "/like/add-like",
@@ -43,8 +43,9 @@ $(document).ready(function () {
 				like_icon.removeClass("empty");
 				$("#like-heart").text("❤");
 				$("#like-count").text(like_count + 1);
-				
+
 			}).fail(error => {
+				alert(error.responseText);
 				console.log("오류", error);
 			});
 		} else { // 좋아요 한 상태 => 좋아요 삭제
@@ -59,8 +60,31 @@ $(document).ready(function () {
 				$("#like-heart").text("🤍");
 				$("#like-count").text(like_count - 1);
 			}).fail(error => {
+				alert(error.responseText);
 				console.log("오류", error);
-			}); // end of #like
-		}		
-	}) 
+			});
+		}
+	}) // end of $("#like-heart").click
+	
+	// 신고하기 modal
+	$('#exampleModal').on('show.bs.modal', function(event) {
+		var button = $(event.relatedTarget) // Button that triggered the modal
+		var recipient = button.data('whatever') // Extract info from data-* attributes
+		// If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+		// Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+		var modal = $(this)
+		modal.find('.modal-title').text('New message to ' + recipient)
+		modal.find('.modal-body input').val(recipient)
+	})
+	
+	$('#report-btn').click(function() {
+		// user_id, board_id, comment_id, report_content, report_type
+		let report_create_dto = {
+			user_id : $('#user_id').val(),
+			board_id : $('#id').val(),
+			report_content : $('#report_content').val()
+		};
+		
+	}); // end of $('#report-btn').click
+	
 }) // # end of $(document).ready

@@ -25,7 +25,7 @@ public class LikeAPIController {
 	@PostMapping("/add-like")
 	public ResponseEntity<?> addLike(@RequestBody Map<String, Integer> boardId, Principal principal) {
 		if (principal == null) {
-			// BAD_REQUEST
+			return ResponseEntity.badRequest().body("로그인 후 이용가능합니다.");
 		}
 		
 		Integer bId = (Integer) boardId.get("boardId");
@@ -36,6 +36,10 @@ public class LikeAPIController {
 	
 	@DeleteMapping("/delete-like")
 	public ResponseEntity<?> deleteLike(@RequestBody Map<String, Integer> boardId, Principal principal) {
+		if (principal == null) {
+			return ResponseEntity.badRequest().body("로그인 후 이용가능합니다.");
+		}
+		
 		Integer bId = (Integer) boardId.get("boardId");
 		likeService.deleteLike(bId, principal);
 		

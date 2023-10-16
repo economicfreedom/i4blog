@@ -82,9 +82,6 @@ public class BoardController {
         BoardVO board = boardService.findById(id);
         model.addAttribute("board", board);
         
-        log.info("board.getId()값 ===> {}", board.getId());
-        log.info("principal값 ===> {}", principal);
-        
         boolean like = false;
         if (principal != null) {
         	like = likeService.existsLike(board.getId(), principal);
