@@ -27,7 +27,7 @@ abcabc~
 - summernote : 0.8.18
 
 ### 💻 Back-End
-- spring boot : 4.20.0
+- spring boot : 2.7.15
 - MySQL :
 - jdk :
 - lombok
