@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.i4.i4blog.dto.email.ForgotEmailAuthDto;
-import com.i4.i4blog.dto.user.ForgotPwChangeDto;
+import com.i4.i4blog.dto.user.ForgotPwDto;
 import com.i4.i4blog.dto.user.UserJoinFormDto;
 import com.i4.i4blog.repository.interfaces.user.UserProfileRepository;
 import com.i4.i4blog.repository.interfaces.user.UserRepository;
@@ -63,13 +63,14 @@ public class UserService {
 		return userRepository.findByUserIdAndEmail(forgotEmailAuthDto);
 	}
 
-	public User findByIdAndPassword(ForgotPwChangeDto forgotPwChangeDto) {
+	public User findByIdAndPassword(ForgotPwDto forgotPwChangeDto) {
 		return userRepository.findByIdAndPassword(forgotPwChangeDto);
 	}
 
 	@Transactional
 	public void updatePassword(Integer id, String newPw) {
-		userProfileRepository.changePw(id, newPw);
+		String encodePassword = passwordEncoder.encode(newPw);
+		userProfileRepository.changePw(id, encodePassword);
 	}
 	
 	    /**

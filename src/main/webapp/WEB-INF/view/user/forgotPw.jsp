@@ -1,7 +1,7 @@
 <%@ page contentType="text/html; charset=UTF-8" language="java"
 	pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/view/layout/header.jsp"%>
-<script src="/js/forgot-pw-change.js"></script>
+<script src="/js/forgot-pw.js"></script>
 <link href="/css/join.css" rel="stylesheet">
 <div class="container">
 	<div class="py-5 text-center">

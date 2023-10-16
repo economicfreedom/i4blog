@@ -154,15 +154,14 @@ $(document).ready(function () {
 				checked_failed("user_email", "이메일 주소를 정확히 입력해주세요.");
 				return;
 			} 
+			checked_remove("user_email", "인증 메일 전송중");
             $.ajax({
                 url: "/user/email-check?&userEmail=" + user_email,
                 type: "get",
                 contentType: "json",
                 success: function (res) {
-		        user_email_check = true;
-				$("#user_email").removeAttr("style");
-				$("#user_email_check").empty();
-				$("#user_email_check").removeAttr("style");
+			        user_email_check = true;
+					$("#user_email_check").text("인증 메일이 전송되었습니다.");
 				},
                 error: function (res) {
 					checked_failed("user_email", "중복된 이메일 입니다.");
@@ -234,6 +233,13 @@ $(document).ready(function () {
 			$("#" + tag_id).css("border-color", "red");
             $("#" + tag_id + "_check").text(msg);
             $("#" + tag_id + "_check").css("color", "red");
+	}
+    
+	// 데이터 체크 실패
+    function checked_remove(tag_id, msg) {
+			$("#" + tag_id).removeAttr("style");
+            $("#" + tag_id + "_check").text(msg);
+            $("#" + tag_id + "_check").removeAttr("style");
 	}
 	
 	// 회원가입 기능
