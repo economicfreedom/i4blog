@@ -11,11 +11,11 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 @NoArgsConstructor
 @AllArgsConstructor
-public class ForgotPwChangeDto {
-	private int id;
+@JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
+public class ForgotPwDto {
+	private String userId;
 	private String userPassword;
 	@NotBlank
 	@Size(min = 4, max = 16)

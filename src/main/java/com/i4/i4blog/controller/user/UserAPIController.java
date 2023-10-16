@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.i4.i4blog.dto.user.ForgotPwChangeDto;
+import com.i4.i4blog.dto.user.ForgotPwDto;
 import com.i4.i4blog.dto.user.UserJoinFormDto;
 import com.i4.i4blog.repository.model.user.User;
 import com.i4.i4blog.service.user.UserProfileService;
@@ -144,13 +144,14 @@ public class UserAPIController {
     }
 
     @PreAuthorize("isAnonymous()")
-    @PutMapping("/forgot-pw-change")
-    public ResponseEntity<?> pwChange(@Valid @RequestBody ForgotPwChangeDto forgotPwChangeDto){
-    	User user = userService.findByIdAndPassword(forgotPwChangeDto);
+    @PutMapping("/forgot-pw")
+    public ResponseEntity<?> pwChange(@RequestBody ForgotPwDto forgotPwDto){
+    	User user = userService.findByIdAndPassword(forgotPwDto);
+    	log.info("/forgot-pw");
     	if(user == null) {
     		ResponseEntity.badRequest().build();
     	}
-    	userService.updatePassword(user.getId(), forgotPwChangeDto.getNewUserPassword());
+    	userService.updatePassword(user.getId(), forgotPwDto.getNewUserPassword());
         return ResponseEntity.ok().build();
     }
 }

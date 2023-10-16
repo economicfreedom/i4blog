@@ -58,7 +58,7 @@ $(document).ready(function () {
             $("#" + tag_id + "_check").css("color", "red");
 	}
 	
-	// 회원가입 기능
+	// 비밀번호 변경 기능
 	$("#pw-change").click(function (){
 		if(valid_check()) {
 			let pw_change_dto = {
@@ -67,7 +67,7 @@ $(document).ready(function () {
 					new_user_password : $("#new_user_password").val(),
 			};
 			$.ajax({
-			    url:"/user/forgot-pw-change",
+			    url:"/user/forgot-pw",
 			    type:"PUT",
 				data: JSON.stringify(pw_change_dto),
 				contentType: "application/json; charset=utf-8",

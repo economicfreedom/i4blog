@@ -30,10 +30,18 @@ $(document).ready(function (){
 		let user_email = $("#user_email_pw").val();
 		if(user_id.length < 4 || user_id.length > 16 || user_id.match(exp_user_id)){
 			checked_failed("user_id", "아이디를 정확히 입력해주세요.");
+			return;
 		}
 		if(!user_email.match(exp_email)){
 			checked_failed("user_email_pw", "이메일 주소를 정확히 입력해주세요.");
+			return;
 		}
+		$("#user_id").removeAttr("style");
+		$("#user_id_check").empty();
+		$("#user_id_check").removeAttr("style");
+		$("#user_email_pw").removeAttr("style");
+		$("#user_email_pw_check").text("메일 전송 진행중");
+		$("#user_email_pw_check").removeAttr("style");
         $.ajax({
             url: "/email/forgot-auth-send",
             type: "post",
@@ -68,10 +76,15 @@ $(document).ready(function (){
 				auth: auth
 			}),
             success: function (res) {
-				console.log(res);
+				console.log(res.userId);
+				console.log(res.userPassword);
+				$("#userId").val(res.userId);
+				$("#userPassword").val(res.userPassword);
+				$("#forgot_pw_form").submit();
             },
             error: function (res) {
 				console.log("통신 실패");
+				return false;
             }
         })
 	})
