@@ -1,12 +1,10 @@
 package com.i4.i4blog.service.comment;
 
-import java.security.Principal;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
 
 import com.i4.i4blog.dto.comment.CommentCreateDTO;
-import com.i4.i4blog.dto.comment.CommentDeleteDTO;
 import com.i4.i4blog.dto.comment.CommentUpdateDTO;
 import com.i4.i4blog.repository.interfaces.comment.CommentRepository;
 import com.i4.i4blog.repository.interfaces.user.UserRepository;

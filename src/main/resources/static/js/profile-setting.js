@@ -241,7 +241,7 @@ $(document).ready(function () {
 
                 remove_pw_tag("pw-check-succeed"
                     , "pw-check-failed"
-                    , "pw-br",
+                    , "pw-br"
                 );
 
                 $("#new-pw")
@@ -253,7 +253,7 @@ $(document).ready(function () {
 
                 remove_pw_tag("pw-check-succeed"
                     , "pw-check-failed"
-                    , "pw-br",
+                    , "pw-br"
                 );
                 $("#new-pw")
                     .css("border-color", "red")
@@ -283,7 +283,7 @@ $(document).ready(function () {
                 remove_pw_tag(
                     "pw2-check-succeed"
                     , "pw2-check-failed"
-                    , "pw2-br",);
+                    , "pw2-br");
                 pw_check2 = true
 
                 $("#new-pw2")
@@ -299,7 +299,7 @@ $(document).ready(function () {
                 remove_pw_tag(
                     "pw2-check-succeed"
                     , "pw2-check-failed"
-                    , "pw2-br",);
+                    , "pw2-br");
                 $("#new-pw2")
                     .css("border-color", "red")
                     .before(pw_failed)

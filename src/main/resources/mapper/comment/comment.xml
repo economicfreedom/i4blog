@@ -42,8 +42,8 @@ value (#{userId}, #{boardId}, #{commentContent}, #{commentPublic})
 
 <!-- 이름만 delete이지 실제론 state를 바꾸기위해서 만듬 1,0  -->
 <update id="deleteById">
-	UPDATE board
-	SET board_state = 0
+	UPDATE comment
+	SET comment_state = 0
 	WHERE id=#{id}
 </update>
 

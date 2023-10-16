@@ -4,9 +4,7 @@ import com.i4.i4blog.service.admin.AdminService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RequestMapping("/admin")
 @RestController
@@ -17,7 +15,15 @@ public class AdminAPIController {
 
 
     @GetMapping("/chart-data")
-    public ResponseEntity<?> chartData(){
+    public ResponseEntity<?> chartData() {
         return ResponseEntity.ok(adminService.getSevenDaysDataDTO());
     }
+
+    @PutMapping("/role-up")
+    public ResponseEntity<?> userRoleUp(@RequestParam Integer id) {
+
+        adminService.userRoleUp(id);
+        return ResponseEntity.ok().build();
+    }
+
 }

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.i4.i4blog.repository.interfaces.like.LikeRepository">
+	
+	<select id="findByUserIdAndBoardId" resultType="com.i4.i4blog.repository.model.like.Like">
+		SELECT *
+		  FROM `like`
+		 WHERE board_id = #{boardId}
+		   AND user_id = #{userId}
+	</select>
+	
+	<insert id="insertByUserIdAndBoardId">
+		INSERT INTO `like` (board_id, user_id)
+		VALUES (#{boardId}, #{userId})
+	</insert>
+	
+	<delete id="deleteByUserIdAndBoardId" parameterType="int">
+		DELETE
+		  FROM `like`
+		 WHERE board_id = #{boardId}
+		   AND user_id = #{userId}
+	</delete>
+</mapper>

@@ -8,20 +8,30 @@
 	</insert>
 
 	<select id="findByUserId" resultType="com.i4.i4blog.vo.board.BoardListVo">
-		SELECT b.id
-		     , b.user_id
-		     , u.user_id as str_user_id
-		     , b.board_title
-		     , b.board_category
-		     , date_format(b.board_created_at, '%Y년 %m월 %d일') as board_created_at
-		     , u.user_nickname
-		     , b.board_public
-		     , b.board_thumbnail
-		     , b.board_img_original
-		  FROM board b
-		  LEFT JOIN user u ON b.user_id = u.id
-		 WHERE b.user_id = #{userId}
-  	 	   AND b.board_state = 1
+		SELECT a.id, a.user_id, a.str_user_id, a.board_title, a.board_category
+		 , date_format(a.board_created_at, '%Y년 %m월 %d일') AS board_created_at
+		 , a.user_nickname, a.board_public, a.board_thumbnail, a.board_img_original
+		 , count(l.board_id) AS like_count
+		  FROM (
+				SELECT b.id
+				     , b.user_id
+				     , u.user_id as str_user_id
+				     , b.board_title
+				     , b.board_category
+				     , b.board_created_at
+				     , u.user_nickname
+				     , b.board_public
+				     , b.board_thumbnail
+				     , b.board_img_original
+				  FROM board b
+				  LEFT JOIN user u ON b.user_id = u.id
+				 WHERE b.user_id = #{userId}
+		  	 	   AND b.board_state = 1 ) AS a
+  	 	  LEFT JOIN `like` as l
+  	 	    ON a.id = l.board_id
+		 GROUP BY a.id, a.user_id, a.str_user_id, a.board_title, a.board_category
+			    , a.board_created_at, a.user_nickname, a.board_public
+			    , a.board_thumbnail, a.board_img_original
   	 	 ORDER BY board_created_at DESC
 	</select>
 
@@ -49,10 +59,15 @@
 			 , u.user_nickname
 			 , b.board_thumbnail
 			 , b.board_img_original
+			 , count(l.board_id) AS like_count
 		  FROM board b
-		  JOIN user u
-		    ON b.user_id = u.id
+		  LEFT JOIN user u
+			ON b.user_id = u.id
+		  LEFT JOIN `like` l
+			ON b.id = l.board_id
 		 WHERE b.id = #{id}
+		 GROUP BY b.id, uId, u.user_id, b.board_content, b.board_title, b.board_category, b.board_created_at
+				 , b.board_count, u.user_nickname, b.board_thumbnail, b.board_img_original
 	</select>
 	
 	<update id="updateCount">
@@ -85,5 +100,7 @@
 		       board_img_original = null
 		 WHERE id = #{id}
 	</update>
+	
+	
 	
 </mapper>

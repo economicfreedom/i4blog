@@ -48,8 +48,7 @@
 		<div class="container" style="width: 200px; height: 200px">
 			<div class="row">
 				<div class="form-group">
-					<c:if
-						test="${board.boardThumbnail == null || board.boardThumbnail == ''}">
+					<c:if test="${board.boardThumbnail == null || board.boardThumbnail == ''}">
 						<img src="/img/default-board.jpg" alt="..." width="200px" height="200px">
 					</c:if>
 					<c:if test="${board.boardThumbnail != null }">

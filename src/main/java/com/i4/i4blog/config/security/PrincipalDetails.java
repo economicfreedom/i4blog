@@ -24,9 +24,9 @@ public class PrincipalDetails implements UserDetails {
 	public Collection<? extends GrantedAuthority> getAuthorities() {
         ArrayList<GrantedAuthority> auth = new ArrayList<GrantedAuthority>();
         if(user.getUserRole() == 0) {
-        	auth.add(new SimpleGrantedAuthority("ADMIN"));
+        	auth.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
         } else {
-        	auth.add(new SimpleGrantedAuthority("USER"));
+        	auth.add(new SimpleGrantedAuthority("ROLE_USER"));
         }
         return auth;
 	}

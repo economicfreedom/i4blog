@@ -23,9 +23,9 @@ $(document).ready(function () {
     });// end of .form-control
 
 
-        $('.form-check-inline').on('change', function (e) {
+        $('.admin-report').on('change', function (e) {
         e.preventDefault();
-        console.log("이거 동작");
+        console.log("admin-report");
         const selectedType = $("select[name='type']").val();
         console.log(selectedType);
 

@@ -74,10 +74,10 @@ public class EmailService {
      * 메일로 전송할 제목 및 내용 작성
      */
     private MimeMessage authEmailForm(String toEmail, String auth) {
-        String title = "i4-blog 회원가입을 위한 인증 메일입니다";
+        String title = "i4-blog 이메일 인증을 위한 인증 코드 메일입니다";
         
     	String text = "";
-    	text += "<h2>i4-blog 회원가입 이메일 인증</h2><br>";
+    	text += "<h2>i4-blog 이메일 인증</h2><br>";
         text += "<h3>요청하신 인증 번호입니다.</h3><br>";
         text += "<h1>" + auth + "</h1>";
         MimeMessage message = emailSender.createMimeMessage();

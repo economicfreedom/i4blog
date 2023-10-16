@@ -11,12 +11,15 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.i4.i4blog.dto.user.ForgotPwDto;
 import com.i4.i4blog.dto.user.UserJoinFormDto;
+import com.i4.i4blog.repository.model.user.User;
 import com.i4.i4blog.service.user.UserProfileService;
 import com.i4.i4blog.service.user.UserService;
 
@@ -32,7 +35,6 @@ import lombok.extern.slf4j.Slf4j;
 public class UserAPIController {
 
     private final UserService userService;
-    
     private final UserProfileService userProfileService;
     /**
      * @param nickname
@@ -41,7 +43,6 @@ public class UserAPIController {
      * 존재 하는 닉네임이면 IllegalAccessException 터트림
      * NicknameValidHandler 클래스에 alreadyNickname 참고
      */
-
     @GetMapping("/nick-check")
     public ResponseEntity<?> nickCheck(
             @RequestParam
@@ -67,13 +68,12 @@ public class UserAPIController {
     }
     
     /**
-     * @param nickname
+     * @param userId
      * @return ResponseEntity
      * @author 박용세
      * 존재 하는 아이디면 IllegalAccessException 터트림
      * NicknameValidHandler 클래스에 alreadyNickname 참고
      */
-
     @GetMapping("/user-id-check")
     public ResponseEntity<?> userIdCheck(
             @RequestParam
@@ -83,7 +83,6 @@ public class UserAPIController {
             @NotBlank(message = "아이디를 입력해주세요.")
             String userId
     ) {
-
         Integer res = userService.findByUserIdCheck(userId);
         if (res != null) {
             try {
@@ -92,10 +91,33 @@ public class UserAPIController {
                 throw new RuntimeException(e);
             }
         }
-
         return ResponseEntity.ok().build();
     }
 
+    /**
+     * @param userId
+     * @return
+     * @author 박용세
+     * 이메일 중복 체크
+     */
+    @GetMapping("/email-check")
+    public ResponseEntity<?> emailCheck(
+            @RequestParam
+            @Pattern(regexp = "^[a-z0-9]+@[a-z]+\\.[a-z]{2,3}$"
+                    , message = "올바르지 못한 이메일 주소입니다.")
+            @NotBlank(message = "이메일을 입력해주세요")
+            String userEmail
+    ) {
+        User user = userService.findByEmail(userEmail);
+        if (user != null) {
+            try {
+                throw new IllegalAccessException("이미 존재하는 이메일입니다.");
+            } catch (IllegalAccessException e) {
+                throw new RuntimeException(e);
+            }
+        }
+        return ResponseEntity.ok().build();
+    }
     
     /**
      * @param userJoinFormDto
@@ -104,7 +126,6 @@ public class UserAPIController {
      * @author 박용세
      * 회원가입 기능
      */
-
     // 추가 - 최규하
     // 내용 - 회원가입이 안 된 사용자만 접근 가능하게 추가
     // Profile테이블 Save기능 추가
@@ -114,10 +135,23 @@ public class UserAPIController {
         if (bindingResult.hasErrors()) {
             throw new ConstraintViolationException("회원가입 실패", null);
         }
-        userService.userJoinService(userJoinFormDto);
+        int result = userService.userJoinService(userJoinFormDto);
+        if(result != 1) {
+        	ResponseEntity.badRequest().body("회원가입이 정상적으로 입력되지 않았습니다.");
+        }
         userProfileService.save();
         return ResponseEntity.ok().build();
     }
 
-    
+    @PreAuthorize("isAnonymous()")
+    @PutMapping("/forgot-pw")
+    public ResponseEntity<?> pwChange(@RequestBody ForgotPwDto forgotPwDto){
+    	User user = userService.findByIdAndPassword(forgotPwDto);
+    	log.info("/forgot-pw");
+    	if(user == null) {
+    		ResponseEntity.badRequest().build();
+    	}
+    	userService.updatePassword(user.getId(), forgotPwDto.getNewUserPassword());
+        return ResponseEntity.ok().build();
+    }
 }

@@ -11,6 +11,7 @@ import com.i4.i4blog.vo.board.BoardVO;
 
 @Mapper
 public interface BoardRepository {
+	
 	/**
 	 * 게시글 작성
 	 * @param board

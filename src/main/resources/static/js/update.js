@@ -11,11 +11,11 @@ $(document).ready(function() {
 		$.ajax({
 			type: "PUT",
 			url: "/board/img-delete",
-			dataType:"json",
+			/*dataType:"json",*/
 			contentType: "application/json",
 			data: JSON.stringify(img_delete_dto),
-			success: function (res) {
-				alert(res);
+			success: function () {
+				alert("삭제되었습니다");
 				location.reload();
 			},
 			error: function (res) {

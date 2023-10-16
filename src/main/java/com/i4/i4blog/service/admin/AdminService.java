@@ -1,10 +1,7 @@
 package com.i4.i4blog.service.admin;
 
 import com.i4.i4blog.repository.interfaces.admin.AdminRepository;
-import com.i4.i4blog.repository.model.admin.AdminReportVO;
-import com.i4.i4blog.repository.model.admin.DateCountDTO;
-import com.i4.i4blog.repository.model.admin.GraphDataVO;
-import com.i4.i4blog.repository.model.admin.SevenDaysDataDTO;
+import com.i4.i4blog.repository.model.admin.*;
 import com.i4.i4blog.util.Criteria;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -18,6 +15,7 @@ import java.util.List;
 @Slf4j
 @Service
 public class AdminService {
+
     private final AdminRepository adminRepository;
 
 
@@ -101,6 +99,7 @@ public class AdminService {
      * @author 최규하
      */
 
+
     private Pair<List<Integer>, List<String>> extractCountsAndDates(List<GraphDataVO> data) {
         List<Integer> counts = new ArrayList<>();
         List<String> dates = new ArrayList<>();
@@ -110,5 +109,16 @@ public class AdminService {
             dates.add(graphDataVO.getRegDate());
         }
         return Pair.of(counts, dates);
+    }
+
+    public List<UserManage> userMangeList(Criteria cri){
+        return adminRepository.userMangeList(cri);
+    }
+    public Integer userCount(Criteria cri){
+        return adminRepository.userCount(cri);
+    }
+
+    public void userRoleUp(Integer id) {
+        adminRepository.userRoleUp(id);
     }
 }

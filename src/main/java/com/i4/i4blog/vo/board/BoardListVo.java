@@ -16,5 +16,5 @@ public class BoardListVo {
 	private final String boardPublic;
 	private final String boardThumbnail;
 	private final String boardImgOriginal;
-
+	private final Integer likeCount;
 }
