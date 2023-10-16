@@ -11,14 +11,14 @@
 	<select id="findByUserIdAndEmail" resultType="com.i4.i4blog.repository.model.user.User">
 		SELECT *
 		  FROM user
-		 WHERE user_id = ${userId}
+		 WHERE user_id = #{userId}
 		   AND user_email = #{email}
 	</select>
 	
 	<select id="findByIdAndPassword" resultType="com.i4.i4blog.repository.model.user.User">
 		SELECT *
 		  FROM user
-		 WHERE user_id = ${userId}
+		 WHERE user_id = #{userId}
 		   AND user_password = #{userPassword}
 	</select>
 

@@ -63,6 +63,7 @@ public class UserController {
     public String userForgot() {
     	return "user/userForgot";
     }
+
     
     // 카테고리 테스트중
     @GetMapping("/category-setting")
@@ -71,4 +72,5 @@ public class UserController {
     	model.addAttribute(categoryList);
     	return "user/categorySetting";
     }
+    
 }

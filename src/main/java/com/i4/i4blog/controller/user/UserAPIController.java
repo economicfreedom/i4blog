@@ -144,7 +144,7 @@ public class UserAPIController {
     }
 
     @PreAuthorize("isAnonymous()")
-    @PutMapping("/pw-change")
+    @PutMapping("/forgot-pw-change")
     public ResponseEntity<?> pwChange(@Valid @RequestBody ForgotPwChangeDto forgotPwChangeDto){
     	User user = userService.findByIdAndPassword(forgotPwChangeDto);
     	if(user == null) {

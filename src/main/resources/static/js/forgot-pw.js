@@ -67,7 +67,7 @@ $(document).ready(function () {
 					new_user_password : $("#new_user_password").val(),
 			};
 			$.ajax({
-			    url:"/user/pw-change",
+			    url:"/user/forgot-pw-change",
 			    type:"PUT",
 				data: JSON.stringify(pw_change_dto),
 				contentType: "application/json; charset=utf-8",

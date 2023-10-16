@@ -10,22 +10,21 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.ModelAndView;
 
 import com.i4.i4blog.dto.email.ForgotEmailAuthDto;
 import com.i4.i4blog.dto.user.EmailAuthDto;
-import com.i4.i4blog.handler.APIExceptionHandler;
-import com.i4.i4blog.handler.exception.MyAPIException;
 import com.i4.i4blog.repository.model.user.User;
 import com.i4.i4blog.service.user.EmailService;
 import com.i4.i4blog.service.user.UserService;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/email")
+@Slf4j
 public class EmailAPIController {
 
 	private final EmailService emailService;
@@ -135,10 +134,13 @@ public class EmailAPIController {
      * 비밀번호 찾기를 위한 이메일 인증번호 전송
      */
     @PostMapping("/forgot-auth-send")
-    public ResponseEntity<?> forgotEmailSend(ForgotEmailAuthDto forgotEmailAuthDto
+    public ResponseEntity<?> forgotEmailSend(@RequestBody ForgotEmailAuthDto forgotEmailAuthDto
     										, HttpServletResponse response) {
+    	log.info("forgot-auth-send");
+    	log.info("dto - {}", forgotEmailAuthDto);
         try {
         	User user = userService.findByUserIdAndEmail(forgotEmailAuthDto);
+        	log.info("user - {}", user);
         	if(user == null) {
         		ResponseEntity.badRequest().body("해당하는 아이디가 없습니다.");
         	}
@@ -162,64 +164,5 @@ public class EmailAPIController {
 			ResponseEntity.badRequest().body("메일 전송 중 에러가 발생했습니다.");
 		}
         return ResponseEntity.ok().build();
-    }
-
-    /**
-     * @param emailAuthDto
-     * @param request
-     * @author 박용세
-     * 비밀번호찾기 이메일 인증 확인
-     */
-    @PostMapping("/auth-check")
-    public ModelAndView forgotEmailAuth(@RequestBody ForgotEmailAuthDto forgotEmailAuthDto, HttpServletRequest request) {
-    	User user = userService.findByUserIdAndEmail(forgotEmailAuthDto);
-    	if(user == null) {
-    		ResponseEntity.notFound().build();
-    	}
-    	// 인증 번호 확인
-    	boolean idCheck = false;
-    	boolean mailCheck = false;
-    	boolean authCheck = false;
-    	Cookie[] cookieList = request.getCookies();
-    	for (Cookie cookie : cookieList) {
-    		// 둘다 확인 완료 시 반복 종료
-    		if(idCheck && mailCheck && authCheck) {
-    			break;
-    		}
-    		// 메일 확인 시작
-    		if(cookie.getName().equals("userId")) {
-				if(cookie.getValue().equals(forgotEmailAuthDto.getEmail())) {
-					idCheck = true;
-					continue;
-				} else {
-					// 메일 불일치시 즉시 종료
-		    		throw new MyAPIException("입력된 아이디가 변경되어 확인이 불가능합니다.");
-				}
-				// 메일 확인 끝
-			} else if(cookie.getName().equals("email")) {
-				if(cookie.getValue().equals(forgotEmailAuthDto.getEmail())) {
-					mailCheck = true;
-					continue;
-				} else {
-					// 메일 불일치시 즉시 종료
-		    		throw new MyAPIException("입력된 이메일이 변경되어 확인이 불가능합니다.");
-				}
-				// 메일 확인 끝
-			} else if(cookie.getName().equals("auth")){
-				// 인증번호 확인 시작
-				if(passwordEncoder.matches(forgotEmailAuthDto.getAuth(), cookie.getValue())) {
-					authCheck = true;
-					continue;
-				} else {
-					// 인증번호 불일치시 즉시 종료
-		    		throw new MyAPIException("인증번호가 일치하지 않습니다.");
-				}
-			}
-		} // 인증번호 확인 끝
-    	
-    	ModelAndView modelAndView = new ModelAndView("/user/forgotPw");
-    	modelAndView.addObject("userId", user.getUserId());
-    	modelAndView.addObject("password", user.getUserPassword());
-    	return modelAndView;
     }
 }
