@@ -19,8 +19,13 @@
 			<p>${board.boardCreatedAt}</p>
 		</div>
 		<div class="function">
-			<span id="like-heart" class="like-heart" >♡</span>
-			<p>${board.likeCount}</p>
+			<c:if test="${like == false}">
+				<span id="like-heart" class="empty like-heart" >🤍</span>
+			</c:if>
+			<c:if test="${like == true}">
+				<span id="like-heart" class="has like-heart" >❤</span>
+			</c:if>
+			<p id="like-count">${board.likeCount}</p>
 		</div>
 	</div>
 	<div class="form-group content">
@@ -32,7 +37,7 @@
 	<button type="button" id="delete" class="btn btn-info">삭제</button>
 	<button class="btn btn-secondary" onclick="history.back()">돌아가기</button>
 
-	<%@ include file="/WEB-INF/view/comment/commentList.jsp"%>
+	<%-- <%@ include file="/WEB-INF/view/comment/commentList.jsp"%> --%>
 </div>
 
 

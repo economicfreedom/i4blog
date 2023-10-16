@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.i4.i4blog.service.board.BoardService;
+import com.i4.i4blog.service.like.LikeService;
 import com.i4.i4blog.service.user.UserService;
 import com.i4.i4blog.vo.board.BoardListVo;
 import com.i4.i4blog.vo.board.BoardVO;
@@ -26,6 +27,7 @@ public class BoardController {
 
     private final BoardService boardService;
     private final UserService userService;
+    private final LikeService likeService;
 
     /**
      * 게시글 작성 페이지
@@ -75,12 +77,20 @@ public class BoardController {
      * 해당 id의 게시글 내용보기
      */
     @GetMapping("/view/{id}")
-    public String boardView(Model model, @PathVariable Integer id) {
+    public String boardView(Model model, @PathVariable Integer id, Principal principal) {
         boardService.updateCount(id);
         BoardVO board = boardService.findById(id);
         model.addAttribute("board", board);
+        
+        log.info("board.getId()값 ===> {}", board.getId());
+        log.info("principal값 ===> {}", principal);
+        
+        boolean like = false;
+        if (principal != null) {
+        	like = likeService.existsLike(board.getId(), principal);
+		}
+        model.addAttribute("like", like);
 
-        System.out.println(board);
         return "board/view";
     }
 

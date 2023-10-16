@@ -24,18 +24,20 @@ public class LikeAPIController {
 	
 	@PostMapping("/add-like")
 	public ResponseEntity<?> addLike(@RequestBody Map<String, Integer> boardId, Principal principal) {
-		log.info("json_data boardId 값은 ==> {}", boardId);
+		if (principal == null) {
+			// BAD_REQUEST
+		}
 		
 		Integer bId = (Integer) boardId.get("boardId");
-		log.info("boardId 값은 ==> {}", bId);
 		likeService.addLike(bId, principal);
 		
 		return ResponseEntity.ok("좋아요 성공");
 	}
 	
 	@DeleteMapping("/delete-like")
-	public ResponseEntity<?> deleteLike(@RequestBody Integer boardId, Principal principal) {
-		likeService.deleteLike(boardId, principal);
+	public ResponseEntity<?> deleteLike(@RequestBody Map<String, Integer> boardId, Principal principal) {
+		Integer bId = (Integer) boardId.get("boardId");
+		likeService.deleteLike(bId, principal);
 		
 		return ResponseEntity.ok("좋아요 실패");
 	}

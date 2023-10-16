@@ -59,7 +59,8 @@
 									<small>&nbsp;· 댓글 3개</small>
 								</div>
 								<div class="border-none">
-									<span style="color: red"> ♥ </span>
+									<span style="color: red"> ❤ </span>
+									<p>${list.likeCount}</p>
 								</div>
 							</div>
 						</a>
