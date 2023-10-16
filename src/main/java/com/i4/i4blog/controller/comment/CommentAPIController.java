@@ -1,12 +1,10 @@
 package com.i4.i4blog.controller.comment;
 
-import org.apache.ibatis.annotations.Delete;
-import org.springframework.http.HttpStatus;
+import java.security.Principal;
+
+import javax.validation.Valid;
+
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.acls.model.NotFoundException;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -14,10 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.i4.i4blog.dto.comment.CommentCreateDTO;
-import com.i4.i4blog.dto.comment.CommentDeleteDTO;
 import com.i4.i4blog.dto.comment.CommentUpdateDTO;
 import com.i4.i4blog.service.comment.CommentService;
-import com.i4.i4blog.vo.comment.CommentVO;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -31,26 +27,21 @@ public class CommentAPIController {
     private final CommentService commentService;
     
     /**
-     * @return 
+     * @author 김민환
+     * @return 댓글을 작성하도록 구현 
      * @Commentcreate 댓글 생성단 컨트롤러 (api)
      */
-//   
-    @PostMapping("/api/comment/list")
-    public ResponseEntity<?> commentCreateApi(@RequestBody CommentCreateDTO commentCreateDTO )
+    @PostMapping("/create")
+    public ResponseEntity<?> commentCreateApi(@Valid @RequestBody
+    		CommentCreateDTO commentCreateDTO,
+    		                 Principal principal)
     {    	   
-    	System.out.println("작성성공");
-    	CommentVO  commentVO = commentService.commentCreateService(commentCreateDTO);
-//    	 Todo 진행 
-//    	if(commentVO == null) {
-//    		System.out.println("실패");
-//    		return ResponseEntity.badRequest().build();
-//    	} else {
-//    		System.out.println("실패");
-//    		return ResponseEntity.ok().body(commentVO);
-//    	}
-    	// 샘플 
-    	CommentVO commentVO2 = new CommentVO().builder().id(100).boardId(1).commentContent("샘플").build();
-    	return ResponseEntity.ok().body(commentVO2);	
+    	System.out.println(commentCreateDTO);
+
+    	int res = commentService.commentCreateService(
+    			commentCreateDTO,principal.getName());
+    	return ResponseEntity.ok().build();
+    	
     }
     
    
@@ -60,31 +51,26 @@ public class CommentAPIController {
 	 *
 	 *댓글 수정 기능 
 	 */
-    @PutMapping("/api/comment/list")
-    public ResponseEntity<? extends Object> commentUpdate(@RequestBody CommentUpdateDTO commentUpdateDTO) {
-        log.info("dto: {}", commentUpdateDTO);
-        try {
-            commentService.updateCommentService(commentUpdateDTO);
-            return ResponseEntity.ok("댓글이 성공적으로 업데이트되었습니다.");
-        } catch (Exception e) {
-            // 예외 발생 시 badRequest를 발생시킨다
-            return ResponseEntity.badRequest().build();
+    //주의 사항: 다른분들 햇갈리지 않게 list 가 아닌  update로 수정 
+    @PutMapping("/update")
+    public ResponseEntity<?> commentUpdate(@Valid @RequestBody
+    		CommentUpdateDTO commentUpdateDTO
+    										, Principal principal)
+    {
+        log.info("수정된 댓글{}", commentUpdateDTO);
+        
+        int result = commentService.commentUpdateService(
+        		commentUpdateDTO
+        		, principal.getName());
+        
+        if(result != 1) {
+        	return ResponseEntity.badRequest().build();
         }
+        return ResponseEntity.ok("수정 성공");
     }
     
-    /**
-     * 댓글 삭제 쿼리 
-     * @return
-     */
-    @DeleteMapping("/api/comment/list")
-    public ResponseEntity<?> deleteComment(@RequestBody CommentDeleteDTO commentDeleteDTO) {
-    	// 1. 서비스 호출 - 응답 -> void
-    	commentService.deleteCommentService(commentDeleteDTO.getId());
-    	// 2. 데이터 내려 주기 
-    	
-    	// todo 수
-    	return ResponseEntity.ok("삭제 성공");
-    }
+    
+    
     /**
      * @author 최규하
      * 이름은 delete지만 실제론 state를 바꾸기 때문에 update로 동작함
@@ -92,21 +78,18 @@ public class CommentAPIController {
      */
     @PutMapping("/del")
     public ResponseEntity<? extends Object> deleteById(
-            @RequestBody Integer id
+            @RequestBody Integer id 
 
     ) {
         log.info("comment controller deleteById Start");
         log.info("삭제 아이디 : {}", id);
-        Integer res = commentService.deleteById(id);
-
+        Integer res = commentService.deleteById(id);                     
         log.info("comment controller deleteById end");
-
+        if(res != 1) {
+        	return ResponseEntity.badRequest().build();
+        	
+        }        
         return ResponseEntity.ok("삭제 성공");
     }
-
     
-
 }
-
-
-

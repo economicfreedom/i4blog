@@ -7,8 +7,9 @@ import com.fasterxml.jackson.databind.annotation.JsonNaming;
 
 import lombok.Data;
 
-@Data
 @JsonNaming(value =PropertyNamingStrategies.SnakeCaseStrategy.class )
+@Data
+
 public class CommentUpdateDTO {
 	
 	private Integer Id;
