@@ -5,35 +5,35 @@
         INSERT INTO profile(user_id, profile_title)
         SELECT MAX(u.id) as dd, concat(user_nickname, '님의 블로그 입니다')
         FROM user u
-        where id = (SELECT MAX(id) FROM user)
+        WHERE id = (SELECT MAX(id) FROM user)
     </insert>
     <update id="saveNickname">
-        update user
-        set user_nickname = #{nickname}
-        where id = #{id}
+        UPDATE user
+        SET user_nickname = #{nickname}
+        WHERE id = #{id}
     </update>
     <update id="saveImg">
-        update profile
-        set img_original = #{originalImg},
+        UPDATE profile
+        SET img_original = #{originalImg},
             img_thumbnail =#{thumbNail}
-        where user_id = (select id
-                         from user
-                         where user_id = #{userId})
+        WHERE user_id = (select id
+                         FROM user
+                         WHERE user_id = #{userId})
     </update>
     <update id="changePw">
-        update user
-        set user_password = #{newPw}
-        where id = #{id}
+        UPDATE user
+        SET user_password = #{newPw}
+        WHERE id = #{id}
     </update>
     <update id="saveTitleInfo">
-        update profile
-        set profile_title = #{title} , profile_content=#{info}
-        where user_id =#{id}
+        UPDATE profile
+        SET profile_title = #{title} , profile_content=#{info}
+        WHERE user_id =#{id}
     </update>
     <update id="resign">
-        update user
-        set user_state =0
-        where user_id =#{userId}
+        UPDATE user
+        SET user_state =0
+        WHERE user_id =#{userId}
     </update>
     <select id="findByUserId" resultType="com.i4.i4blog.repository.model.user.UserProfile">
 SELECT p.id
@@ -46,7 +46,7 @@ SELECT p.id
      , user_email
 FROM user u
          JOIN profile p ON u.id = p.user_id
-where u.id = #{id}
+WHERE u.id = #{id}
     </select>
     <select id="imgPaths" resultType="com.i4.i4blog.dto.user.ProfileIMGDTO">
         SELECT img_original, img_thumbnail
@@ -54,9 +54,9 @@ where u.id = #{id}
         WHERE user_id = #{id}
     </select>
     <select id="getImgPathByUserId" resultType="java.lang.String">
-        select img_thumbnail
-        from profile
-        where user_id = (select id from user where user_id = #{userId})
+        SELECT img_thumbnail
+        FROM profile
+        WHERE user_id = (select id FROM user WHERE user_id = #{userId})
     </select>
 
 

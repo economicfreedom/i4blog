@@ -4,8 +4,8 @@
 
 <!-- 댓글의 고정 아이디 값 찾기 -->
 <select id="commentById" resultType= "com.i4.i4blog.repository.model.comment.Comment">
-select * from comment
- where id = #{id}
+SELECT * FROM comment
+ WHERE id = #{id}
 </select>
 
 <!--댓글  목록조회 쿼리  -->
@@ -18,24 +18,24 @@ select id
      , comment_updated_at
      , comment_public
      , comment_public
-  from comment
- where board_id = #{boardId};
+  FROM comment
+ WHERE board_id = #{boardId};
 </select>
 
 <!-- 댓글 작성 쿼리  -->
 <insert id="create">
-Insert into comment(user_id, board_id, comment_content,comment_public)
-value (#{userId}, #{boardId}, #{commentContent}, #{commentPublic})
+INSERT INTO comment(user_id, board_id, comment_content,comment_public)
+VALUE (#{userId}, #{boardId}, #{commentContent}, #{commentPublic})
 </insert>
 
 <!-- 댓글 수정 쿼리 -->
 <update id="updateComment">
-	update comment
-	set	
+	UPDATE comment
+	SET
 		comment_content = #{commentContent},
 		comment_updated_at = now(),
 		comment_public= #{commentPublic}
-	Where id=#{id}
+	WHERE id=#{id}
 </update>
 
 
