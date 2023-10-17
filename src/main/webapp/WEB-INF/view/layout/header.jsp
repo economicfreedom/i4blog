@@ -32,6 +32,8 @@
 
     <script src="/js/search.js"></script>
     <script src="/js/header.js"></script>
+    <base href="/i4blog/">
+
 </head>
 
 <body>
@@ -55,7 +57,8 @@
             <option ${sessionScope.type == 'user' ? 'selected':''} value="user">유저</option>
         </select>
 
-        <input style="width: 150px; height: 25px" id="keyword" value="${sessionScope.keyword}" type="text" placeholder="검색">
+        <input style="width: 150px; height: 25px" id="keyword" value="${sessionScope.keyword}" type="text"
+               placeholder="검색">
         <sec:authorize access="isAnonymous()">
             <a class="p-2 text-dark font-weight-bolder" href="/user/login">로그인</a>
             <a class="btn btn-outline-dark " href="/user/join">회원가입</a>
@@ -72,7 +75,7 @@
                 </c:if>
                 <c:if test="${imgProfilePath == null}">
 
-                    <img src="/img/default-profile" style="border-radius: 100%;overflow: hidden; ">
+                    <img src="/img/default-profile.png" style="border-radius: 100%;overflow: hidden; ">
                 </c:if>
 
             </a>
