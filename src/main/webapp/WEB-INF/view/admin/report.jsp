@@ -24,13 +24,13 @@
         <div class="row-5">
             <form action="">
                 <div class="search-wrap clearfix">
-                    <div class="form-check-inline">
+                    <div class="form-check-inline admin-report">
                         <label class="form-check-label">
                             <input type="radio" class="form-check-input" name="optradio"
                                    value="date" ${pageDTO.cri.orderBy == 'date' ? 'checked' : ''}><b>최신순</b>
                         </label>
                     </div>
-                    <div class="form-check-inline">
+                    <div class="form-check-inline admin-report">
                         <label class="form-check-label">
                             <input type="radio" class="form-check-input" name="optradio"
                                    value="count" ${pageDTO.cri.orderBy == 'count' ? 'checked' : ''}><b>누적순</b>
@@ -40,12 +40,12 @@
                         <option value="board" ${pageDTO.cri.type == 'board' ? 'selected' : ''}>게시글</option>
                         <option value="comment" ${pageDTO.cri.type == 'comment' ? 'selected' : ''}>댓글</option>
                     </select>
-                    <%--                                        <div class="form-check form-check-inline">--%>
+                    <%--                                        <div class="form-check form-check-inline admin-report">--%>
                     <%--                                            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1"--%>
                     <%--                                                   value="board" ${pageDTO.cri.type == 'freeboard_title' ? 'selected' : ''}>--%>
                     <%--                                            <label class="form-check-label" for="inlineRadio1">게시글</label>--%>
                     <%--                                        </div>--%>
-                    <%--                    <div class="form-check form-check-inline">--%>
+                    <%--                    <div class="form-check form-check-inline admin-report">--%>
                     <%--                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2"--%>
                     <%--                               value="comment" ${pageDTO.cri.type == 'freeboard_content' ? 'selected' : ''}>--%>
                     <%--                        <label class="form-check-label" for="inlineRadio2">댓글</label>--%>
@@ -81,7 +81,7 @@
 
                         <th scope="row">${report.id}</th>
 
-                        <td><a href="<c:url value=''/>">${report.boardTitle}</a></td>
+                        <td><a href="/blog/${report.strUserId}//board/view/${report.boardId}">${report.boardTitle}</a></td>
                         <td>${report.userId}</td>
                         <td>${report.reportContent}</td>
                         <td>${report.reportType}</td>
@@ -112,7 +112,7 @@
                         <ul class="pagination" id="pagination">
                             <c:if test="${pageDTO.prev}">
                                 <li class="page-item "><a class="page-link" href="#"
-                                                          data-page-num="${pageDTO.beginPage-1}">Prev</a>
+                                                          data-page-num="${pageDTO.beginPage-1}">이전</a>
                                 </li>
                             </c:if>
 
@@ -125,7 +125,7 @@
 
                             <c:if test="${pageDTO.next}">
                                 <li class="page-item"><a class="page-link" href="#"
-                                                         data-page-num="${pageDTO.endPage+1}">Next</a></li>
+                                                         data-page-num="${pageDTO.endPage+1}">다음</a></li>
                             </c:if>
                         </ul>
 

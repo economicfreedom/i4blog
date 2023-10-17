@@ -1,6 +1,9 @@
 package com.i4.i4blog.repository.interfaces.like;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
+
+import com.i4.i4blog.repository.model.like.Like;
 
 @Mapper
 public interface LikeRepository {
@@ -11,7 +14,7 @@ public interface LikeRepository {
 	 * @param userId
 	 * @return
 	 */
-	public Boolean findByUserIdAndBoardId(Integer boardId, Integer userId);
+	public Like findByUserIdAndBoardId(@Param("boardId") Integer boardId, @Param("userId") Integer userId);
 	
 	/**
 	 * 좋아요 증가
@@ -19,12 +22,12 @@ public interface LikeRepository {
 	 * @param userId
 	 * @return
 	 */
-	public int insertByUserIdAndBoardId(Integer boardId, Integer userId);
+	public int insertByUserIdAndBoardId(@Param("boardId") Integer boardId, @Param("userId") Integer userId);
 	
 	/**
 	 * 좋아요 삭제
 	 * @param boardId
 	 * @param userId
 	 */
-	public void deleteByUserIdAndBoardId(Integer boardId, Integer userId);
+	public void deleteByUserIdAndBoardId(@Param("boardId") Integer boardId, @Param("userId") Integer userId);
 }

@@ -20,20 +20,23 @@
                 // 마우스가 영역에서 나갔을 때
                 $(this).css("background-color", ""); // 초기 색상으로 되돌림
             }
-            ).css("cursor", "pointer")
+        ).css("cursor", "pointer")
 
             .click(function (e) {
                 var url = '/admin/';
                 var text = $(this).text();
 
-                if (text === '블로그 동향'){
+                if (text === '블로그 동향') {
                     url += 'main';
                 }
-                if (text === '신고 목록'){
+                if (text === '신고 목록') {
                     url += 'report';
                 }
+                if (text == '유저 관리') {
+                    url += 'user';
+                }
 
-                location.href= url;
+                location.href = url;
 
 
             })
@@ -43,7 +46,7 @@
     }); // end of ready
 </script>
 <header class="navbar navbar-expand navbar-dark bg-dark bd-navbar">
-    <span class="navbar-brand">님 반갑습니다.</span>
+    <span class="navbar-brand">${getNickname}님 반갑습니다.</span>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
             aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -58,6 +61,8 @@
                 <li><a>블로그 동향</a></li>
                 <hr>
                 <li><a>신고 목록</a></li>
+                <hr>
+                <li><a>유저 관리</a></li>
                 <hr>
             </ul>
             <br>

@@ -2,17 +2,30 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.i4.i4blog.repository.interfaces.user.UserRepository">
 
+	<select id="findByEmail" resultType="com.i4.i4blog.repository.model.user.User">
+		SELECT *
+		  FROM user
+		 WHERE user_email = #{email}
+	</select>
+	
+	<select id="findByUserIdAndEmail" resultType="com.i4.i4blog.repository.model.user.User">
+		SELECT *
+		  FROM user
+		 WHERE user_id = #{userId}
+		   AND user_email = #{email}
+	</select>
+	
+	<select id="findByIdAndPassword" resultType="com.i4.i4blog.repository.model.user.User">
+		SELECT *
+		  FROM user
+		 WHERE user_id = #{userId}
+		   AND user_password = #{userPassword}
+	</select>
 
     <select id="findByUserId" resultType="com.i4.i4blog.repository.model.user.User">
         SELECT *
         FROM user
         WHERE user_id = #{userId}
-    </select>
-
-    <select id="findByEmail" resultType="com.i4.i4blog.repository.model.user.User">
-        SELECT *
-        FROM user
-        WHERE user_email = #{email}
     </select>
 
     <select id="findByUserIdCheck" resultType="java.lang.Integer">
@@ -57,6 +70,11 @@
     <select id="getGptCountByUserId" resultType="java.lang.Byte">
         SELECT count
         FROM user
+        WHERE user_id = #{userId}
+    </select>
+    <select id="getUserNicknameByUserId" resultType="java.lang.String">
+        SELECT user_nickname
+        FROM USER
         WHERE user_id = #{userId}
     </select>
 

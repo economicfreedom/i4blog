@@ -896,6 +896,24 @@ UPDATE user
 set count = 3
 where user_id = 'zxcv1234';
 
+SELECT r.id
+     , r.user_id
+     , r.board_id
+     , r.report_content
+     , r.report_type
+     , r.report_created_at
+     , b.board_title
+     , u.user_id
+     , (CASE
+            WHEN b.board_state = 0 THEN '삭제된 게시글'
+            WHEN b.board_state = 1 THEN '존재하는 게시글'
+            ELSE 'error'
+    END)                                       as state
+     , count(*) over (partition by r.board_id) as count
+FROM report r
+         JOIN board b ON r.board_id = b.id
+         JOIN user u ON b.user_id = u.id;
+
 select *
 from user
 order by id desc;
@@ -907,4 +925,38 @@ commit;
 UPDATE user
 set count = count - 1
 where user_id = 'zxcv1234';
+
+update user
+set user_role = 0
+where user_id = 'zxcv1234';
+
+SELECT u.id,
+       u.user_id,
+       u.user_email,
+       u.user_created_at,
+       COALESCE(COUNT(b.id), 0) as board_count,
+       COALESCE(COUNT(c.id), 0) as comment_count
+FROM user u
+         LEFT JOIN board b ON u.id = b.user_id
+         LEFT JOIN comment c on c.user_id = u.id
+GROUP BY u.id, u.user_id, u.user_email, u.user_created_at;
+
+SELECT u.id,
+       u.user_id,
+       u.user_nickname,
+       u.user_email,
+       date_format(u.user_created_at, '%Y년 %m월 %d일') as user_created_at,
+       COALESCE(COUNT(DISTINCT b.id), 0)             as board_count,
+       COALESCE(COUNT(DISTINCT c.id), 0)             as comment_count
+FROM user u
+         LEFT JOIN board b ON u.id = b.user_id
+         LEFT JOIN comment c on c.user_id = u.id
+GROUP BY u.id, u.user_id, u.user_nickname, u.user_email, u.user_created_at
+ORDER BY u.user_created_at
+LIMIT 0,5;
+
+select user_role from user
+where id= 1;
+
+
 

@@ -3,6 +3,7 @@ package com.i4.i4blog.repository.interfaces.admin;
 import com.i4.i4blog.repository.model.admin.AdminReportVO;
 import com.i4.i4blog.repository.model.admin.DateCountDTO;
 import com.i4.i4blog.repository.model.admin.GraphDataVO;
+import com.i4.i4blog.repository.model.admin.UserManage;
 import com.i4.i4blog.util.Criteria;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -50,5 +51,11 @@ public interface AdminRepository {
 	테이블이름 = report ,   컬럼이름 : report_date
 
 	*/
+
+    List<UserManage> userMangeList(Criteria cri);
+
+    Integer userCount(Criteria cri);
+
+    void userRoleUp(Integer id);
 
 }

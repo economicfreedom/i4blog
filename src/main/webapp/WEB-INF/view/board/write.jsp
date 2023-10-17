@@ -20,8 +20,8 @@
     <form action="/blog/${principal.userId}/board/write" method="post" id="write-form">
         <div class="form-group form-option">
             <div class="category">
-                <label for="board-category">카테고리</label> <select
-                    class="boardCategory" id="board-category" name="board-category">
+                <label for="board-category">카테고리</label>
+                <select class="boardCategory" id="board-category" name="board-category">
                 <c:choose>
                     <c:when test="${empty categoryList}">
                         <option value="">---</option>

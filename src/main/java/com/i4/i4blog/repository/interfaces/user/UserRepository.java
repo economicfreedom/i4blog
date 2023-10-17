@@ -1,13 +1,21 @@
 package com.i4.i4blog.repository.interfaces.user;
 
+import org.apache.ibatis.annotations.Mapper;
+
+import com.i4.i4blog.dto.email.ForgotEmailAuthDto;
+import com.i4.i4blog.dto.user.ForgotPwDto;
 import com.i4.i4blog.repository.model.user.User;
 import com.i4.i4blog.vo.user.ProfileInfoVo;
-import org.apache.ibatis.annotations.Mapper;
 
 @Mapper
 public interface UserRepository {
     public User findByUserId(String userId);
 
+	public Integer getId(String userId);
+	public User findByUserIdAndEmail(ForgotEmailAuthDto forgotEmailAuthDto);
+	public User findByIdAndPassword(ForgotPwDto forgotPwChangeDto);
+	public void updateUser(User user);
+	
     public ProfileInfoVo findProfileByUserId(String userId);
 
     public int insert(User user);
@@ -50,4 +58,11 @@ public interface UserRepository {
      * count 3으로 초기화
      */
     public void resetGptCountAllUser();
+
+    /**
+     * @param userId
+     * @return userNickname
+     * @author 최규하
+     */
+    public String getUserNicknameByUserId(String userId);
 }

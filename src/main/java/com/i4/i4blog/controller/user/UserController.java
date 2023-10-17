@@ -7,8 +7,10 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.i4.i4blog.dto.user.ForgotPwDto;
 import com.i4.i4blog.repository.model.category.Category;
 import com.i4.i4blog.service.category.CategoryService;
 
@@ -64,6 +66,16 @@ public class UserController {
     	return "user/userForgot";
     }
     
+    @PreAuthorize("isAnonymous()")
+    @PostMapping("/forgot-pw")
+    public String userForgotPw(ForgotPwDto forgotPwDto, Model model) {
+    	log.info("forgot-pw : {}", forgotPwDto);
+    	model.addAttribute("userId", forgotPwDto.getUserId());
+    	model.addAttribute("userPassword", forgotPwDto.getUserPassword());
+    	return "user/forgotPw";
+    }
+
+    
     // 카테고리 테스트중
     @GetMapping("/category-setting")
     public String categorySetting(Model model) {
@@ -71,4 +83,5 @@ public class UserController {
     	model.addAttribute(categoryList);
     	return "user/categorySetting";
     }
+    
 }
