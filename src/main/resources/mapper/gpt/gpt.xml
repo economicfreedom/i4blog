@@ -3,7 +3,7 @@
 <mapper namespace="com.i4.i4blog.repository.interfaces.gpt.GPTRepository">
 
     <insert id="save">
-        insert into gpt(user_id,request,response)
-        value(#{userId},#{request},#{response})
+        INSERT INTO gpt(user_id,request,response)
+        VALUE (#{userId},#{request},#{response})
     </insert>
 </mapper>

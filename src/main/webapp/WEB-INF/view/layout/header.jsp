@@ -21,7 +21,7 @@
     <sec:authorize access="isAuthenticated()">
         <sec:authentication property="principal.user" var="principal"/>
     </sec:authorize>
-    <title>Pricing example · Bootstrap v4.6</title>
+    <title>i4blog</title>
 
     <link rel="canonical" href="https://getbootstrap.com/docs/4.6/examples/pricing/">
 

@@ -44,6 +44,8 @@ public class EmailAPIController {
      */
     @PostMapping("/auth-send")
     public ResponseEntity<?> emailSend(String email, HttpServletResponse response) {
+    	log.info("/auth-send");
+    	log.info("email : {}", email);
     	if(email == null) {
     		return ResponseEntity.badRequest().build();
     	}
@@ -76,6 +78,8 @@ public class EmailAPIController {
      */
     @PostMapping("/auth-check")
     public ResponseEntity<?> emailAuth(@RequestBody EmailAuthDto emailAuthDto, HttpServletRequest request) {
+    	log.info("/auth-check");
+    	log.info("dto : {}", emailAuthDto);
     	// 인증 번호 확인
     	boolean mailCheck = false;
     	boolean authCheck = false;
@@ -117,6 +121,8 @@ public class EmailAPIController {
      */
     @PostMapping("/forgot-id")
     public ResponseEntity<?> forgotUserId(String email) {
+    	log.info("/forgot-id");
+    	log.info("email : {}", email);
     	User user = userService.findByEmail(email);
     	if(user == null) {
     		ResponseEntity.badRequest().body("해당 이메일로 가입된 아이디가 없습니다.");

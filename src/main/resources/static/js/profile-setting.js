@@ -357,7 +357,7 @@ $(document).ready(function () {
         $("#" + br_id).remove();
     }
 
-    function get_br_and_small_tag_succeed(br_id, small_id, succeed_msg, failed_msg) {
+    function get_br_and_small_tag_succeed(br_id, small_id, succeed_msg) {
         return '<br id="' + br_id + '">' + '<small id="' + small_id + '" style="color: skyblue">' + succeed_msg + '</small>'
 
     }
@@ -415,7 +415,6 @@ $(document).ready(function () {
     })
 
     $("#resign-btn").click(function () {
-
         let res_pwd = $("#resign-pwd").val();
 
         if (res_pwd ===null || res_pwd===""){
@@ -444,14 +443,150 @@ $(document).ready(function () {
         }
     })
     
-    $("#category-add").click(function () {
+    
+    // 카테고리 관리
+    /**
+	 * 카테고리 추가
+	 * state : C
+	 * li value : 고유번호
+	 */
+    $("#category_add").click(function () {
 		console.log("추가 버튼 클릭");
 		let html = "";
-    	html += '<li class="list-group-item category-item">';
-		html += '새 카테고리';
+    	html += '<li class="list-group-item card category-item ui-sortable-handle" id="category_item" onclick="category_item(this)" value="' + ca_count + '" style="border-top-width: 1px">';
+    	html += '<input type="hidden" id="category_id">'
+    	html += '<input type="hidden" id="category_state" value="C">'
+		html += '<span id="category_name">새 카테고리</span>';
+		html += '<span class="float-right" id="category_delete_span">';
+		html += '<span id="category_state_text" style="color: green">추가</span>'
+		html += '<button type="button" class="btn btn-outline-danger btn-sm" onclick="category_delete(this)" id="category_delete_btn" value="N">삭제</button>';
+		html += '</span>';
 		html += '</li>';
-		$("#category-list").append(html);
+		$("#category_list").append(html);
+		ca_count++;
 	})
 	
-	$("#category-list").sortable();
+	
+	// 카테고리 드래그 가능하게 하는 함수.
+	$("#category_list").sortable();
+	
+	
+	// 로딩 후 카테고리 리스트에 idx 입력
+    $("#category_list li").each(function(i, item) {
+		$(item).val(ca_count);
+		ca_count++;
+    });
+    
+    
+	// 수정한 카테고리 이름 리스트에 적용
+    $("#category_update_save").click(function(event) {
+		event.preventDefault();
+		let idx = $("#category_update_idx").val();
+		if(idx == "") {
+			return;
+		};
+		let new_name = $("#category_update_name").val();
+		let item = $("#category_item[value='" + idx + "']")[0];
+		let name = item.children['category_name'];
+		let state = item.children['category_state'];
+		let state_text = item.children['category_delete_span'].children['category_state_text']; 
+		name.textContent = new_name;
+		if(state.value === 'R'){
+			state.value = 'U';
+			category_state_text_change(state_text, "U");
+		}
+	})
+	
+	// 카테고리 리스트 DB에 저장
+	$("#category_list_save").click(function () {
+		let category_List = [];
+	    $("#category_list li").each(function(i, item) {
+			let id = item.children['category_id'].value;
+			let category_name = item.children['category_name'].textContent;
+			let state = item.children['category_state'].value;
+			if(item.children['category_delete_span'].children['category_delete_btn'].value === "D"){
+				state = "D";
+			} else if((i+1 != item.value) && state === "R") {
+				state = "U";
+			}
+			// 삭제 관련 조건 추가 필요
+			category_List.push({
+				id : id,
+				category_name : category_name,
+				state : state,
+				order : i+1
+			});
+	    });
+        $.ajax({
+            url:"/category/list-save",
+            type:"put",
+            contentType:"application/json",
+            data:JSON.stringify(category_List),
+            success:function () {
+				alert('저장 성공');
+				location.reload();
+            },
+            error:function (res){
+				console.log('저장 실패');
+            }
+        })
+	})
 });
+
+
+// 카테고리 리스트의 클릭 이벤트 (카테고리 아이템 선택)
+let ca_count = 1;
+function category_item (item) {
+	let name = item.children['category_name'];
+	$("#category_update_idx").val(item.value);
+	$("#category_update_name").val(name.textContent);
+	
+	// 다른 요소에 해당 css 삭제
+    $("#category_list li").each(function(i, item) {
+		$(item).css("border-color", "")
+    });
+	$(item).css("border-color", "black")
+};
+
+// 삭제 버튼
+function category_delete (item) {
+	console.log(item);
+	let category_item = item.parentElement.parentElement;
+	let state = category_item.children['category_state'].value;
+	let state_text = item.parentElement.children['category_state_text'];
+	if(state === "C") {
+		category_item.remove();
+	} else if(item.value === "N") {
+		item.textContent = "취소";
+		item.className = "btn btn-danger btn-sm";
+		item.value = "D";
+		category_state_text_change (state_text, "D");
+	} else if(state === "R") {
+		item.textContent = "삭제";
+		item.className = "btn btn-outline-danger btn-sm";
+		item.value = "N";
+		category_state_text_change (state_text, "R");
+	}else if(state === "U") {
+		item.textContent = "삭제";
+		item.className = "btn btn-outline-danger btn-sm";
+		item.value = "N";
+		category_state_text_change (state_text, "U");
+	}
+}
+
+// 상태를 보여주는 문자 변경 함수
+function category_state_text_change (tag, state) {
+	if(state === "C") {
+		tag.textContent = "추가";
+		tag.style.color = "green";
+	} else if(state === "U") {
+		tag.textContent = "수정";
+		tag.style.color = "blue";
+	} else if(state === "D") {
+		tag.textContent = "삭제";
+		tag.style.color = "red";
+	} else {
+		tag.textContent = "";
+		tag.style.color = "white";
+	}
+}

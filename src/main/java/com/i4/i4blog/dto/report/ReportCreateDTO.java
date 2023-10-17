@@ -12,5 +12,4 @@ public class ReportCreateDTO {
 	private Integer boardId;
 	private Integer commentId;
 	private String reportContent;
-	private String reportType;
 }

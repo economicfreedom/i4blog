@@ -11,9 +11,11 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 @RequiredArgsConstructor
 @Service
+@Slf4j
 public class EmailService {
 
     private final JavaMailSender emailSender;
@@ -61,6 +63,7 @@ public class EmailService {
     public void sendEmail(MimeMessage emailForm) {
         try {
             emailSender.send(emailForm);
+            log.info("메일 전송 완료 - {}", emailForm.getRecipients(MimeMessage.RecipientType.TO));
         } catch (Exception e) {
             System.out.println("메일 send 실패 - " + e);
         }

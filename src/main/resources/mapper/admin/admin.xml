@@ -3,9 +3,9 @@
 <mapper namespace="com.i4.i4blog.repository.interfaces.admin.AdminRepository">
     <update id="userRoleUp">
 
-        update user
-        set user_role = 0
-        where id = #{id}
+        UPDATE user
+        SET user_role = 0
+        WHERE id = #{id}
 
 
     </update>
@@ -126,7 +126,7 @@
 
         </if>
         <if test="type ==''">
-            select * from report
+            select * FROM report
         </if>
     </select>
 
@@ -134,12 +134,12 @@
     <select id="count" resultType="java.lang.Integer">
 
         select count(*)
-        from report
+        FROM report
         <if test="type == 'board'">
-            where report_type = '게시글'
+            WHERE report_type = '게시글'
         </if>
         <if test="type == 'comment' ">
-            where report_type = '댓글'
+            WHERE report_type = '댓글'
         </if>
 
 
@@ -195,6 +195,6 @@
 
     </select>
     <select id="userCount" resultType="java.lang.Integer">
-        select count(id) from user
+        SELECT count(id) FROM user
     </select>
 </mapper>
