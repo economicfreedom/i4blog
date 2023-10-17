@@ -27,7 +27,7 @@ public class LikeService {
 	public boolean existsLike(Integer boardId, Principal principal) {
 		Integer userId = userRepository.getIdByUserId(principal.getName());
 		
-		if (likeRepository.findByUserIdAndBoardId(boardId, userId) == 1) {
+		if (likeRepository.findByUserIdAndBoardId(boardId, userId) != null) {
 			return true;
 		}
 		

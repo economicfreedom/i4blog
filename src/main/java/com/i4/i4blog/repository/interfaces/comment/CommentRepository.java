@@ -11,12 +11,10 @@ import com.i4.i4blog.vo.comment.CommentVO;
 @Mapper
 public interface CommentRepository  {	
 	/**
-	 * 
+	 * 댓글 작성  
 	 * @param comment create
-	 * @return
+	 * @return comment
 	 */
-	//생성
-	//댓글 등록(작성)
 	public int create(Comment comment);
 	
 	//댓글 등록 (유저)
@@ -51,7 +49,13 @@ public interface CommentRepository  {
 	//
 	public int deleteById(Integer id);
 
+	/**
+	 * 
+	 * @param id
+	 * @return 댓글의 고정 아이디값 
+	 */
 	public Comment commentById(int id);
+
 	
 
 	
