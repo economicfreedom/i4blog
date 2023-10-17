@@ -36,7 +36,7 @@
 
     <select id="findUserNickname" resultType="java.lang.Integer">
         SELECT 1
-        FROm user
+        FROM user
         WHERE user_nickname = #{nickname}
     </select>
 
@@ -49,11 +49,11 @@
 
     <select id="getIdByUserId" resultType="java.lang.Integer">
         select id
-        from user
-        where user_id = #{userId}
+        FROM user
+        WHERE user_id = #{userId}
     </select>
     <insert id="insert">
-        INSERT into user(user_id, user_password, user_name, user_nickname, user_phone, user_email)
+        INSERT INTO user(user_id, user_password, user_name, user_nickname, user_phone, user_email)
             VALUE (#{userId}, #{userPassword}, #{userName}, #{userNickname}, #{userPhone}, #{userEmail})
     </insert>
     <select id="findProfileByUserId" resultType="com.i4.i4blog.vo.user.ProfileInfoVo">
@@ -82,7 +82,7 @@
     <update id="decrementUsageCountByUserId">
         UPDATE user
         set count = count - 1
-        where user_id = #{userId}
+        WHERE user_id = #{userId}
     </update>
     <update id="resetGptCountAllUser">
         UPDATE user
