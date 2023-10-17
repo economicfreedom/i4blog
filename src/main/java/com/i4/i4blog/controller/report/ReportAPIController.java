@@ -23,7 +23,6 @@ public class ReportAPIController {
 	
 	@PostMapping("/report")
 	public ResponseEntity<?> reportProc(@RequestBody ReportCreateDTO reportCreateDTO, Principal principal) {
-		
 		reportService.reportCreate(reportCreateDTO, principal);
 		
 		return ResponseEntity.ok("신고 성공");

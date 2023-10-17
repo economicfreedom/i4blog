@@ -4,15 +4,14 @@ spring:
       prefix: /WEB-INF/view/
       suffix: .jsp
   datasource:
-    url: jdbc:mysql://ls-7f60874ca0f38bb4fec0c8cc7c593d9e21f42e70.cyfldpxwkomt.ap-northeast-2.rds.amazonaws.com:3306/i4blog?serverTimeZone=Asia/Seoul
+    url: jdbc:mysql://localhost:3306/i4blog?serverTimeZone=Asia/Seoul
     driver-class-name: com.mysql.cj.jdbc.Driver
-    username: dbmasteruser
-    password: or!|82:l~Sf9v+K1E=;tNYsr6dzOFAp[
-
+    username: root
+    password: asd1234
   servlet:
     multipart:
       enabled: true
-      location: /var/upload
+      location: C:\\upload
       max-request-size: 30MB
       max-file-size: 10MB
   mail:
@@ -48,4 +47,4 @@ openai:
   model: gpt-3.5-turbo-16k-0613
   api:
     url: https://api.openai.com/v1/chat/completions
-    key: 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
+    key: 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

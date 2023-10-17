@@ -85,7 +85,7 @@
             <if test="orderBy == ''">
 
             </if>
-            LIMIT #{offSET}, #{countPerPage}
+            LIMIT #{offset}, #{countPerPage}
 
         </if>
         <if test="type == 'comment'">
@@ -122,7 +122,7 @@
             <if test="orderBy == ''">
             </if>
 
-            LIMIT #{offSET}, #{countPerPage}
+            LIMIT #{offset}, #{countPerPage}
 
         </if>
         <if test="type ==''">
@@ -191,7 +191,7 @@
             </when>
         </choose>
 
-        LIMIT #{offSET}, #{countPerPage}
+        LIMIT #{offset}, #{countPerPage}
 
     </select>
     <select id="userCount" resultType="java.lang.Integer">

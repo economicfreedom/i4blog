@@ -6,6 +6,7 @@ import com.i4.i4blog.repository.model.admin.GraphDataVO;
 import com.i4.i4blog.repository.model.admin.UserManage;
 import com.i4.i4blog.util.Criteria;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -42,7 +43,11 @@ public interface AdminRepository {
      * @author 최규하
      */
 
-    List<GraphDataVO> countDataForLastSevenDays(String tableName, String columnName);
+    List<GraphDataVO> countDataForLastSevenDays(@Param("tableName")
+    											String tableName
+    											,@Param("columnName")
+    											String columnName
+    											);
   /*
 
  	테이블이름 = user ,     컬럼이름 : user_regdate
