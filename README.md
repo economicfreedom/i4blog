@@ -1,5 +1,5 @@
 # SpringBoot Project - i4blog
-i4blog 로고 이미지 추가하기
+![I4-B logo 2](https://github.com/economicfreedom/i4blog/assets/113487440/da74ee20-a8d6-4592-808d-11f0ca93316a)
 
 
 ## 📝 프로젝트 개요
