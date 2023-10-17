@@ -101,7 +101,7 @@ $(document).ready(function () {
         timeout = setTimeout(function () {
 			user_nickname_check = false;
             let nickname = event.target.value;
-            if(nickname.length < 2 || nickname.length > 16 || nickname.match(exp_nickname)) {
+            if(nickname.length < 2 || nickname.length > 12 || nickname.match(exp_nickname)) {
 				checked_failed("user_nickname", "한글, 영문자, 숫자 2~16글자를 입력해야 합니다.");
 				return;
 			}
@@ -152,21 +152,20 @@ $(document).ready(function () {
 	        user_email_auth_check = false;
 			if(!user_email.match(exp_email)){
 				checked_failed("user_email", "이메일 주소를 정확히 입력해주세요.");
-				return;
-			} 
-			checked_remove("user_email", "인증 메일 전송중");
-            $.ajax({
-                url: "/user/email-check?&userEmail=" + user_email,
-                type: "get",
-                contentType: "json",
-                success: function (res) {
-			        user_email_check = true;
-					$("#user_email_check").text("인증 메일이 전송되었습니다.");
-				},
-                error: function (res) {
-					checked_failed("user_email", "중복된 이메일 입니다.");
-                }
-            })
+			} else {
+				checked_remove("user_email");
+	            $.ajax({
+	                url: "/user/email-check?&userEmail=" + user_email,
+	                type: "get",
+	                contentType: "json",
+	                success: function (res) {
+				        user_email_check = true;
+					},
+	                error: function (res) {
+						checked_failed("user_email", res.responseText);
+	                }
+	            })
+			}
         }, 100)
 	})
 
@@ -175,24 +174,23 @@ $(document).ready(function () {
 		if(!user_email_check) {
 			checked_failed("user_email", "이메일 주소를 정확히 입력해주세요")
 			alert("이메일 주소를 정확히 입력해 주세요.");
-			return;
+		} else {
+	        $.ajax({
+	            url: "/email/auth-send",
+	            type: "post",
+	            data: 'email=' + $("#user_email").val(),
+	            success: function (res) {
+					$("#user_email_auth").removeAttr("disabled");
+					$("#user_email_auth_btn").removeAttr("disabled");
+					checked_succeed("user_email");
+					$("#user_email_check").text("인증 메일이 전송되었습니다.");
+					console.log("통신 성공");
+	            },
+	            error: function (res) {
+					console.log("통신 실패");
+	            }
+	        })
 		}
-		
-        $.ajax({
-            url: "/email/auth-send",
-            type: "post",
-            data: 'email=' + $("#user_email").val(),
-            success: function (res) {
-				$("#user_email_auth").removeAttr("disabled");
-				$("#user_email_auth_btn").removeAttr("disabled");
-				checked_succeed("user_email");
-				$("#user_email_check").text("인증 메일이 전송되었습니다.");
-				console.log("통신 성공");
-            },
-            error: function (res) {
-				console.log("통신 실패");
-            }
-        })
 	})
 	
 	// 이메일 인증 확인
@@ -236,9 +234,9 @@ $(document).ready(function () {
 	}
     
 	// 데이터 체크 실패
-    function checked_remove(tag_id, msg) {
+    function checked_remove(tag_id) {
 			$("#" + tag_id).removeAttr("style");
-            $("#" + tag_id + "_check").text(msg);
+            $("#" + tag_id + "_check").empty();
             $("#" + tag_id + "_check").removeAttr("style");
 	}
 	
