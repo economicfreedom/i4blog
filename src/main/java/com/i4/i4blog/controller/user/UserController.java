@@ -1,7 +1,6 @@
 package com.i4.i4blog.controller.user;
 
 import java.security.Principal;
-import java.util.List;
 
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -11,8 +10,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.i4.i4blog.dto.user.ForgotPwDto;
-import com.i4.i4blog.repository.model.category.Category;
-import com.i4.i4blog.service.category.CategoryService;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -25,8 +22,6 @@ public class UserController {
     /**
      * @author 박용세
      */
-    // 테스트
-    private final CategoryService categoryService;
 
     /**
      * 로그인 페이지 이동
@@ -66,6 +61,12 @@ public class UserController {
     	return "user/userForgot";
     }
     
+    /**
+     * @param forgotPwDto
+     * @param model
+     * @author GGG
+     * 비밀번호 찾기에서 비밀번호 변경 페이지로 이동
+     */
     @PreAuthorize("isAnonymous()")
     @PostMapping("/forgot-pw")
     public String userForgotPw(ForgotPwDto forgotPwDto, Model model) {
@@ -73,15 +74,6 @@ public class UserController {
     	model.addAttribute("userId", forgotPwDto.getUserId());
     	model.addAttribute("userPassword", forgotPwDto.getUserPassword());
     	return "user/forgotPw";
-    }
-
-    
-    // 카테고리 테스트중
-    @GetMapping("/category-setting")
-    public String categorySetting(Model model) {
-    	List<Category> categoryList = categoryService.findByUserId("aaaa");
-    	model.addAttribute(categoryList);
-    	return "user/categorySetting";
     }
     
 }
