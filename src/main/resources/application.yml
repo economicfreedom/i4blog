@@ -4,14 +4,15 @@ spring:
       prefix: /WEB-INF/view/
       suffix: .jsp
   datasource:
-    url: jdbc:mysql://localhost:3306/i4blog?serverTimeZone=Asia/Seoul
+    url: jdbc:mysql://ls-7f60874ca0f38bb4fec0c8cc7c593d9e21f42e70.cyfldpxwkomt.ap-northeast-2.rds.amazonaws.com:3306/i4blog?serverTimeZone=Asia/Seoul
     driver-class-name: com.mysql.cj.jdbc.Driver
-    username: root
-    password: asd1234
+    username: dbmasteruser
+    password: or!|82:l~Sf9v+K1E=;tNYsr6dzOFAp[
+
   servlet:
     multipart:
       enabled: true
-      location: C:\\upload
+      location: /var/upload
       max-request-size: 30MB
       max-file-size: 10MB
   mail:
