@@ -96,6 +96,12 @@ html:not(.dark-style) .account-settings-links .list-group-item.active {
     padding: 0.85rem 1.5rem;
     border-color: rgba(24,28,33,0.03) !important;
 }
+
 .category-item {
 	font-size: 14px;
+	padding-left: 10px;
+	padding-right: 10px;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	border-top-width: 1px;
 }

@@ -101,6 +101,11 @@
 		 WHERE id = #{id}
 	</update>
 	
-	
+	<update id="deleteCategory">
+		UPDATE board
+		   SET board_category = 0
+		 WHERE user_id = #{userId}
+		   AND board_category = #{id}
+	</update>
 	
 </mapper>

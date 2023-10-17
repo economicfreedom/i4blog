@@ -22,6 +22,7 @@
             </div>
             <div class="col-md-9">
                 <div class="tab-content">
+                	<!-- 이미지 및 닉네임 변경 시작 -->
                     <div class="tab-pane fade active show" id="account-general">
 
                         <div class="card-body media align-items-center">
@@ -72,6 +73,9 @@
                         </div>
 
                     </div>
+                	<!-- 이미지 및 닉네임 변경 끝 -->
+                	
+                	<!-- 비밀번호 변경 시작 -->
                     <div class="tab-pane fade" id="account-change-password">
                         <div class="card-body pb-2">
 
@@ -95,6 +99,9 @@
 
                         </div>
                     </div>
+                	<!-- 비밀번호 변경 끝 -->
+                	
+                	<!-- 소개글 변경 시작 -->
                     <div class="tab-pane fade" id="account-info">
                         <div class="card-body pb-2">
 
@@ -110,42 +117,61 @@
                                 </textarea>
                             </div>
                             <button class="btn btn-outline-primary" id="save-info-title">비밀번호 변경</button>
-
-
                         </div>
-
-
                     </div>
+                	<!-- 소개글 변경 끝 -->
+                    
+                	<!-- 카테고리 관리 시작 -->
                     <div class="tab-pane fade" id="account-category">
                         <div class="card-body pb-2">
-	                        <h5 class="mb-3 py-3">카테고리 설정</h5>
+	                        <h5 class="mb-3 py-3">카테고리 추가</h5>
 					        <div class="row">
 					        	<div class="col-12">
-					            	<button type="button" id="category-add" class="btn btn-outline-secondary btn-sm">추가</button>
+					            	<button type="button" id="category_add" class="btn btn-outline-secondary btn-sm">추가</button>
 					        	</div>
-					            <div class="col-md-4">
-									<ul class="list-group card" id="category-list">
+					        	<!-- 카테고리 리스트 -->
+					            <div class="col-md-6">
+									<ul class="list-group" id="category_list">
 										<c:forEach var="category" items="${categoryList}">
-						                	<li class="list-group-item category-item" value="${category.id}">
-						                		${category.categoryName}
-											</li>
+						                	<li class="list-group-item card category-item" id="category_item" onclick="category_item(this)" style="border-top-width: 1px">
+						                		<span id="category_name">${category.categoryName}</span>
+						                		<input type="hidden" id="category_id" value="${category.id}">
+						                		<input type="hidden" id="category_state" value="R">
+
+						                		<span class="float-right" id="category_delete_span">
+						                			<span id="category_state_text"></span>
+							                		<button type="button" class="btn btn-outline-danger btn-sm" onclick="category_delete(this)" id="category_delete_btn" value="N">삭제</button>
+						                		</span>
+						                	</li>
 										</c:forEach>
 					                </ul>
 					            </div>
-					            <div class="col-md-8">
+					            
+					            <!-- 카테고리 item 수정 -->
+					            <div class="col-md-6">
 					            	<div class="card">
-										<div class="row form-group category-value" style="padding-top: 20px">
-											<div class="col-md-2 text-right"><label class="form-label">이름</label></div>
-											<div class="col-md-7"><input type="text" id="category-name" class="form-control mb-2"></div>
-											<div class="col-md-3"><button type="button" id="category-name-save" class="btn btn-outline-primary">저장</button></div>
-										</div>
+					            		<form>
+											<div class="row form-group category-value" style="padding-top: 20px">
+												<div class="col-md-3 text-right"><label class="form-label">이름</label></div>
+												<div class="col-md-5">
+													<input type="hidden" id="category_update_idx" value="">	
+													<input type="text" id="category_update_name" class="form-control mb-2">
+												</div>
+												<div class="col-md-4">
+													<button type="submit" id="category_update_save" class="btn btn-outline-primary">저장</button>
+												</div>
+											</div>
+					            		</form>
 					            	</div>
 					            	<br>
-							        <button type="button" class="btn btn-outline-primary">저장</button>
+							        <button type="button" class="btn btn-outline-primary" id="category_list_save">저장</button>
 					            </div>
 					        </div>
                         </div>
                     </div>
+                	<!-- 카테고리 관리 끝 -->
+                    
+                	<!-- 회원탈퇴 시작 -->
                     <div class="tab-pane fade" id="account-connections">
 
                         <h5 class="mb-3 py-3">
@@ -156,14 +182,11 @@
                             <label class="form-label">비밀번호 입력</label>
                             <input type="password" class="form-control" id="resign-pwd" placeholder="비밀번호 재확인">
                             <br>
-
                         </div>
 
-                        <button type="button" class="btn btn-danger mb-3" id="resign-btn">회원탈퇴
-                        </button>
-
-
+                        <button type="button" class="btn btn-danger mb-3" id="resign-btn">회원탈퇴</button>
                     </div>
+                	<!-- 회원탈퇴 끝 -->
                 </div>
             </div>
         </div>

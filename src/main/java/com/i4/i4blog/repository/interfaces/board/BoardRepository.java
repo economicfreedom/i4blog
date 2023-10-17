@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import com.i4.i4blog.dto.category.CategorySaveDto;
 import com.i4.i4blog.repository.model.board.Board;
 import com.i4.i4blog.vo.board.BoardListVo;
 import com.i4.i4blog.vo.board.BoardVO;
@@ -50,5 +51,7 @@ public interface BoardRepository {
     public int updateById(Board board);
     public Board getBoard(Integer id);
     public void deleteThumbnail(Integer id);
+
+	public void deleteCategory(CategorySaveDto category);
     
 }
