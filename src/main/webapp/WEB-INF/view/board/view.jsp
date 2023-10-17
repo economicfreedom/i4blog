@@ -58,20 +58,20 @@
 				<div class="modal-body">
 					<form>
 						<div class="form-group">
-							<label for="recipient-name" class="col-form-label">게시글 제목</label>
+							<label for="recipient-name" class="col-form-label">신고할 게시글</label>
 							${board.boardTitle}
 						</div>
 						<div class="form-group">
 							<label for="message-text" class="col-form-label">신고 사유</label>
-							<select id="report-content">
+							<!-- <select id="report-content">
 								<option value="report_content">불건전한 게시물</option>
 								<option value="report_content">스팸홍보/도배글</option>
 								<option value="report_content">음란물</option>
 								<option value="report_content">불법정보 포함</option>
 								<option value="report_content">욕설/혐오 표현</option>
 								<option value="report_content">개인정보 노출</option>
-							</select>
-							<textarea class="form-control" id="message-text"></textarea>
+							</select> -->
+							<textarea id="report-content" class="form-control" id="message-text"></textarea>
 						</div>
 					</form>
 				</div>

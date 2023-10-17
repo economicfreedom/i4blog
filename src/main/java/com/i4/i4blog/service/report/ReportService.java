@@ -21,13 +21,19 @@ public class ReportService {
 	
 	public int reportCreate(ReportCreateDTO reportCreateDTO, Principal principal) {
 		Integer uId = userRepository.getIdByUserId(principal.getName());
+		String reportType;
+		if (reportCreateDTO.getBoardId() != null) {
+			reportType = "게시글";
+		} else {
+			reportType = "댓글";
+		}
 		
 		Report report = Report.builder()
 				.userId(uId)
 				.boardId(reportCreateDTO.getBoardId())
 				.commentId(reportCreateDTO.getCommentId())
 				.reportContent(reportCreateDTO.getReportContent())
-				.reportType(reportCreateDTO.getReportType())
+				.reportType(reportType)
 				.build();
 		
 		int result = reportRepository.insert(report);
