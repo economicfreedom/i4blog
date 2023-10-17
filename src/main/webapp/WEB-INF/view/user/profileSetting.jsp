@@ -31,7 +31,7 @@
                             <c:choose>
                                 <c:when test="${profile.imgThumbnail==null}">
 
-                                    <img src="/img/default-profile" alt=""
+                                    <img src="/img/default-profile.png" alt=""
                                          class="d-block ui-w-80" id="image-preview">
                                 </c:when>
                                 <c:otherwise>
@@ -74,7 +74,7 @@
 
                     </div>
                 	<!-- 이미지 및 닉네임 변경 끝 -->
-                	
+
                 	<!-- 비밀번호 변경 시작 -->
                     <div class="tab-pane fade" id="account-change-password">
                         <div class="card-body pb-2">
@@ -100,7 +100,7 @@
                         </div>
                     </div>
                 	<!-- 비밀번호 변경 끝 -->
-                	
+
                 	<!-- 소개글 변경 시작 -->
                     <div class="tab-pane fade" id="account-info">
                         <div class="card-body pb-2">
@@ -120,7 +120,7 @@
                         </div>
                     </div>
                 	<!-- 소개글 변경 끝 -->
-                    
+
                 	<!-- 카테고리 관리 시작 -->
                     <div class="tab-pane fade" id="account-category">
                         <div class="card-body pb-2">
@@ -146,7 +146,7 @@
 										</c:forEach>
 					                </ul>
 					            </div>
-					            
+
 					            <!-- 카테고리 item 수정 -->
 					            <div class="col-md-6">
 					            	<div class="card">
@@ -154,7 +154,7 @@
 											<div class="row form-group category-value" style="padding-top: 20px">
 												<div class="col-md-3 text-right"><label class="form-label">이름</label></div>
 												<div class="col-md-5">
-													<input type="hidden" id="category_update_idx" value="">	
+													<input type="hidden" id="category_update_idx" value="">
 													<input type="text" id="category_update_name" class="form-control mb-2">
 												</div>
 												<div class="col-md-4">
@@ -170,7 +170,7 @@
                         </div>
                     </div>
                 	<!-- 카테고리 관리 끝 -->
-                    
+
                 	<!-- 회원탈퇴 시작 -->
                     <div class="tab-pane fade" id="account-connections">
 

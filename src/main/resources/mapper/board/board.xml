@@ -3,7 +3,7 @@
 <mapper namespace="com.i4.i4blog.repository.interfaces.board.BoardRepository">
 
 	<insert id="insert">
-		INSERT INTO BOARD (user_id, board_title, board_content, board_category, board_public, board_thumbnail, board_img_original)
+		INSERT INTO board (user_id, board_title, board_content, board_category, board_public, board_thumbnail, board_img_original)
 		 VALUE (#{userId}, #{boardTitle}, #{boardContent}, #{boardCategory}, #{boardPublic}, #{boardThumbnail}, #{boardImgOriginal})
 	</insert>
 

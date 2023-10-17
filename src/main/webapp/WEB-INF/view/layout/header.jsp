@@ -71,11 +71,11 @@
             <a class="p-2 text-dark" href="/user/profile-setting">
 
                 <c:if test="${imgProfilePath != null}">
-                    <img src="${imgProfilePath}" style="border-radius: 100%;overflow: hidden;">
+                    <img src="${imgProfilePath}" style="border-radius: 100%;overflow: hidden; width: 40px;height: 40px;">
                 </c:if>
                 <c:if test="${imgProfilePath == null}">
 
-                    <img src="/img/default-profile.png" style="border-radius: 100%;overflow: hidden; ">
+                    <img src="/img/default-profile.png" style="border-radius: 100%;overflow: hidden; width: 40px;height: 40px;">
                 </c:if>
 
             </a>

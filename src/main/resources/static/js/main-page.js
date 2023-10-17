@@ -155,10 +155,10 @@ $(document).ready(function () {
                 + '</a>'
                 + '<div style="float:right">'
                 + fier
-                + ' <small style= "vertical-align: -1.5px; border: none;background-color: white; font-size: 3px;color: gray;">'
+                + ' <small style= "vertical-align: -1.5px; border: none;background-color: white; font-size: 10px;color: gray;">'
                 + '좋아요'
                 + '</small> '
-                + '<small style=" font-size: 3px "> ' + like_count + '</small>'
+                + '<small style=" font-size: 10px "> ' + like_count + '</small>'
                 + '</div>'
                 + "</div>"
                 + '</div>'

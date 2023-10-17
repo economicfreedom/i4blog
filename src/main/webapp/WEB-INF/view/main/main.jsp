@@ -85,12 +85,12 @@
                                         <c:if test="${main.likeCount  > 10}">
                                             🔥
                                         </c:if>
-                                        <small style="vertical-align: -1.5px; border: none;background-color: white; font-size: 3px;color: gray;">
+                                        <small style="vertical-align: -1.5px; border: none;background-color: white; font-size: 10px;color: gray;">
                                             좋아요
                                         </small>
 
 
-                                        <small style=" font-size: 3px "> ${main.likeCount}</small>
+                                        <small style=" font-size: 10px "> ${main.likeCount}</small>
                                     </div>
                                 </div>
                             </div>

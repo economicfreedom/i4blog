@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -33,7 +34,8 @@ import net.coobird.thumbnailator.Thumbnailator;
 @RestController
 @Slf4j
 public class UploadController {
-    private String uploadPath = "src/main/resources/static";
+    @Value("${org.zerock.upload.path}")
+    private String uploadPath ;
 
 
     /**
