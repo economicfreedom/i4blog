@@ -11,6 +11,7 @@ import com.i4.i4blog.vo.board.BoardVO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.security.Principal;
 import java.util.List;
@@ -48,25 +49,16 @@ public class BoardService {
         return boardRepository.deleteById(id);
     }
 
-//    public List<Board> findByUserId(Integer userId, Principal principal) {
-//    	String findUserId = null;
-//    	log.info("findUserId {}",findUserId);
-//    	log.info("principal.getName {}", principal.getName());
-//    	if (principal.getName().equals(findUserId)) {
-//			return boardRepository.findAllByUserId(userId);
-//		} else {
-//			return boardRepository.findByUserId(userId);
-//		}
-//    }
-
     /**
      * 게시글 목록
      *
      * @param userId
      * @return List<Board>
      */
-    public List<BoardListVo> findByUserId(Integer id) {
-        List<BoardListVo> boardList = boardRepository.findByUserId(id);
+    public List<BoardListVo> findByUserId(Integer id, @RequestParam String category) {
+    	log.info("서비스 category값 =====> {}", category);
+    	
+        List<BoardListVo> boardList = boardRepository.findByUserId(id, category);
         return boardList;
     }
 
@@ -109,10 +101,13 @@ public class BoardService {
         boardRepository.updateById(board);
     }
 
-
-
     public void deleteThumbnail(Integer id) {
         boardRepository.deleteThumbnail(id);
     }
+    
+    public int count(Integer userId) {
+    	int result = boardRepository.count(userId);
+    	return result;
+    };
 
 }

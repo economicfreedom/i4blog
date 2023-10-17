@@ -10,7 +10,19 @@
 	<input type="text" hidden name="user-id" id="user-id"
 		value="${board.userId}">
 	<div class="form-group category">
+		
+		<!-- 카테고리 int 로 바꾼 후 아래 코드 테스트하기 -->
+		<%-- <c:choose>
+			<c:when test="${board.boardCategory == 0}">
+				<p>전체</p>
+			</c:when>
+			<c:otherwise>
+				<p>${board.boardCategory}</p>
+			</c:otherwise>
+		</c:choose> --%>
+	
 		<p>${board.boardCategory}</p>
+		<p>조회수 ${board.boardCount}</p>
 	</div>
 	<div class="title">
 		<h1>${board.boardTitle}</h1>
@@ -37,10 +49,13 @@
 	<!-- report modal -->
 	<button type="button" class="btn btn-primary" data-toggle="modal"
 		data-target="#exampleModal">신고하기</button>
-
-	<a href="/blog/${board.userId}/board/update/${board.id}"
-		class="btn btn-warning">수정하기</a>
-	<button type="button" id="delete" class="btn btn-info">삭제</button>
+	<sec:authorize access="isAuthenticated()">
+		<c:if test="${blogUser.userId eq principal.userId}">
+			<a href="/blog/${board.userId}/board/update/${board.id}"
+			class="btn btn-warning">수정하기</a>
+			<button type="button" id="delete" class="btn btn-info">삭제</button>
+		</c:if>
+	</sec:authorize>
 	<button class="btn btn-secondary" onclick="history.back()">돌아가기</button>
 
 	<!-- modal -->
@@ -58,20 +73,12 @@
 				<div class="modal-body">
 					<form>
 						<div class="form-group">
-							<label for="recipient-name" class="col-form-label">게시글 제목</label>
+							<label for="recipient-name" class="col-form-label">신고할 게시글</label>
 							${board.boardTitle}
 						</div>
 						<div class="form-group">
 							<label for="message-text" class="col-form-label">신고 사유</label>
-							<select id="report-content">
-								<option value="report_content">불건전한 게시물</option>
-								<option value="report_content">스팸홍보/도배글</option>
-								<option value="report_content">음란물</option>
-								<option value="report_content">불법정보 포함</option>
-								<option value="report_content">욕설/혐오 표현</option>
-								<option value="report_content">개인정보 노출</option>
-							</select>
-							<textarea class="form-control" id="message-text"></textarea>
+							<textarea id="report-content" class="form-control" id="message-text"></textarea>
 						</div>
 					</form>
 				</div>

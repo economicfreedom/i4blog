@@ -11,7 +11,6 @@ import com.i4.i4blog.vo.user.ProfileInfoVo;
 public interface UserRepository {
     public User findByUserId(String userId);
 
-	public Integer getId(String userId);
 	public User findByUserIdAndEmail(ForgotEmailAuthDto forgotEmailAuthDto);
 	public User findByIdAndPassword(ForgotPwDto forgotPwChangeDto);
 	public void updateUser(User user);

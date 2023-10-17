@@ -37,12 +37,12 @@ public class BlogInterceptor implements HandlerInterceptor {
 		// pathVariable 값 가져오기
 		Map<?, ?> pathVariables = (Map<?, ?>) request.getAttribute(HandlerMapping.URI_TEMPLATE_VARIABLES_ATTRIBUTE);
 		String userId = (String)pathVariables.get("userId");
-		// 카테고리 목록 조회
-		List<Category> categoryList = categoryRepository.findByUserId(userId);
-		modelAndView.addObject("categoryList", categoryList);
 		// 블로그 정보 조회
 		ProfileInfoVo profileInfoVo = userRepository.findProfileByUserId(userId);
 		modelAndView.addObject("blogUser", profileInfoVo);
+		// 카테고리 목록 조회
+		List<Category> categoryList = categoryRepository.findByUserId(profileInfoVo.getId());
+		modelAndView.addObject("categoryList", categoryList);
 	}
 	
 	@Override

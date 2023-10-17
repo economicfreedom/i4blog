@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.i4.i4blog.service.board.BoardService;
 import com.i4.i4blog.service.like.LikeService;
@@ -52,11 +53,12 @@ public class BoardController {
      * 사용자의 게시글 리스트 페이지
      */
     @GetMapping("/list")
-    public String boardList(Model model, @PathVariable String userId) {
+    public String boardList(Model model, @PathVariable String userId, @RequestParam(value = "category", required = false) String category) {
     	Integer id = userService.getIdByUserId(userId);
+    	int count = boardService.count(id);
+    	model.addAttribute("count", count);
 
-
-        List<BoardListVo> boardList = boardService.findByUserId(id);
+        List<BoardListVo> boardList = boardService.findByUserId(id, category);
         if (boardList.isEmpty()) {
             log.info("list is empty {}", boardList);
             model.addAttribute("boardList", null);

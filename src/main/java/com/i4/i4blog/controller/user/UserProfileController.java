@@ -32,6 +32,9 @@ public class UserProfileController {
      * @param principal
      * @return profileSetting.jsp
      * 프로필 세팅 경로
+     * 
+     *  -- 추가 --
+     * @author 박용세 : 카테고리 리스트 조회
      */
     @GetMapping("/profile-setting")
     @PostAuthorize("isAuthenticated()")
@@ -44,12 +47,9 @@ public class UserProfileController {
 
         log.info("profile == {}",profile);
         model.addAttribute("profile", profile);
+    	List<Category> categoryList = categoryService.findByUserId(profile.getUserId());
+    	model.addAttribute("categoryList", categoryList);
         
-        List<Category> categoryList = categoryService.findByUserId(userId);
-        model.addAttribute("categoryList", categoryList);
         return "user/profileSetting";
     }
-
-
-
 }
