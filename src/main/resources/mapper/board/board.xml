@@ -109,13 +109,13 @@
 		 WHERE id = #{id}
 	</update>
 	
-	<select id="count" resultType="java.lang.Integer">
+	<select id="listCount" resultType="java.lang.Integer">
 		SELECT COUNT(id)
 		  FROM board
 		 WHERE user_id = #{userId}
 		   AND board_state = 1
 	   <if test="boardCategory != null">
- 	   		AND board_category = #{boardCategory}
+ 	   	   AND board_category = #{boardCategory}
  	   </if>
 	</select>
 

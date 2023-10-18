@@ -52,7 +52,7 @@ public interface BoardRepository {
     public int updateById(Board board);
     public Board getBoard(Integer id);
     public void deleteThumbnail(Integer id);
-    public int count(Integer userId);
+    public int listCount(@Param("userId")Integer userId, @Param("boardCategory") Integer boardCategory);
 
 	public void deleteCategory(CategorySaveDto category);
     

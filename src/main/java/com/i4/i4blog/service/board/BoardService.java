@@ -105,8 +105,8 @@ public class BoardService {
         boardRepository.deleteThumbnail(id);
     }
     
-    public int count(Integer userId) {
-    	int result = boardRepository.count(userId);
+    public int listCount(Integer userId, @RequestParam Integer category) {
+    	int result = boardRepository.listCount(userId, category);
     	return result;
     };
 

@@ -45,7 +45,7 @@
 
 	<div class="container">
 		<div class="row mt-3 list-top">
-			<span> ${count} 개의 글 </span>
+			<span> ${listCount} 개의 글 </span>
 			<sec:authorize access="isAuthenticated()">
 				<c:if test="${blogProfile.userId eq principal.userId}">
 					<a href="/blog/${principal.userId}/board/write"
