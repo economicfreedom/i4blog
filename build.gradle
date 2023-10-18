@@ -5,8 +5,7 @@ plugins {
     id 'war'
 }
 
-group = 'com.i4'
-version = '0.0.1-SNAPSHOT'
+
 group = 'com.i4'
 version = '0.0.1-SNAPSHOT'
 bootWar.enabled = false
