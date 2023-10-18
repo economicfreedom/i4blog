@@ -30,6 +30,7 @@ public class EmailService {
 	public String sendAuthToEmail(String toEmail) throws Exception {
         String authCode = this.createCode();
         MimeMessage emailForm = authEmailForm(toEmail, authCode);
+        log.info("메세지 작성 완료");
         sendEmail(emailForm);
         return authCode;
 	}
@@ -63,9 +64,9 @@ public class EmailService {
     public void sendEmail(MimeMessage emailForm) {
         try {
             emailSender.send(emailForm);
-            log.info("메일 전송 완료 - {}", emailForm.getRecipients(MimeMessage.RecipientType.TO));
+            log.info("메일 전송 완료");
         } catch (Exception e) {
-            System.out.println("메일 send 실패 - " + e);
+        	log.error("메일 전송 실패 - {}", e);
         }
     }
 
@@ -83,6 +84,7 @@ public class EmailService {
     	text += "<h2>i4-blog 이메일 인증</h2><br>";
         text += "<h3>요청하신 인증 번호입니다.</h3><br>";
         text += "<h1>" + auth + "</h1>";
+        text += "<h3>인증 번호는 전송 후 5분간 유지됩니다.</h3>";
         MimeMessage message = emailSender.createMimeMessage();
         try {
 			message.setFrom(new InternetAddress("i4blog@blog.com", "i4blog"));
@@ -90,7 +92,7 @@ public class EmailService {
 			message.setSubject(title);
 			message.setText(text, "utf-8", "html");
 		} catch (Exception e) {
-			System.out.println("인증 message 생성 실패 : " + e.getMessage());
+			log.error("인증 메세지 생성 실패 : {}", e.getMessage());
 		}
         return message;
     }
@@ -104,6 +106,7 @@ public class EmailService {
      */
     public void sendUserIdToEmail(String toEmail, String userId) throws Exception {
     	MimeMessage emailForm = userIdEmailForm(toEmail, userId);
+        log.info("메세지 작성 완료");
     	sendEmail(emailForm);
     }
     
@@ -129,7 +132,7 @@ public class EmailService {
     		message.setSubject(title);
     		message.setText(text, "utf-8", "html");
     	} catch (Exception e) {
-    		System.out.println("인증 message 생성 실패 : " + e.getMessage());
+    		log.error("인증 message 생성 실패 : " + e.getMessage());
     	}
     	return message;
     }

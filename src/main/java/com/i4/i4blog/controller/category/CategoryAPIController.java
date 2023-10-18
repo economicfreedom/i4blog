@@ -24,13 +24,10 @@ public class CategoryAPIController {
 	private final CategoryService categoryService;
 	
 	@PutMapping("/list-save")
-	public ResponseEntity<?> categoryListSave (@RequestBody List<CategorySaveDto> categoryListSaveDto
+	public ResponseEntity<?> categoryListSave (@RequestBody List<CategorySaveDto> categorySaveDto
 												, Principal principal) {
-		log.info("/list-save");
-		log.info("categoryListDto - {}", categoryListSaveDto);
-		
-		categoryService.listUpdate(categoryListSaveDto, principal.getName());
-		
+		log.info("list-save - categorySaveDto : {}", categorySaveDto);
+		categoryService.listUpdate(categorySaveDto, principal.getName());
 		return ResponseEntity.ok().build();
 	}
 }

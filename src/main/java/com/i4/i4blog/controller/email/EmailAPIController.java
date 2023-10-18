@@ -44,10 +44,9 @@ public class EmailAPIController {
      */
     @PostMapping("/auth-send")
     public ResponseEntity<?> emailSend(String email, HttpServletResponse response) {
-    	log.info("/auth-send");
-    	log.info("email : {}", email);
+    	log.info("auth-send - email : {}", email);
     	if(email == null) {
-    		return ResponseEntity.badRequest().build();
+    		return ResponseEntity.badRequest().body("데이터 전송 오류");
     	}
         try {
 			String auth = emailService.sendAuthToEmail(email);
@@ -62,7 +61,7 @@ public class EmailAPIController {
 			response.addCookie(cookieEmail);
 			response.addCookie(cookieAuth);
 		} catch (Exception e) {
-			System.out.println("인증 메일 에러 발생");
+			log.error("인증 메일 전송 에러 - {}", e.getMessage());
 			ResponseEntity.badRequest().body("메일 전송 중 에러가 발생했습니다.");
 		}
         return ResponseEntity.ok().build();
@@ -78,8 +77,7 @@ public class EmailAPIController {
      */
     @PostMapping("/auth-check")
     public ResponseEntity<?> emailAuth(@RequestBody EmailAuthDto emailAuthDto, HttpServletRequest request) {
-    	log.info("/auth-check");
-    	log.info("dto : {}", emailAuthDto);
+    	log.info("auth-check - dto : {}", emailAuthDto);
     	// 인증 번호 확인
     	boolean mailCheck = false;
     	boolean authCheck = false;
@@ -121,8 +119,7 @@ public class EmailAPIController {
      */
     @PostMapping("/forgot-id")
     public ResponseEntity<?> forgotUserId(String email) {
-    	log.info("/forgot-id");
-    	log.info("email : {}", email);
+    	log.info("forgot-id - email : {}", email);
     	User user = userService.findByEmail(email);
     	if(user == null) {
     		ResponseEntity.badRequest().body("해당 이메일로 가입된 아이디가 없습니다.");
@@ -145,8 +142,7 @@ public class EmailAPIController {
     @PostMapping("/forgot-auth-send")
     public ResponseEntity<?> forgotEmailSend(@RequestBody ForgotEmailAuthDto forgotEmailAuthDto
     										, HttpServletResponse response) {
-    	log.info("forgot-auth-send");
-    	log.info("dto - {}", forgotEmailAuthDto);
+    	log.info("forgot-auth-send - dto : {}", forgotEmailAuthDto);
         try {
         	User user = userService.findByUserIdAndEmail(forgotEmailAuthDto);
         	log.info("user - {}", user);
@@ -155,21 +151,21 @@ public class EmailAPIController {
         	}
 			String auth = emailService.sendAuthToEmail(forgotEmailAuthDto.getEmail());
 			Cookie cookieUserId = new Cookie("userId", forgotEmailAuthDto.getUserId());
-			cookieUserId.setMaxAge(60*60);
+			cookieUserId.setMaxAge(5*60);
 			cookieUserId.setSecure(true);
 			cookieUserId.setPath("/user");
 			Cookie cookieEmail = new Cookie("email", forgotEmailAuthDto.getEmail());
-			cookieEmail.setMaxAge(60*60);
+			cookieEmail.setMaxAge(5*60);
 			cookieEmail.setSecure(true);
 			cookieEmail.setPath("/user");
 			Cookie cookieAuth = new Cookie("auth", passwordEncoder.encode(auth));
-			cookieAuth.setMaxAge(60*60);
+			cookieAuth.setMaxAge(5*60);
 			cookieAuth.setSecure(true);
 			cookieAuth.setPath("/user");
 			response.addCookie(cookieEmail);
 			response.addCookie(cookieAuth);
 		} catch (Exception e) {
-			System.out.println("인증 메일 전송 중 에러 발생");
+			log.error("인증 메일 전송 중 에러 발생");
 			ResponseEntity.badRequest().body("메일 전송 중 에러가 발생했습니다.");
 		}
         return ResponseEntity.ok().build();
@@ -185,8 +181,7 @@ public class EmailAPIController {
     public ResponseEntity<?> forgotEmailAuth(@RequestBody ForgotEmailAuthDto forgotEmailAuthDto
     										, HttpServletRequest request
     										, Model model) {
-    	log.info("forgot-auth-check 호출");
-    	log.info("dto - {}", forgotEmailAuthDto);
+    	log.info("forgot-auth-check - dto : {}", forgotEmailAuthDto);
     	User user = userService.findByUserIdAndEmail(forgotEmailAuthDto);
     	log.info("user - {}", user);
     	if(user == null) {
@@ -198,7 +193,7 @@ public class EmailAPIController {
     	boolean authCheck = false;
     	Cookie[] cookieList = request.getCookies();
     	for (Cookie cookie : cookieList) {
-    		// 둘다 확인 완료 시 반복 종료
+    		// 인증번호 확인 완료 시 반복 종료
     		if(idCheck && mailCheck && authCheck) {
     			break;
     		}
