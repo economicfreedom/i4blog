@@ -79,7 +79,7 @@
 
                     <td>
                         <button type="button" class="btn btn-outline-danger delete" onclick="role_up(${user.id})">
-                            삭제
+                            권한 부여
                         </button>
                     </td>
 
@@ -96,7 +96,7 @@
                         <ul class="pagination" id="pagination">
                             <c:if test="${pageDTO.prev}">
                                 <li class="page-item "><a class="page-link" href="#"
-                                                          data-page-num="${pageDTO.beginPage-1}">Prev</a>
+                                                          data-page-num="${pageDTO.beginPage-1}">이전</a>
                                 </li>
                             </c:if>
 
@@ -109,7 +109,7 @@
 
                             <c:if test="${pageDTO.next}">
                                 <li class="page-item"><a class="page-link" href="#"
-                                                         data-page-num="${pageDTO.endPage+1}">Next</a></li>
+                                                         data-page-num="${pageDTO.endPage+1}">다음</a></li>
                             </c:if>
                         </ul>
 

@@ -7,18 +7,14 @@
 	<div class="d-flex flex-row">
 		<div class="d-flex flex-column">
 			<div class="align-self-start category-list card">
-			<c:choose>
-				<c:when test="${empty categoryList}">
-					<div class="p-2">카테고리가 없습니다.</div>					
-				</c:when>
-				<c:otherwise>
-					<c:forEach var="category" items="${categoryList}">
-						<a href="#">
-							<div class="p-2">${category.categoryName}</div>
-						</a>
-					</c:forEach>
-				</c:otherwise>
-			</c:choose>
+				<a href="/blog/${blogProfile.userId}/board/list">
+					<div class="p-2">전체</div>
+				</a>
+				<c:forEach var="category" items="${categoryList}">
+					<a href="/blog/${blogProfile.userId}/board/list?category=${category.id}">
+						<div class="p-2">${category.categoryName}</div>
+					</a>
+				</c:forEach>
 			</div>
 		</div>
 		<div class="d-flex flex-fill category-other card">

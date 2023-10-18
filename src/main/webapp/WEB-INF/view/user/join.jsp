@@ -33,13 +33,13 @@
 			<div class="col">
 				<label for="user_name">*이름</label>
 					<input type="text" id="user_name" name="user_name" class="form-control"
-						placeholder="이름" maxlength="20">
+						placeholder="이름" maxlength="15">
 				<div><small id="user_name_check"></small></div>
 			</div>
 			<div class="col">
 				<label for="user_nickname">*닉네임</label>
 					<input type="text" id="user_nickname" name="user_nickname" class="form-control"
-						placeholder="닉네임" maxlength="30">
+						placeholder="닉네임" maxlength="12">
 				<div><small id="user_nickname_check"></small></div>
 			</div>
 			<div class="col">

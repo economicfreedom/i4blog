@@ -77,8 +77,7 @@ public class BoardAPIController {
             @RequestBody
             BoardWriteFormDto boardWriteFormDto, Principal principal
     ) {
-
-        log.info("작성된 글 {}", boardWriteFormDto);
+        
         boardService.boardWriteService(boardWriteFormDto, principal);
 
         CustomMessage customMessage = new CustomMessage();

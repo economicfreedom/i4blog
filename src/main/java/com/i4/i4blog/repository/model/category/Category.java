@@ -13,4 +13,5 @@ public class Category {
 	private Integer id;
 	private Integer userId;
 	private String categoryName;
+	private Integer order;
 }

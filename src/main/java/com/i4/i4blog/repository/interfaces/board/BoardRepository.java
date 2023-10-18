@@ -4,7 +4,9 @@ package com.i4.i4blog.repository.interfaces.board;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
+import com.i4.i4blog.dto.category.CategorySaveDto;
 import com.i4.i4blog.repository.model.board.Board;
 import com.i4.i4blog.vo.board.BoardListVo;
 import com.i4.i4blog.vo.board.BoardVO;
@@ -31,7 +33,7 @@ public interface BoardRepository {
      * @return List<Board>
      */
 
-    public List<BoardListVo> findByUserId(Integer userId);
+    public List<BoardListVo> findByUserId(@Param("userId") Integer userId, @Param("boardCategory") Integer boardCategory);
     
     public List<Board> findAllByUserId(Integer userId);
     
@@ -50,5 +52,8 @@ public interface BoardRepository {
     public int updateById(Board board);
     public Board getBoard(Integer id);
     public void deleteThumbnail(Integer id);
+    public int listCount(@Param("userId")Integer userId, @Param("boardCategory") Integer boardCategory);
+
+	public void deleteCategory(CategorySaveDto category);
     
 }

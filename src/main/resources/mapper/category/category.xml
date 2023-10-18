@@ -3,10 +3,27 @@
 <mapper namespace="com.i4.i4blog.repository.interfaces.category.CategoryRepository">
 	
 	<select id="findByUserId" resultType="com.i4.i4blog.repository.model.category.Category">
-		SELECT b.id, b.category_name
-		  FROM user a
-		  JOIN category b
-		    ON a.id = b.user_id
-		 WHERE a.user_id = #{userId}
+		SELECT id, category_name
+		  FROM category b
+		 WHERE user_id = #{id}
+		 ORDER BY `order` ASC
 	</select>
+	
+	<insert id="insert">
+		INSERT INTO category (user_id, category_name, `order`)
+		 VALUE (#{userId}, #{categoryName}, #{order})
+	</insert>
+	
+	<update id="update">
+		UPDATE category
+		   SET category_name = #{categoryName}
+		     , `order` = #{order}
+		 WHERE id = #{id}
+	</update>
+	
+	<delete id="delete">
+		DELETE
+		  FROM category
+		 WHERE id = #{id}
+	</delete>
 </mapper>

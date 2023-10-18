@@ -4,6 +4,7 @@ import lombok.Data;
 
 @Data
 public class ProfileInfoVo {
+	private Integer id;
 	private String userId;
 	private String userNickname;
 	private String userRole;

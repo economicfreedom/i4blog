@@ -73,17 +73,40 @@ $(document).ready(function() {
 		// If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
 		// Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
 		var modal = $(this)
-		modal.find('.modal-title').text('New message to ' + recipient)
+		modal.find('.modal-title').text('신고하기')
 		modal.find('.modal-body input').val(recipient)
 	})
 	
 	$('#report-btn').click(function() {
-		// user_id, board_id, comment_id, report_content, report_type
+		let board_id = $('#id').val();
+		let report_content = $('#report-content').val();
+		
+		
+		if(report_content.length === 0) {
+			alert("신고 사유를 입력해주세요.")
+            $("#report-content").focus();
+            return;
+		}
+		
 		let report_create_dto = {
-			user_id : $('#user_id').val(),
-			board_id : $('#id').val(),
-			report_content : $('#report_content').val()
+			board_id : board_id,
+			report_content : report_content,
 		};
+		
+		$.ajax({
+			url: "/report",
+			type: "POST",
+			data: JSON.stringify(report_create_dto),
+			contentType: "application/json; charset=utf-8",
+			success: function(res) {
+				alert("신고 성공");
+				$('#exampleModal').modal('hide');
+		    },
+		    error: function(res) {
+		        alert("신고 실패");
+		    } 
+		}); // end of .$ajax
+		
 		
 	}); // end of $('#report-btn').click
 	

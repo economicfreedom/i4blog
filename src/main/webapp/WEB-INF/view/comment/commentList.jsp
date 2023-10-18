@@ -143,10 +143,13 @@ function commentCreate(){
 
 //리스트 전체 불러오기
 function commentList() {
+	var url = '/blog/{userid}/comment/list/{boardid}';
+	console.log(url)
     console.log($("#comment-list").val());
+    console.log($("data").val());
     $.ajax({
         type: "get",
-        url: "/comment/api/comment/list",
+        url: url,
         contentType: "application/json; charset=utf-8",
         data: {
             user_id: userId,
@@ -161,7 +164,7 @@ function commentList() {
             if (Array.isArray(data)) {
                 for (var i = 0; i < data.length; i++) {
                     var comment = data[i];
-                    var commentHtml = '<div class="comment">' + comment.text + '</div>';
+                    var commentHtml = '<div class="comment">' + comment.data + '</div>';
                     html += commentHtml;
                 }
             } else {
@@ -205,7 +208,7 @@ function commentUpdate() {
             if (check) {
                 $.ajax({
                     type: 'PUT', // 수정된 부분
-                    url: "/comment/api/comment/list",
+                    url: "/comment/{userid}/comment/{boardid}",
                     contentType: "application/json; charset=utf-8",
                     data: JSON.stringify({
                         user_id: userId,
@@ -274,7 +277,7 @@ function commentSave(target){
         contentType: "application/json; charset=utf-8",
         data: JSON.stringify({
         	id: 1,
-        	user_id: userId,
+        	user_id "userId",
             board_id: 1, //$("#board_id").val()
         	comment_content: target.val(),
            	comment_public : 1, // 체크박스로 여부 변경 예정
@@ -458,10 +461,10 @@ function commentDelete(){
 	
 	<!-- 댓글 리스트~~~~  -->
 	<div class="panel panel-default widget">
-		<div class="panel-heading">
+		<div class="panel-heading">	
 			<span class="glyphicon glyphicon-comment"></span>
 			<h1 class="panel-title">댓글 목록</h1>
-			<form action="/comment/List" method="get"></form>
+			<form action="/blog/{userid}/comment/list/{boardid}" method="get"></form>
 			<span class="label label-info"> </span>
 		</div>
 		<div class="panel-body">

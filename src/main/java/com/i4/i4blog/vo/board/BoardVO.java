@@ -16,7 +16,7 @@ public class BoardVO {
 	private final String boardTitle;
 	private final String boardContent;
 	private final String boardCategory;
-	private final Timestamp boardCreatedAt;
+	private final String boardCreatedAt;
 	private final Integer boardCount;
 	private final String userNickname;
 	private final String boardThumbnail;

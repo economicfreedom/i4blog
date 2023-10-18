@@ -28,7 +28,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 @Controller
-@RequestMapping("/comment")
+@RequestMapping("/blog/{userId}/comment")
 ///blog/{userId}/comment
 @RequiredArgsConstructor
 @Slf4j
@@ -45,14 +45,14 @@ public class CommentController {
 	 * 조회 데이터를 jsp로 보내야 한다 -> model
 	 * @author 김민환
 	 **/
-	@GetMapping("/list")
+	@GetMapping("/list/{boardId}")
 	///list/{boardId}
-	public String commentList(Model model, 
+	public String commentList(Model model,
+			
 			@PathVariable String userId, 
-			@PathVariable Integer boardId){	
-		
-		System.out.println(commentService);
-		List<CommentVO> commentList = commentService.commentListService(boardId);		
+			@PathVariable Integer boardId){			
+		List<CommentVO> commentList = commentService.commentListService(boardId);
+		System.out.println(commentList);
 		if(commentList.isEmpty()) {
 			log.info("comment is not {}",commentList);
 			model.addAttribute("commentList", null);
@@ -62,20 +62,16 @@ public class CommentController {
 		}
 		
 		return "comment/commentList";
-	}
+}
 
-	/*
-	 * 댓글 생성 기능
-	 * @author 김민환 
-	 * 
-	 */
-//	@PostMapping("/")
+//	@PostMapping("/create")
 //	public ResponseEntity<?> createComment(@Valid @RequestBody CommentCreateDTO commentCreateDto
 //											, BindingResult bindingResult, Principal principal) {
 //		
 //		log.info("생성된 댓글{}",commentCreateDto);
 //		commentService.commentCreateService(commentCreateDto, principal.getName());
-//		return ResponseEntity.ok("댓글 생성 성공");
+//		return "comment/create";
 //	}
 
 }
+
