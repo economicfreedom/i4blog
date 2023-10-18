@@ -13,7 +13,7 @@ $(document).ready(function () {
                 make_report_chart(res);
             },
             error: function () {
-                alert("실패함");
+                alert("데이터를 불러오는데 실패하였습니다.");
             }
 
 

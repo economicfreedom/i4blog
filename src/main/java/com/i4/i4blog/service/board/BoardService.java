@@ -55,7 +55,7 @@ public class BoardService {
      * @param userId
      * @return List<Board>
      */
-    public List<BoardListVo> findByUserId(Integer id, @RequestParam String category) {
+    public List<BoardListVo> findByUserId(Integer id, @RequestParam Integer category) {
     	log.info("서비스 category값 =====> {}", category);
     	
         List<BoardListVo> boardList = boardRepository.findByUserId(id, category);

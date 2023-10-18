@@ -50,7 +50,7 @@
 	<button type="button" class="btn btn-primary" data-toggle="modal"
 		data-target="#exampleModal">신고하기</button>
 	<sec:authorize access="isAuthenticated()">
-		<c:if test="${blogUser.userId eq principal.userId}">
+		<c:if test="${blogProfile.userId eq principal.userId}">
 			<a href="/blog/${board.userId}/board/update/${board.id}"
 			class="btn btn-warning">수정하기</a>
 			<button type="button" id="delete" class="btn btn-info">삭제</button>

@@ -53,7 +53,7 @@ public class BoardController {
      * 사용자의 게시글 리스트 페이지
      */
     @GetMapping("/list")
-    public String boardList(Model model, @PathVariable String userId, @RequestParam(value = "category", required = false) String category) {
+    public String boardList(Model model, @PathVariable String userId, @RequestParam(value = "category", required = false) Integer category) {
     	Integer id = userService.getIdByUserId(userId);
     	int count = boardService.count(id);
     	model.addAttribute("count", count);

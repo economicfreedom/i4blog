@@ -33,7 +33,7 @@ public interface BoardRepository {
      * @return List<Board>
      */
 
-    public List<BoardListVo> findByUserId(@Param("userId") Integer userId, @Param("boardCategory") String boardCategory);
+    public List<BoardListVo> findByUserId(@Param("userId") Integer userId, @Param("boardCategory") Integer boardCategory);
     
     public List<Board> findAllByUserId(Integer userId);
     
