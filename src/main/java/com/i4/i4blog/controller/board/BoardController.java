@@ -40,8 +40,6 @@ public class BoardController {
     @GetMapping("/write")
     public String boardWrite(Model model, Principal principal) {
 
-
-
         byte count = userService.getGptCountByUserId(principal.getName());
         model.addAttribute("gptCount",count);
 
@@ -53,10 +51,10 @@ public class BoardController {
      * 사용자의 게시글 리스트 페이지
      */
     @GetMapping("/list")
-    public String boardList(Model model, @PathVariable String userId, @RequestParam(value = "category", required = false) String category) {
+    public String boardList(Model model, @PathVariable String userId, @RequestParam(value = "category", required = false) Integer category) {
     	Integer id = userService.getIdByUserId(userId);
-    	int count = boardService.count(id);
-    	model.addAttribute("count", count);
+    	int listCount = boardService.listCount(id, category);
+    	model.addAttribute("listCount", listCount);
 
         List<BoardListVo> boardList = boardService.findByUserId(id, category);
         if (boardList.isEmpty()) {

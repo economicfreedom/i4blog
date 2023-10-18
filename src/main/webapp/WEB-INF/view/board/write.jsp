@@ -26,7 +26,7 @@
 					class="board-category" id="board-category" name="board-category">
 					<option value="0">전체</option>
 					<c:forEach var="category" items="${categoryList}">
-						<option value="${category.categoryName}">${category.categoryName}</option>
+						<option value="${category.id}">${category.categoryName}</option>
 					</c:forEach>
 				</select>
 			</div>

@@ -5,6 +5,7 @@ import java.security.Principal;
 import javax.validation.Valid;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -34,7 +35,7 @@ public class CommentAPIController {
     @PostMapping("/create")
     public ResponseEntity<?> commentCreateApi(@Valid @RequestBody
     		CommentCreateDTO commentCreateDTO,
-    		                 Principal principal)
+    		BindingResult bindingResult , Principal principal)
     {    	   
     	System.out.println(commentCreateDTO);
 

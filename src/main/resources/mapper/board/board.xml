@@ -58,7 +58,8 @@
 			 , u.user_id
 			 , b.board_content
 			 , b.board_title
-			 , b.board_category
+			 -- , b.board_category
+			 , c.category_name AS board_category
 			 , date_format(b.board_created_at, '%Y년 %m월 %d일') AS board_created_at
 			 , b.board_count
 			 , u.user_nickname
@@ -70,6 +71,8 @@
 			ON b.user_id = u.id
 		  LEFT JOIN `like` l
 			ON b.id = l.board_id
+		  LEFT JOIN category c
+			ON b.board_category = c.id
 		 WHERE b.id = #{id}
 		 GROUP BY b.id, uId, u.user_id, b.board_content, b.board_title, b.board_category, b.board_created_at
 				 , b.board_count, u.user_nickname, b.board_thumbnail, b.board_img_original
@@ -106,13 +109,13 @@
 		 WHERE id = #{id}
 	</update>
 	
-	<select id="count" resultType="java.lang.Integer">
+	<select id="listCount" resultType="java.lang.Integer">
 		SELECT COUNT(id)
 		  FROM board
 		 WHERE user_id = #{userId}
 		   AND board_state = 1
 	   <if test="boardCategory != null">
- 	   		AND board_category = #{boardCategory}
+ 	   	   AND board_category = #{boardCategory}
  	   </if>
 	</select>
 

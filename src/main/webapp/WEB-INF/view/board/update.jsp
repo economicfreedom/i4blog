@@ -21,41 +21,42 @@
 			<div class="category">
 				<label for="board-category">카테고리</label> <select
 					class="boardCategory" id="board-category" name="board-category">
-					<c:choose>
-						<c:when test="${empty categoryList}">
-							<option value="">---</option>
-						</c:when>
-						<c:otherwise>
-							<c:forEach var="category" items="${categoryList}">
-								<option value="${category.categoryName}">${category.categoryName}</option>
-							</c:forEach>
-						</c:otherwise>
-					</c:choose>
+					<option value="0">전체</option>
+					<c:forEach var="category" items="${categoryList}">
+						<option value="${category.id}">${category.categoryName}</option>
+					</c:forEach>
 				</select>
+
 			</div>
 			<div class="input-radio">
-				<label>공개<input type="radio" id="board-public" name="board-public" value="1" checked="checked"></label>
-				<label>비공개<input	type="radio" id="board-public" name="board-public" value="0"></label>
+				<label>공개<input type="radio" id="board-public"
+					name="board-public" value="1" checked="checked"></label> <label>비공개<input
+					type="radio" id="board-public" name="board-public" value="0"></label>
 			</div>
 		</div>
 
 		<div class="form-group">
 			<label for="board-title">제목</label> <input
-				value="${board.boardTitle}" type="text" id="board-title" name="board-title" class="form-control" placeholder="글 제목을 입력하세요.">
+				value="${board.boardTitle}" type="text" id="board-title"
+				name="board-title" class="form-control" placeholder="글 제목을 입력하세요.">
 		</div>
 
 		<!-- 섬네일 start -->
 		<div class="container" style="width: 200px; height: 200px">
 			<div class="row">
 				<div class="form-group">
-					<c:if test="${board.boardThumbnail == null || board.boardThumbnail == ''}">
-						<img src="/img/default-board.jpg" alt="..." width="200px" height="200px">
+					<c:if
+						test="${board.boardThumbnail == null || board.boardThumbnail == ''}">
+						<img src="/img/default-board.jpg" alt="..." width="200px"
+							height="200px">
 					</c:if>
 					<c:if test="${board.boardThumbnail != null }">
 						<img src="${board.boardThumbnail}" class="card-img-top" alt="..."
 							width="200px" height="200px">
-						<input type="hidden" value="${board.boardThumbnail}" id="old_thumbnail">
-						<input type="hidden" value="${board.boardImgOriginal}" id="old_img_original">
+						<input type="hidden" value="${board.boardThumbnail}"
+							id="old_thumbnail">
+						<input type="hidden" value="${board.boardImgOriginal}"
+							id="old_img_original">
 						<button type="button" id="delete-thumbnail" class="btn btn-info">삭제</button>
 					</c:if>
 				</div>
@@ -68,10 +69,13 @@
 
 		<!-- 섬네일 end -->
 
-		<textarea id="summernote" name="board-content" placeholder="글 내용을 입력하세요.">${board.boardContent}</textarea>
+		<textarea id="summernote" name="board-content"
+			placeholder="글 내용을 입력하세요.">${board.boardContent}</textarea>
 		<div class="text-center mt-3">
-			<button type="button" id="submit-btn" class="btn btn-primary">수정 완료</button>
-			<button type="button" class="btn btn-secondary"	onclick="history.back()">취소</button>
+			<button type="button" id="submit-btn" class="btn btn-primary">수정
+				완료</button>
+			<button type="button" class="btn btn-secondary"
+				onclick="history.back()">취소</button>
 		</div>
 	</form>
 

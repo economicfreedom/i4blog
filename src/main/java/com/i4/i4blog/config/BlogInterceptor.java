@@ -39,7 +39,7 @@ public class BlogInterceptor implements HandlerInterceptor {
 		String userId = (String)pathVariables.get("userId");
 		// 블로그 정보 조회
 		ProfileInfoVo profileInfoVo = userRepository.findProfileByUserId(userId);
-		modelAndView.addObject("blogUser", profileInfoVo);
+		modelAndView.addObject("blogProfile", profileInfoVo);
 		// 카테고리 목록 조회
 		List<Category> categoryList = categoryRepository.findByUserId(profileInfoVo.getId());
 		modelAndView.addObject("categoryList", categoryList);

@@ -11,7 +11,7 @@
 	display: flex;
 }
 .item {
-	margin: 50px 0;
+	margin: 30px 0;
 	border-bottom: 1px solid #ced4da;
 }
 .item img {
@@ -30,7 +30,7 @@
 
 
 <div class="container">
-	<div class="input-group mt-3">
+	<%-- <div class="input-group mt-3">
 		<select id="type" class="type">
 			<option ${sessionScope.type == 'title' ? 'selected':''} value="title">제목</option>
 			<option ${sessionScope.type == 'content' ? 'selected':''}
@@ -41,13 +41,13 @@
 			type="hidden" id="user-id" name="user-id" value="${list.strUserId}">
 		<input type="image" id="search" src="/img/search.jpg" width="50"
 			height="50">
-	</div>
+	</div> --%>
 
 	<div class="container">
 		<div class="row mt-3 list-top">
-			<span> ${count} 개의 글 </span>
+			<span> ${listCount} 개의 글 </span>
 			<sec:authorize access="isAuthenticated()">
-				<c:if test="${blogUser.userId eq principal.userId}">
+				<c:if test="${blogProfile.userId eq principal.userId}">
 					<a href="/blog/${principal.userId}/board/write"
 						class="btn btn-primary">게시글 작성</a>
 				</c:if>
