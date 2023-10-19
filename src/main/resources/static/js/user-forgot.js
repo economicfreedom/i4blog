@@ -6,7 +6,6 @@ $(document).ready(function (){
 	// 아이디 찾기
 	$("#forgot_id").click(function (){
 		let user_email = $("#user_email_id").val();
-		console.log(user_email);
 		if(!user_email.match(exp_email)){
 			checked_failed("user_email_id", "이메일 주소를 정확히 입력해주세요.");
 			return;
@@ -52,11 +51,10 @@ $(document).ready(function (){
 			}),
             success: function (res) {
 				checked_succeed("user_email_pw", "인증 번호를 전송했습니다.");
-				console.log($("#user_email_auth"));
 				$("#user_email_auth").removeAttr("disabled");
             },
             error: function (res) {
-				console.log("메일 전송 실패");
+				alert(res.responseText);
             }
         })
 	})
@@ -76,14 +74,13 @@ $(document).ready(function (){
 				auth: auth
 			}),
             success: function (res) {
-				console.log(res.userId);
-				console.log(res.userPassword);
+
 				$("#userId").val(res.userId);
 				$("#userPassword").val(res.userPassword);
 				$("#forgot_pw_form").submit();
             },
             error: function (res) {
-				console.log("통신 실패");
+				alert(res.responseText);
 				return false;
             }
         })

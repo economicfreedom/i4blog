@@ -75,7 +75,7 @@
     </select>
     <select id="getUserNicknameByUserId" resultType="java.lang.String">
         SELECT user_nickname
-        FROM USER
+        FROM user
         WHERE user_id = #{userId}
     </select>
 

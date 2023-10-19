@@ -72,7 +72,7 @@
                 </c:if>
                 <c:if test="${imgProfilePath == null}">
 
-                    <img src="/img/default-profile." style="border-radius: 100%;overflow: hidden; width: 20px; height: 20px;">
+                    <img src="/img/default-profile.png" style="border-radius: 100%;overflow: hidden; width: 20px; height: 20px;">
                 </c:if>
 
             </a>

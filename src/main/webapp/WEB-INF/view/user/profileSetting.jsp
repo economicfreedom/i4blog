@@ -112,9 +112,7 @@
                             </div>
                             <div class="form-group">
                                 <label class="form-label">소개글</label>
-                                <textarea class="form-control" rows="5" id="info">
-                                    ${profile.profileContent == null ? "":profile.profileContent}
-                                </textarea>
+                                <textarea class="form-control" rows="5" id="info">${profile.profileContent == null ? "":profile.profileContent}</textarea>
                             </div>
                             <button class="btn btn-outline-primary" id="save-info-title">비밀번호 변경</button>
                         </div>

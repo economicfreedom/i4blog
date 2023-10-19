@@ -16,7 +16,6 @@ $(document).ready(function () {
 
         document["page-form"]["page-num"].value = value;
         document["page-form"].type.value = $("#type").val();
-        // document["page-form"]["order-by"].value = $("input[name=optradio]:checked").val();
         document["page-form"].submit();
     }); // end of #pagination
 

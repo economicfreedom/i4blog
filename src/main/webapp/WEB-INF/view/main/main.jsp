@@ -84,7 +84,6 @@
                                     <div style="float:right">
 
                                         <small style="vertical-align: -1.5px; border: none;background-color: white; font-size: 10px;color: gray;">
-
                                             좋아요
                                         </small>
 

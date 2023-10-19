@@ -42,15 +42,18 @@ public class EmailService {
 	 * 인증 번호 생성
 	 */
     private String createCode() throws Exception {
+        log.info("create auth start");
         int lenth = 6;
         try {
-            Random random = SecureRandom.getInstanceStrong();
+            Random random = new Random();
             StringBuilder builder = new StringBuilder();
             for (int i = 0; i < lenth; i++) {
                 builder.append(random.nextInt(10));
             }
+            log.info("create auth end");
             return builder.toString();
-        } catch (NoSuchAlgorithmException e) {
+        } catch (Exception e) {
+            e.printStackTrace();
             throw new Exception();
         }
     }

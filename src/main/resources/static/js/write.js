@@ -9,16 +9,20 @@ $(document).ready(function () {
         let board_content = $('#summernote').val();
 
         if (board_title.length === 0) {
-            alert("제목을 입력해주세요")
+
+            alert("제목을 입력해주세요.")
             $("#board-title")
                 .focus();
             return;
+
         }
         if (board_content.length === 0) {
-            alert("내용을 입력해주세요")
+
+            alert("내용을 입력해주세요.")
             $("#summernote")
                 .focus();
             return;
+
         }
 
         let json_data = {
@@ -39,7 +43,6 @@ $(document).ready(function () {
         /* 		$("form").preventDefault(); */
 
         var inputFile = $("input[type = 'file']");
-        console.log(inputFile[0].files.length);
 
         if (inputFile[0].files.length === 0) {
             $.ajax({
@@ -49,8 +52,6 @@ $(document).ready(function () {
                 contentType: "application/json",
                 data: JSON.stringify(json_data)
                 , success: function (res) {
-                    alert("썸네일 없을때");
-
                     let url = res.message;
                     location.href = url;
                 }
@@ -124,7 +125,6 @@ $(document).ready(function () {
 
 
     $("#answer").click(function () {
-        alert(url)
 
         let path_list = url.split("/");
 

@@ -3,7 +3,6 @@ $(document).ready(function () {
     console.log($('#nickname').css('border-color'));
 
 
-
     //닉네임 체크 및 변경 관련
     function remove_nick_check() {
         $("#nick-check-succeed").remove();
@@ -166,7 +165,7 @@ $(document).ready(function () {
                     .css('width', width + 'px');
             }
 
-            reader.readAsDataURL(file); // convert to base64 string
+            reader.readAsDataURL(file);
         }
     }
 
@@ -196,8 +195,7 @@ $(document).ready(function () {
             dataType: 'json',
             success: function (result) {
 
-                console.log(result.originalURL);
-                console.log(result.thumbnailURL);
+                alert("이미지 업로드에 성공하였습니다.");
 
 
                 $.ajax({
@@ -209,6 +207,11 @@ $(document).ready(function () {
                         thumb_nail: result.thumbnailURL
                     }),
                     success: function () {
+                        alert("저장에 성공하였습니다.");
+                    },
+                    error: function () {
+                        alert("저장에 실패하였습니다.");
+
 
                     }
 
@@ -216,7 +219,7 @@ $(document).ready(function () {
 
             },
             error: function (jqXHR, textStatus, errorThrown) {
-                console.log(textStatus);
+                alert("이미지 업로드에 실패하였습니다.");
 
             },
 
@@ -320,7 +323,7 @@ $(document).ready(function () {
         }
         let new_pw = $("#new-pw").val();
         let new_pw2 = $("#new-pw2").val();
-        let original_pw =$("#original-pw").val();
+        let original_pw = $("#original-pw").val();
 
         $.ajax({
             url: "/user/pw-change",
@@ -330,19 +333,19 @@ $(document).ready(function () {
 
                 new_pw: new_pw,
                 new_pw2: new_pw2,
-                original_pw:original_pw
+                original_pw: original_pw
 
             }),
-            success:function (res){
+            success: function (res) {
                 alert("변경되었습니다.")
                 location.reload();
 
 
             },
 
-            error:function (res){
+            error: function (res) {
                 console.log(res);
-                if (res == "비밀번호가 서로 다릅니다."){
+                if (res == "비밀번호가 서로 다릅니다.") {
                     $("#new-pw").focus();
                 }
 
@@ -374,15 +377,15 @@ $(document).ready(function () {
         let title = $("#title").val();
         console.log(info);
         console.log(title);
-        if (info.length <1){
+        if (info.length < 1) {
             alert("소개글을 입력해주세요")
-            return ;
+            return;
         }
-        if (title.length <1){
+        if (title.length < 1) {
             alert("제목을 입력해주세요")
-            return ;
+            return;
         }
-        if (title.length>31){
+        if (title.length > 31) {
 
             alert("최대 30글자 까지만 가능합니다.")
             return;
@@ -390,19 +393,19 @@ $(document).ready(function () {
         }
 
         $.ajax({
-            url:"/user/title-and-info-change",
-            type:"put",
-            contentType:"application/json",
+            url: "/user/title-and-info-change",
+            type: "put",
+            contentType: "application/json",
             data: JSON.stringify({
-                info:info,
-                title:title
+                info: info,
+                title: title
             }),
-            success:function (res) {
+            success: function (res) {
                 alert("성공적으로 저장 되었습니다.")
                 $("#title").val(title);
                 $("#info").val(info);
             },
-            error:function (res){
+            error: function (res) {
 
                 alert(res.responseText)
                 console.log(res)
@@ -411,182 +414,183 @@ $(document).ready(function () {
         })
 
 
-
     })
 
     $("#resign-btn").click(function () {
         let res_pwd = $("#resign-pwd").val();
 
-        if (res_pwd ===null || res_pwd===""){
+        if (res_pwd === null || res_pwd === "") {
             alert("비밀번호를 입력해주세요")
             return;
         }
 
         let confirm1 = confirm("탈퇴하시겠습니까?");
-        if (confirm1){
+        if (confirm1) {
             $.ajax({
-                url:"/user/resign",
-                type:"put",
-                contentType:"application/json",
-                data:JSON.stringify({
-                    pwd:res_pwd
+                url: "/user/resign",
+                type: "put",
+                contentType: "application/json",
+                data: JSON.stringify({
+                    pwd: res_pwd
                 })
-                ,success:function () {
+                , success: function () {
                     alert("탈퇴 되었습니다.");
-                    location.href="/user/login?logout"
+                    location.href = "/user/login?logout"
                 }
 
-                ,error:function (res){
+                , error: function (res) {
                     alert(res.responseJSON.message);
                 }
             })
         }
     })
-    
-    
+
+
     // 카테고리 관리
     /**
-	 * 카테고리 추가
-	 * state : C
-	 * li value : 고유번호
-	 */
+     * 카테고리 추가
+     * state : C
+     * li value : 고유번호
+     */
     $("#category_add").click(function () {
-		console.log("추가 버튼 클릭");
-		let html = "";
-    	html += '<li class="list-group-item card category-item ui-sortable-handle" id="category_item" onclick="category_item(this)" value="' + ca_count + '" style="border-top-width: 1px">';
-    	html += '<input type="hidden" id="category_id">'
-    	html += '<input type="hidden" id="category_state" value="C">'
-		html += '<span id="category_name">새 카테고리</span>';
-		html += '<span class="float-right" id="category_delete_span">';
-		html += '<span id="category_state_text" style="color: green">추가</span>'
-		html += '<button type="button" class="btn btn-outline-danger btn-sm" onclick="category_delete(this)" id="category_delete_btn" value="N">삭제</button>';
-		html += '</span>';
-		html += '</li>';
-		$("#category_list").append(html);
-		ca_count++;
-	})
-	
-	
-	// 카테고리 드래그 가능하게 하는 함수.
-	$("#category_list").sortable();
-	
-	
-	// 로딩 후 카테고리 리스트에 idx 입력
-    $("#category_list li").each(function(i, item) {
-		$(item).val(ca_count);
-		ca_count++;
+        console.log("추가 버튼 클릭");
+        let html = "";
+        html += '<li class="list-group-item card category-item ui-sortable-handle" id="category_item" onclick="category_item(this)" value="' + ca_count + '" style="border-top-width: 1px">';
+        html += '<input type="hidden" id="category_id">'
+        html += '<input type="hidden" id="category_state" value="C">'
+        html += '<span id="category_name">새 카테고리</span>';
+        html += '<span class="float-right" id="category_delete_span">';
+        html += '<span id="category_state_text" style="color: green">추가</span>'
+        html += '<button type="button" class="btn btn-outline-danger btn-sm" onclick="category_delete(this)" id="category_delete_btn" value="N">삭제</button>';
+        html += '</span>';
+        html += '</li>';
+        $("#category_list").append(html);
+        ca_count++;
+    })
+
+
+    // 카테고리 드래그 가능하게 하는 함수.
+    $("#category_list").sortable();
+
+
+    // 로딩 후 카테고리 리스트에 idx 입력
+    $("#category_list li").each(function (i, item) {
+        $(item).val(ca_count);
+        ca_count++;
     });
-    
-    
-	// 수정한 카테고리 이름 리스트에 적용
-    $("#category_update_save").click(function(event) {
-		event.preventDefault();
-		let idx = $("#category_update_idx").val();
-		if(idx == "") {
-			return;
-		};
-		let new_name = $("#category_update_name").val();
-		let item = $("#category_item[value='" + idx + "']")[0];
-		let name = item.children['category_name'];
-		let state = item.children['category_state'];
-		let state_text = item.children['category_delete_span'].children['category_state_text']; 
-		name.textContent = new_name;
-		if(state.value === 'R'){
-			state.value = 'U';
-			category_state_text_change(state_text, "U");
-		}
-	})
-	
-	// 카테고리 리스트 DB에 저장
-	$("#category_list_save").click(function () {
-		let category_List = [];
-	    $("#category_list li").each(function(i, item) {
-			let id = item.children['category_id'].value;
-			let category_name = item.children['category_name'].textContent;
-			let state = item.children['category_state'].value;
-			if(item.children['category_delete_span'].children['category_delete_btn'].value === "D"){
-				state = "D";
-			} else if((i+1 != item.value) && state === "R") {
-				state = "U";
-			}
-			// 삭제 관련 조건 추가 필요
-			category_List.push({
-				id : id,
-				category_name : category_name,
-				state : state,
-				order : i+1
-			});
-	    });
+
+
+    // 수정한 카테고리 이름 리스트에 적용
+    $("#category_update_save").click(function (event) {
+        event.preventDefault();
+        let idx = $("#category_update_idx").val();
+        if (idx == "") {
+            return;
+        }
+        ;
+        let new_name = $("#category_update_name").val();
+        let item = $("#category_item[value='" + idx + "']")[0];
+        let name = item.children['category_name'];
+        let state = item.children['category_state'];
+        let state_text = item.children['category_delete_span'].children['category_state_text'];
+        name.textContent = new_name;
+        if (state.value === 'R') {
+            state.value = 'U';
+            category_state_text_change(state_text, "U");
+        }
+    })
+
+    // 카테고리 리스트 DB에 저장
+    $("#category_list_save").click(function () {
+        let category_List = [];
+        $("#category_list li").each(function (i, item) {
+            let id = item.children['category_id'].value;
+            let category_name = item.children['category_name'].textContent;
+            let state = item.children['category_state'].value;
+            if (item.children['category_delete_span'].children['category_delete_btn'].value === "D") {
+                state = "D";
+            } else if ((i + 1 != item.value) && state === "R") {
+                state = "U";
+            }
+            // 삭제 관련 조건 추가 필요
+            category_List.push({
+                id: id,
+                category_name: category_name,
+                state: state,
+                order: i + 1
+            });
+        });
         $.ajax({
-            url:"/category/list-save",
-            type:"put",
-            contentType:"application/json",
-            data:JSON.stringify(category_List),
-            success:function () {
-				alert('저장 성공');
-				location.reload();
+            url: "/category/list-save",
+            type: "put",
+            contentType: "application/json",
+            data: JSON.stringify(category_List),
+            success: function () {
+                alert('저장 성공');
+                location.reload();
             },
-            error:function (res){
-				console.log('저장 실패');
+            error: function (res) {
+                console.log('저장 실패');
             }
         })
-	})
+    })
 });
 
 
 // 카테고리 리스트의 클릭 이벤트 (카테고리 아이템 선택)
 let ca_count = 1;
-function category_item (item) {
-	let name = item.children['category_name'];
-	$("#category_update_idx").val(item.value);
-	$("#category_update_name").val(name.textContent);
-	
-	// 다른 요소에 해당 css 삭제
-    $("#category_list li").each(function(i, item) {
-		$(item).css("border-color", "")
+
+function category_item(item) {
+    let name = item.children['category_name'];
+    $("#category_update_idx").val(item.value);
+    $("#category_update_name").val(name.textContent);
+
+    // 다른 요소에 해당 css 삭제
+    $("#category_list li").each(function (i, item) {
+        $(item).css("border-color", "")
     });
-	$(item).css("border-color", "black")
+    $(item).css("border-color", "black")
 };
 
 // 삭제 버튼
-function category_delete (item) {
-	console.log(item);
-	let category_item = item.parentElement.parentElement;
-	let state = category_item.children['category_state'].value;
-	let state_text = item.parentElement.children['category_state_text'];
-	if(state === "C") {
-		category_item.remove();
-	} else if(item.value === "N") {
-		item.textContent = "취소";
-		item.className = "btn btn-danger btn-sm";
-		item.value = "D";
-		category_state_text_change (state_text, "D");
-	} else if(state === "R") {
-		item.textContent = "삭제";
-		item.className = "btn btn-outline-danger btn-sm";
-		item.value = "N";
-		category_state_text_change (state_text, "R");
-	}else if(state === "U") {
-		item.textContent = "삭제";
-		item.className = "btn btn-outline-danger btn-sm";
-		item.value = "N";
-		category_state_text_change (state_text, "U");
-	}
+function category_delete(item) {
+    console.log(item);
+    let category_item = item.parentElement.parentElement;
+    let state = category_item.children['category_state'].value;
+    let state_text = item.parentElement.children['category_state_text'];
+    if (state === "C") {
+        category_item.remove();
+    } else if (item.value === "N") {
+        item.textContent = "취소";
+        item.className = "btn btn-danger btn-sm";
+        item.value = "D";
+        category_state_text_change(state_text, "D");
+    } else if (state === "R") {
+        item.textContent = "삭제";
+        item.className = "btn btn-outline-danger btn-sm";
+        item.value = "N";
+        category_state_text_change(state_text, "R");
+    } else if (state === "U") {
+        item.textContent = "삭제";
+        item.className = "btn btn-outline-danger btn-sm";
+        item.value = "N";
+        category_state_text_change(state_text, "U");
+    }
 }
 
 // 상태를 보여주는 문자 변경 함수
-function category_state_text_change (tag, state) {
-	if(state === "C") {
-		tag.textContent = "추가";
-		tag.style.color = "green";
-	} else if(state === "U") {
-		tag.textContent = "수정";
-		tag.style.color = "blue";
-	} else if(state === "D") {
-		tag.textContent = "삭제";
-		tag.style.color = "red";
-	} else {
-		tag.textContent = "";
-		tag.style.color = "white";
-	}
+function category_state_text_change(tag, state) {
+    if (state === "C") {
+        tag.textContent = "추가";
+        tag.style.color = "green";
+    } else if (state === "U") {
+        tag.textContent = "수정";
+        tag.style.color = "blue";
+    } else if (state === "D") {
+        tag.textContent = "삭제";
+        tag.style.color = "red";
+    } else {
+        tag.textContent = "";
+        tag.style.color = "white";
+    }
 }
