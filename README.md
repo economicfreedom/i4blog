@@ -24,7 +24,7 @@
 - bootstrap : 4.6.2
 - HTML
 - CSS3
-- JavaScript :
+- JavaScript
 - JQuery : 3.5.1
 - summernote : 0.8.18
 
