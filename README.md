@@ -42,7 +42,8 @@
 
 
 ## 📋 ERD & 테이블 명세서
-사진 추가하기
+![image](https://github.com/economicfreedom/i4blog/assets/89882448/dc0c4ffd-1740-4149-8563-bdc1b769111c)
+
 
 ## 🖼 SiteMap
 ![SiteMap (1)](https://github.com/economicfreedom/i4blog/assets/113487440/d54d6627-7d75-4a7d-be3e-9a7646145c6e)
