@@ -1,4 +1,4 @@
-package com.i4.i4blog.service.user;
+package com.i4.i4blog.service.email;
 
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
@@ -44,13 +44,13 @@ public class EmailService {
     private String createCode() throws Exception {
         int lenth = 6;
         try {
-            Random random = SecureRandom.getInstanceStrong();
+            Random random = new Random();
             StringBuilder builder = new StringBuilder();
             for (int i = 0; i < lenth; i++) {
                 builder.append(random.nextInt(10));
             }
             return builder.toString();
-        } catch (NoSuchAlgorithmException e) {
+        } catch (Exception e) {
             throw new Exception();
         }
     }

@@ -43,7 +43,7 @@
 				<div><small id="user_nickname_check"></small></div>
 			</div>
 			<div class="col">
-				<label for="user_phone">*휴대전화</label>
+				<label for="user_phone">*휴대전화</label><small> ( - 없이 입력 가능 )</small>
 					<input type="text" id="user_phone" name="user_phone" class="form-control"
 						placeholder="휴대전화" maxlength="13">
 				<div><small id="user_phone_check"></small></div>

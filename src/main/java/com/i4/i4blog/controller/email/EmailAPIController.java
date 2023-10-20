@@ -16,7 +16,7 @@ import com.i4.i4blog.dto.email.ForgotEmailAuthDto;
 import com.i4.i4blog.dto.user.EmailAuthDto;
 import com.i4.i4blog.handler.exception.MyAPIException;
 import com.i4.i4blog.repository.model.user.User;
-import com.i4.i4blog.service.user.EmailService;
+import com.i4.i4blog.service.email.EmailService;
 import com.i4.i4blog.service.user.UserService;
 import com.i4.i4blog.vo.user.ForgotPwVo;
 
