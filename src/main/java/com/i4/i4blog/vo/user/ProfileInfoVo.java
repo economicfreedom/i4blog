@@ -10,4 +10,5 @@ public class ProfileInfoVo {
 	private String userRole;
 	private String profileTitle;
 	private String profileContent;
+	private String imgThumbnail;
 }

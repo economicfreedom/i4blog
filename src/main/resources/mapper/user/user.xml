@@ -63,6 +63,7 @@
              , a.user_role
              , b.profile_title
              , b.profile_content
+             , b.img_thumbnail
           FROM user a
 		  LEFT JOIN profile b
 			ON a.id = b.user_id
